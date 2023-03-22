@@ -10,6 +10,12 @@
 
     <Grid>
         <Label Content="Оформлення замовлення" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Пошук:" HorizontalAlignment="Left" Margin="79,107,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="126,111,0,0" TextWrapping="Wrap" Text="Назва книги" VerticalAlignment="Top" Width="120" />
+        <Label Content="Книги в наявності" HorizontalAlignment="Left" Margin="79,133,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Button Content="Додати>>>" HorizontalAlignment="Center" Margin="0,157,0,0" VerticalAlignment="Top" Height="37" Width="94"/>
+        <Button Content="&lt;&lt;&lt;Видалити" HorizontalAlignment="Center" Margin="0,202,0,0" VerticalAlignment="Top" Height="37" Width="94"/>
+        <Label Content="Заказ" HorizontalAlignment="Left" Margin="637,133,0,0" VerticalAlignment="Top" FontSize="22"/>
 
     </Grid>
 </Page>
