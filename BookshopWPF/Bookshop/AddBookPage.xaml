@@ -18,7 +18,7 @@
         <TextBox x:Name="NameBook" HorizontalAlignment="Left" Margin="212,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
         <TextBox x:Name="GrossPrice" HorizontalAlignment="Left" Margin="212,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
         <TextBox x:Name="NetPrice" HorizontalAlignment="Left" Margin="212,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
-        <Button Content="Зберігти" HorizontalAlignment="Left" Margin="326,342,0,0" VerticalAlignment="Top" Height="46" Width="114" FontSize="18" Click="Button_Click"/>
+        <Button Content="Зберегти" HorizontalAlignment="Left" Margin="326,342,0,0" VerticalAlignment="Top" Height="46" Width="114" FontSize="18" Click="Button_Click"/>
 
     </Grid>
 </Page>

@@ -10,30 +10,40 @@ using System.Threading.Tasks;
 namespace Bookshop
 {
 
-   
+
     internal class BookRepository
     {
         private static string _path = @"C:\Users\User\source\repos\BookshopWPF\Database";
         private static string _pathFile = System.IO.Path.Combine(_path, "dbFile.txt");
+        private long _id;
 
-      
-        public void AddBook(Book book)
+        public bool AddBook(Book book)
         {
             if (!System.IO.Directory.Exists(_path))
             {
                 System.IO.Directory.CreateDirectory(_path);
             }
-            if(!System.IO.File.Exists(_pathFile))
+            if (!System.IO.File.Exists(_pathFile))
             {
                 System.IO.File.Create(_pathFile);
             }
             var bookList = GetAllBooks();
 
+            foreach (var item in bookList)
+            {
+                if (item.Author == book.Author && item.Name == book.Name)
+                {
+                    return false;
+                }
+            }
 
+
+            book.Id = GetNewId(bookList);
             bookList.Add(book);
             string serializedList = JsonSerializer.Serialize(bookList);
 
             File.WriteAllText(_pathFile, serializedList);
+            return true;
         }
 
         public List<Book> GetAllBooks()
@@ -47,17 +57,18 @@ namespace Bookshop
             return bookList;
         }
 
-        public bool DuplicateCheck(Book book)
+        public long GetNewId(List<Book> list)
         {
-            var list = GetAllBooks();
-            foreach (var item in list)
+            long maxId = 0;
+            foreach(var item in list)
             {
-                if(item.Author == book.Author && item.Name== book.Name)
+                if(item.Id > maxId)
                 {
-                    return true;
+                    maxId = item.Id;
                 }
             }
-            return false;
+            return maxId+1;
         }
+
     }
 }

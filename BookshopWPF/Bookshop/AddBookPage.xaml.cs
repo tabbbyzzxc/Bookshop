@@ -51,9 +51,8 @@ namespace Bookshop
             var book = new Book(tempName, tempAuth, tempGross, tempNet);
             var bookRepo = new BookRepository();
             
-            if(!bookRepo.DuplicateCheck(book))
+            if(bookRepo.AddBook(book))
             {
-                bookRepo.AddBook(book);
                 MessageBox.Show("Книгу додано!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
                 AuthorName.Clear();
                 NameBook.Clear();

@@ -23,6 +23,18 @@ namespace Bookshop
         public EditPage()
         {
             InitializeComponent();
+            BookRepository repo = new BookRepository();
+            listView.ItemsSource = repo.GetAllBooks();
+        }
+
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(listView.SelectedItem != null)
+            {
+                var selectedBook = (Book)listView.SelectedItem;
+                EditBookWindow editBookWindow = new EditBookWindow(selectedBook);
+                editBookWindow.ShowDialog();
+            }
         }
     }
 }
