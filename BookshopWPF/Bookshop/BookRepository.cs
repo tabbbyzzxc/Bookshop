@@ -15,7 +15,6 @@ namespace Bookshop
     {
         private static string _path = @"C:\Users\User\source\repos\BookshopWPF\Database";
         private static string _pathFile = System.IO.Path.Combine(_path, "dbFile.txt");
-        private long _id;
 
         public bool AddBook(Book book)
         {
@@ -57,17 +56,35 @@ namespace Bookshop
             return bookList;
         }
 
-        public long GetNewId(List<Book> list)
+        private long GetNewId(List<Book> list)
         {
             long maxId = 0;
-            foreach(var item in list)
+            foreach (var item in list)
             {
-                if(item.Id > maxId)
+                if (item.Id > maxId)
                 {
                     maxId = item.Id;
                 }
             }
-            return maxId+1;
+            return maxId + 1;
+        }
+
+        public void UpdateBook(Book book)
+        {
+            var list = GetAllBooks();
+            foreach(var item in list)
+            {
+                if(item.Id == book.Id)
+                {
+                    item.Author = book.Author;
+                    item.Name = book.Name;
+                    item.BuyPrice = book.BuyPrice;
+                    item.SellPrice = book.SellPrice;
+                }
+            }
+            string serializedList = JsonSerializer.Serialize(list);
+
+            File.WriteAllText(_pathFile, serializedList);
         }
 
     }

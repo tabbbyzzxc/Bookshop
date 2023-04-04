@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="EditBookWindow" Height="450" Width="800">
     <Grid>
-        
+        <Label Content="Author" HorizontalAlignment="Left" Margin="138,118,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="145,169,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Buy Price" HorizontalAlignment="Left" Margin="122,225,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Sell Price" HorizontalAlignment="Left" Margin="122,281,0,0" VerticalAlignment="Top" FontSize="18"/>
+
+        <TextBox x:Name="AuthorName" Text="{Binding Author}" HorizontalAlignment="Left" Margin="212,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
+        <TextBox x:Name="NameBook" Text="{Binding Name}" HorizontalAlignment="Left" Margin="212,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
+        <TextBox x:Name="BuyPrice" Text="{Binding BuyPrice}" HorizontalAlignment="Left" Margin="212,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
+        <TextBox x:Name="SellPrice" Text="{Binding SellPrice}" HorizontalAlignment="Left" Margin="212,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="233,345,0,0" VerticalAlignment="Top" Height="46" Width="114" FontSize="18" Click="SaveButton"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="400,345,0,0" VerticalAlignment="Top" Height="46" Width="114" FontSize="18" Click="CloseButton"/>
+
     </Grid>
 </Window>

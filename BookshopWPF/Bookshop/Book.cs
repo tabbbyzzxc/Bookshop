@@ -12,12 +12,12 @@ namespace Bookshop
         {
             
         }
-        public Book(string name, string author, decimal gross, decimal net)
+        public Book(string name, string author, decimal buy, decimal sell)
         {
             Name = name;
             Author = author;
-            GrossPrice = gross;
-            NetPrice = net;
+            BuyPrice = buy;
+            SellPrice = sell;
         }
 
         public long Id { get; set; }
@@ -26,9 +26,9 @@ namespace Bookshop
 
         public string Author { get; set; }
 
-        public decimal GrossPrice { get; set; }
+        public decimal BuyPrice { get; set; }
 
-        public decimal NetPrice { get; set; }
+        public decimal SellPrice { get; set; }
 
 
 

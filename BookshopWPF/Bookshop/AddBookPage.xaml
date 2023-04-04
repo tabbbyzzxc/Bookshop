@@ -9,16 +9,17 @@
       Title="AddBookPage">
 
     <Grid>
-        <Label Content="Додати книгу" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Label Content="Автор" HorizontalAlignment="Left" Margin="147,116,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label Content="Ціна продажу" HorizontalAlignment="Left" Margin="81,281,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label Content="Ціна покупки" HorizontalAlignment="Left" Margin="85,225,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label Content="Назва" HorizontalAlignment="Left" Margin="147,169,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Add Book" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Author" HorizontalAlignment="Left" Margin="138,118,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="145,169,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Buy Price" HorizontalAlignment="Left" Margin="122,225,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Sell Price" HorizontalAlignment="Left" Margin="122,281,0,0" VerticalAlignment="Top" FontSize="18"/>
+        
         <TextBox x:Name="AuthorName" HorizontalAlignment="Left" Margin="212,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16" TextChanged="AuthorName_TextChanged"/>
         <TextBox x:Name="NameBook" HorizontalAlignment="Left" Margin="212,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
-        <TextBox x:Name="GrossPrice" HorizontalAlignment="Left" Margin="212,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
-        <TextBox x:Name="NetPrice" HorizontalAlignment="Left" Margin="212,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
-        <Button Content="Зберегти" HorizontalAlignment="Left" Margin="326,342,0,0" VerticalAlignment="Top" Height="46" Width="114" FontSize="18" Click="Button_Click"/>
+        <TextBox x:Name="BuyPrice" HorizontalAlignment="Left" Margin="212,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
+        <TextBox x:Name="SellPrice" HorizontalAlignment="Left" Margin="212,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
+        <Button Content="Add" HorizontalAlignment="Left" Margin="326,342,0,0" VerticalAlignment="Top" Height="46" Width="114" FontSize="18" Click="Button_Click"/>
 
     </Grid>
 </Page>

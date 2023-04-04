@@ -9,7 +9,7 @@
       Title="ReceiptPage">
 
     <Grid>
-        <Label Content="Надходження товару" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Arrival of goods" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
 
     </Grid>
 </Page>

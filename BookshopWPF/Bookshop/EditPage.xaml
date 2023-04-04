@@ -9,14 +9,14 @@
       Title="EditPage">
 
     <Grid>
-        <Label Content="Редагувати книгу" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <ListView x:Name="listView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="98,101,98,48" SelectionChanged="listView_SelectionChanged">
+        <Label Content="Edit book" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <ListView x:Name="listView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="98,101,98,48" MouseDoubleClick="listView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Назва" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Автор" DisplayMemberBinding="{Binding Author}"/>
-                    <GridViewColumn Header="Брутто" DisplayMemberBinding="{Binding GrossPrice}"/>
-                    <GridViewColumn Header="Нетто" DisplayMemberBinding="{Binding NetPrice}"/>
+                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Buy Price" DisplayMemberBinding="{Binding BuyPrice}"/>
+                    <GridViewColumn Header="Sell Price" DisplayMemberBinding="{Binding SellPrice}"/>
                 </GridView>
             </ListView.View>
         </ListView>

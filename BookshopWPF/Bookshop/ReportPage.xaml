@@ -9,7 +9,7 @@
       Title="ReportPage">
 
     <Grid>
-        <Label Content="Звіт з продажу" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Sales report" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
 
     </Grid>
 </Page>

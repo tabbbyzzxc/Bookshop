@@ -27,7 +27,7 @@ namespace Bookshop
             listView.ItemsSource = repo.GetAllBooks();
         }
 
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if(listView.SelectedItem != null)
             {

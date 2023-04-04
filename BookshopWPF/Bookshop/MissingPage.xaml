@@ -9,7 +9,7 @@
       Title="MissingPage">
 
     <Grid>
-        <Label Content="Відсутній товар" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Missing books" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
 
     </Grid>
 </Page>
