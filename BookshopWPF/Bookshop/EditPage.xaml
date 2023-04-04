@@ -10,7 +10,7 @@
 
     <Grid>
         <Label Content="Edit book" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <ListView x:Name="listView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="98,101,98,48" MouseDoubleClick="listView_MouseDoubleClick">
+        <ListView x:Name="listView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="98,139,98,10" MouseDoubleClick="listView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}"/>
@@ -20,6 +20,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBox x:Name="Search"  HorizontalAlignment="Left" Margin="98,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="OnSearch"/>
 
 
     </Grid>

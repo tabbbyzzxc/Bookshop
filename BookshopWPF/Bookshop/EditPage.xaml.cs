@@ -20,11 +20,15 @@ namespace Bookshop
     /// </summary>
     public partial class EditPage : Page
     {
+        private List<Book> _books;
         public EditPage()
         {
-            InitializeComponent();
+            
             BookRepository repo = new BookRepository();
-            listView.ItemsSource = repo.GetAllBooks();
+            _books= repo.GetAllBooks();
+            InitializeComponent();
+            listView.ItemsSource = _books;
+
         }
 
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -35,6 +39,20 @@ namespace Bookshop
                 EditBookWindow editBookWindow = new EditBookWindow(selectedBook);
                 editBookWindow.ShowDialog();
             }
+        }
+       
+        private void OnSearch(object sender, TextChangedEventArgs e)
+        {
+            var text = Search.Text;
+            var filteredBooks = new List<Book>();
+            foreach(Book book in _books)
+            {
+                if(book.Name.Contains(text, StringComparison.OrdinalIgnoreCase) || book.Author.Contains(text, StringComparison.OrdinalIgnoreCase))
+                {
+                    filteredBooks.Add(book);
+                }
+            }
+            listView.ItemsSource= filteredBooks;
         }
     }
 }
