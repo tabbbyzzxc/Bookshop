@@ -10,6 +10,14 @@
 
     <Grid>
         <Label Content="Missing books" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <ListView x:Name="listView" Margin="142,98,150,33">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Page>

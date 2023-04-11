@@ -61,7 +61,7 @@ namespace Bookshop
             }
             return null;
         }
-        private List<BookQuantity> GetBooksIds()
+        public List<BookQuantity> GetBooksIds()
         {
             var content = File.ReadAllText(_pathFile);
             if (string.IsNullOrWhiteSpace(content))
