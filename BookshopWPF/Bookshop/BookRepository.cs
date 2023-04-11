@@ -13,10 +13,10 @@ namespace Bookshop
 
     internal class BookRepository
     {
-        private static string _path = @"C:\Users\User\source\repos\BookshopWPF\Database";
+        private static string _path = "Database";
         private static string _pathFile = System.IO.Path.Combine(_path, "dbFile.txt");
 
-        public bool AddBook(Book book)
+        public BookRepository()
         {
             if (!System.IO.Directory.Exists(_path))
             {
@@ -26,6 +26,10 @@ namespace Bookshop
             {
                 System.IO.File.Create(_pathFile);
             }
+        }
+        public bool AddBook(Book book)
+        {
+            
             var bookList = GetAllBooks();
 
             foreach (var item in bookList)

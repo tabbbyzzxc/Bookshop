@@ -20,7 +20,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="Search"  HorizontalAlignment="Left" Margin="98,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="OnSearch"/>
+        <TextBox x:Name="Search"  HorizontalAlignment="Left" Margin="146,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="OnSearch"/>
+        <Label Content="Search:" HorizontalAlignment="Left" Margin="98,93,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>
