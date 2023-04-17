@@ -8,8 +8,19 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ReportPage">
 
-    <Grid>
+    <Grid Margin="118,167,0,0">
         <Label Content="Sales report" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <ListView x:Name="listView" Margin="-50,-37,50,37">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn x:Name="column" Header="Date" DisplayMemberBinding="{Binding OrderLine}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox x:Name="from" HorizontalAlignment="Left" Margin="314,-95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="to" HorizontalAlignment="Left" Margin="170,-95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="489,-96,0,0" VerticalAlignment="Top" Click="Button_Sort"/>
 
     </Grid>
 </Page>

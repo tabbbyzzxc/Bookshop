@@ -9,13 +9,52 @@
       Title="CheckoutPage">
 
     <Grid>
-        <Label Content="Оформлення замовлення" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Label Content="Пошук:" HorizontalAlignment="Left" Margin="79,107,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="126,111,0,0" TextWrapping="Wrap" Text="Назва книги" VerticalAlignment="Top" Width="120" />
-        <Label Content="Книги в наявності" HorizontalAlignment="Left" Margin="79,133,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button Content="Додати>>>" HorizontalAlignment="Center" Margin="0,157,0,0" VerticalAlignment="Top" Height="37" Width="94"/>
-        <Button Content="&lt;&lt;&lt;Видалити" HorizontalAlignment="Center" Margin="0,202,0,0" VerticalAlignment="Top" Height="37" Width="94"/>
-        <Label Content="Заказ" HorizontalAlignment="Left" Margin="637,133,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Order" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.Column="1"/>
+        <Label Content="Books available" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top"></Label>
+        <TextBox x:Name="Search" TextChanged="OnSearchTextChanged" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="0,5,50,0"/>
+
+        <ListView x:Name="availableBooksListView" Grid.Row="1" Width="274" Height="263" Margin="0,30,0,0" MouseDoubleClick="availableBooksListView_Add">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="68.5"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="68.5"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding SellPrice}" Width="68.5"/>
+                    <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="68.5"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Grid.Column="1" Grid.Row="1" Content="&gt;&gt;&gt;" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="100" Margin="0,78,0,0" Click="Button_Add"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="&lt;&lt;&lt;" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="100" Margin="0,148,0,0" Click="Button_Remove"/>
+        <ListView x:Name="orderListView" Grid.Row="1" Grid.Column="2" Width="274" Margin="37,30,37,83" MouseDoubleClick="orderListView_Remove">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="68.5"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="68.5"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding SellPrice}" Width="68.5"/>
+                    <GridViewColumn Header="Quantity" Width="68.5">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=Quantity}" TextWrapping="Wrap" Width="40"></TextBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="totalLabel" Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,37,44"/>
+        <Button Grid.Column="2" Grid.Row="2" Content="Order" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="40" Width="100" Margin="82,12,0,0" Click="Button_Order"/>
+        <Button Grid.Column="2" Grid.Row="2" Content="Cancel" HorizontalAlignment="Left" Width="100" Height="40" Margin="187,12,0,30" Click="Button_Cancel"/>
 
     </Grid>
 </Page>

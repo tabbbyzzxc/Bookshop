@@ -30,10 +30,10 @@ namespace Bookshop
         {
 
             var existingList = GetBooksIds();
-            for(int i = 0; i < arrivalList.Count; i++)
+            for (int i = 0; i < arrivalList.Count; i++)
             {
                 var exist = Find(arrivalList[i].BookId, existingList);
-                if(exist != null)
+                if (exist != null)
                 {
                     exist.Quantity += arrivalList[i].Quantity;
                 }
@@ -57,7 +57,7 @@ namespace Bookshop
                 {
                     return list[j];
                 }
-               
+
             }
             return null;
         }
@@ -70,6 +70,59 @@ namespace Bookshop
             }
             var bookIdList = JsonSerializer.Deserialize<List<BookQuantity>>(content);
             return bookIdList;
+        }
+
+        public List<BookAvailableModel> GetAvailableBooks()
+        {
+            var repo = new BookRepository();
+            var books = repo.GetAllBooks();
+            var booksIds = GetBooksIds();
+            var allbooks = new List<BookAvailableModel>();
+
+            foreach (var bookId in booksIds)
+            {
+                if (bookId.Quantity == 0)
+                {
+                    continue;
+                }
+                foreach (var book in books)
+                {
+                    if (book.Id == bookId.BookId)
+                    {
+                        var orderBook = new BookAvailableModel()
+                        {
+                            Id = book.Id,
+                            Author = book.Author,
+                            Name = book.Name,
+                            SellPrice = book.SellPrice,
+                            Quantity = bookId.Quantity
+                        };
+                        allbooks.Add(orderBook);
+                    }
+                }
+            }
+
+            return allbooks;
+        }
+
+        public void UpdateBookQuantity(Order order)
+        {
+            var booksQuantity = GetBooksIds();
+            var list = order.OrderList;
+            
+            foreach (var item in list)
+            {
+                foreach (var book in booksQuantity)
+                {
+                    if(item.Id == book.BookId)
+                    {
+                        book.Quantity -= item.Quantity;
+                    }
+                }
+            }
+            string serializedList = JsonSerializer.Serialize(booksQuantity);
+
+            File.WriteAllText(_pathFile, serializedList);
         }
     }
 }

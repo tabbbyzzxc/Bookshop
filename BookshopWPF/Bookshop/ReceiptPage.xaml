@@ -41,7 +41,7 @@
                     <GridViewColumn Header="Quantity">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Path=Quantity}" TextWrapping="Wrap" Width="10"></TextBox>
+                                <TextBox Text="{Binding Path=Quantity}" TextWrapping="Wrap" Width="40"></TextBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                         

@@ -13,13 +13,13 @@ namespace Bookshop
 
         public long BookId { get; set; }
 
-        public long Quantity { get; set; }
+        public int Quantity { get; set; }
 
         public BookQuantity()
         {
         
         }
-        public BookQuantity(long id, long quant)
+        public BookQuantity(long id, int quant)
         {
             BookId = id;
             Quantity = quant;
