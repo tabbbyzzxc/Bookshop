@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bookshop
+﻿namespace Bookshop.Models
 {
     public class Book
     {
         public Book()
         {
-            
+
         }
         public Book(string name, string author, decimal buy, decimal sell)
         {
@@ -34,5 +28,5 @@ namespace Bookshop
 
     }
 
-    
+
 }

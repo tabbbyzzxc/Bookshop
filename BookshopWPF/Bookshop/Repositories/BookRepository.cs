@@ -6,30 +6,31 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Bookshop.Models;
 
-namespace Bookshop
+namespace Bookshop.Repositories
 {
 
 
     internal class BookRepository
     {
         private static string _path = "Database";
-        private static string _pathFile = System.IO.Path.Combine(_path, "dbFile.txt");
+        private static string _pathFile = Path.Combine(_path, "dbFile.txt");
 
         public BookRepository()
         {
-            if (!System.IO.Directory.Exists(_path))
+            if (!Directory.Exists(_path))
             {
-                System.IO.Directory.CreateDirectory(_path);
+                Directory.CreateDirectory(_path);
             }
-            if (!System.IO.File.Exists(_pathFile))
+            if (!File.Exists(_pathFile))
             {
-                System.IO.File.Create(_pathFile);
+                File.Create(_pathFile);
             }
         }
         public bool AddBook(Book book)
         {
-            
+
             var bookList = GetAllBooks();
 
             foreach (var item in bookList)
@@ -62,23 +63,19 @@ namespace Bookshop
 
         private long GetNewId(List<Book> list)
         {
-            long maxId = 0;
-            foreach (var item in list)
+            if(!list.Any())
             {
-                if (item.Id > maxId)
-                {
-                    maxId = item.Id;
-                }
-            }
-            return maxId + 1;
+                return 1;
+            }            
+            return list.Max(x => x.Id) + 1;
         }
 
         public void UpdateBook(Book book)
         {
             var list = GetAllBooks();
-            foreach(var item in list)
+            foreach (var item in list)
             {
-                if(item.Id == book.Id)
+                if (item.Id == book.Id)
                 {
                     item.Author = book.Author;
                     item.Name = book.Name;

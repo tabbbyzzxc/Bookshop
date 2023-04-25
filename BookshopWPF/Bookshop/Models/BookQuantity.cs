@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace Bookshop
+﻿namespace Bookshop.Models
 {
-    class BookQuantity
+    public class BookQuantity
     {
 
         public long BookId { get; set; }
@@ -17,7 +9,7 @@ namespace Bookshop
 
         public BookQuantity()
         {
-        
+
         }
         public BookQuantity(long id, int quant)
         {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bookshop.Models;
 
-namespace Bookshop
+namespace Bookshop.Repositories
 {
     internal class MissingRepository
     {
@@ -12,7 +13,7 @@ namespace Bookshop
         private List<Book> _bookRepo;
         private List<BookQuantity> _idRepo;
 
-        public List<Book> Find() 
+        public List<Book> Find()
         {
             BookRepository repo = new BookRepository();
             BookQuantityRepository idRepo = new BookQuantityRepository();
@@ -20,9 +21,9 @@ namespace Bookshop
             _idRepo = idRepo.GetBooksIds();
             var missingBooksIds = new List<BookQuantity>();
             var missingBooks = new List<Book>();
-            foreach (var book in _idRepo) 
+            foreach (var book in _idRepo)
             {
-                if(book.Quantity == 0)
+                if (book.Quantity == 0)
                 {
                     missingBooksIds.Add(book);
                 }

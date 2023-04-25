@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookshop
+namespace Bookshop.ViewModels
 {
     public class BookIncomeModel : INotifyPropertyChanged
     {
@@ -20,7 +20,7 @@ namespace Bookshop
 
         public decimal BuyPrice { get; set; }
 
-        public int Quantity 
+        public int Quantity
         {
             get
             {
@@ -28,30 +28,30 @@ namespace Bookshop
             }
             set
             {
-                
+
                 _quantity = value;
                 OnProperyChanged("Total");
             }
         }
 
-        public decimal Total 
-        { 
+        public decimal Total
+        {
             get
             {
-                   return BuyPrice * Quantity;
-            } 
+                return BuyPrice * Quantity;
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void OnProperyChanged([CallerMemberName] string prop = "")
         {
-            if(PropertyChanged != null)
+            if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
 
-        
+
     }
 }

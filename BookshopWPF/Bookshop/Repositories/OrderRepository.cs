@@ -6,28 +6,29 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Bookshop.Models;
 
-namespace Bookshop
+namespace Bookshop.Repositories
 {
     public class OrderRepository
     {
         private static string _path = "Database";
-        private static string _pathFile = System.IO.Path.Combine(_path, "orderDB.txt");
-        public OrderRepository() 
+        private static string _pathFile = Path.Combine(_path, "orderDB.txt");
+        public OrderRepository()
         {
-            if (!System.IO.Directory.Exists(_path))
+            if (!Directory.Exists(_path))
             {
-                System.IO.Directory.CreateDirectory(_path);
+                Directory.CreateDirectory(_path);
             }
-            if (!System.IO.File.Exists(_pathFile))
+            if (!File.Exists(_pathFile))
             {
-                System.IO.File.Create(_pathFile);
+                File.Create(_pathFile);
             }
         }
 
-        public bool PlaceOrder(Order order) 
+        public bool PlaceOrder(Order order)
         {
-            if(order.Total==0)
+            if (order.Total == 0)
             {
                 return false;
             }
@@ -53,7 +54,7 @@ namespace Bookshop
         }
 
         public List<Order> SortOrdersViaDate(DateTime fromDate, DateTime toDate)
-        {   
+        {
             var sortedOrders = new List<Order>();
 
             var orders = GetAllOrders();
@@ -81,6 +82,6 @@ namespace Bookshop
             return maxId + 1;
         }
 
-        
+
     }
 }

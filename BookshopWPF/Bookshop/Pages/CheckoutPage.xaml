@@ -38,22 +38,23 @@
         <ListView x:Name="orderListView" Grid.Row="1" Grid.Column="2" Width="274" Margin="37,30,37,83" MouseDoubleClick="orderListView_Remove">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="68.5"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="68.5"/>
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding SellPrice}" Width="68.5"/>
+                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="54.8"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="54.8"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding SellPrice}" Width="54.8"/>
                     <GridViewColumn Header="Quantity" Width="68.5">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Path=Quantity}" TextWrapping="Wrap" Width="40"></TextBox>
+                                <TextBox Tag="{Binding Id}" Text="{Binding Path = Quantity}" TextChanged="OnQuantityChanged" TextWrapping="Wrap" Width="54.8"></TextBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-
+                        
                     </GridViewColumn>
+                    <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="54.8"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <Label x:Name="totalLabel" Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,37,44"/>
-        <Button Grid.Column="2" Grid.Row="2" Content="Order" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="40" Width="100" Margin="82,12,0,0" Click="Button_Order"/>
+        <Button Grid.Column="2" Grid.Row="2" Content="Order" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="40" Width="100" Margin="82,12,0,0" Click="Button_Save"/>
         <Button Grid.Column="2" Grid.Row="2" Content="Cancel" HorizontalAlignment="Left" Width="100" Height="40" Margin="187,12,0,30" Click="Button_Cancel"/>
 
     </Grid>

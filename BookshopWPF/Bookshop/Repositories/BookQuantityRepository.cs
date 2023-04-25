@@ -6,23 +6,25 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
+using Bookshop.Models;
+using Bookshop.ViewModels;
 
-namespace Bookshop
+namespace Bookshop.Repositories
 {
     class BookQuantityRepository
     {
         private static string _path = "Database";
-        private static string _pathFile = System.IO.Path.Combine(_path, "bookQuantity.txt");
+        private static string _pathFile = Path.Combine(_path, "bookQuantity.txt");
 
         public BookQuantityRepository()
         {
-            if (!System.IO.Directory.Exists(_path))
+            if (!Directory.Exists(_path))
             {
-                System.IO.Directory.CreateDirectory(_path);
+                Directory.CreateDirectory(_path);
             }
-            if (!System.IO.File.Exists(_pathFile))
+            if (!File.Exists(_pathFile))
             {
-                System.IO.File.Create(_pathFile);
+                File.Create(_pathFile);
             }
         }
 
@@ -109,12 +111,12 @@ namespace Bookshop
         {
             var booksQuantity = GetBooksIds();
             var list = order.OrderList;
-            
+
             foreach (var item in list)
             {
                 foreach (var book in booksQuantity)
                 {
-                    if(item.Id == book.BookId)
+                    if (item.Id == book.BookId)
                     {
                         book.Quantity -= item.Quantity;
                     }

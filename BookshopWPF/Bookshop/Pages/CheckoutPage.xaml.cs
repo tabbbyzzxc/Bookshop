@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Bookshop.Models;
+using Bookshop.Repositories;
+using Bookshop.ViewModels;
 
 namespace Bookshop
 {
@@ -23,13 +26,13 @@ namespace Bookshop
     {
 
         private ObservableCollection<BookAvailableModel> _availableList;
-        private ObservableCollection<OrderLine> _orderLineList;
+        private ObservableCollection<OrderLineViewModel> _orderLineList;
         public CheckoutPage()
         {
             var repo = new BookQuantityRepository();
             var allBooks = repo.GetAvailableBooks();
             _availableList = new ObservableCollection<BookAvailableModel>(allBooks);
-            _orderLineList = new ObservableCollection<OrderLine>();
+            _orderLineList = new ObservableCollection<OrderLineViewModel>();
             InitializeComponent();
             availableBooksListView.ItemsSource = _availableList;
             orderListView.ItemsSource = _orderLineList;
@@ -38,17 +41,21 @@ namespace Bookshop
 
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
-
-        private void Button_Order(object sender, RoutedEventArgs e)
+        private void Button_Save(object sender, RoutedEventArgs e)
         {
             var repo = new OrderRepository();
             var order = new Order()
             {
-                OrderList =_orderLineList.ToList(),
+                OrderList = _orderLineList.Select(x => new OrderLine
+                {
+                    Id = x.Id,
+                    Author = x.Author,
+                    Name = x.Name,
+                    SellPrice = x.SellPrice,
+                    Quantity = x.Quantity
+
+                }).ToList(),
                 Date = DateTime.Now
             };
             if (repo.PlaceOrder(order))
@@ -106,7 +113,7 @@ namespace Bookshop
                 MessageBox.Show("Nothing selected. Select a book to Add", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            var book = new OrderLine()
+            var orderLine = new OrderLineViewModel()
             {
                 Id = selectedItem.Id,
                 Author = selectedItem.Author,
@@ -116,18 +123,18 @@ namespace Bookshop
             };
             foreach (var item in _orderLineList)
             {
-                if (book.Id == item.Id)
+                if (orderLine.Id == item.Id)
                 {
                     MessageBox.Show("Book already added", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
-            _orderLineList.Add(book);
+            _orderLineList.Add(orderLine);
         }
 
         private void Remove()
         {
-            var selectedItem = (OrderLine)orderListView.SelectedItem;
+            var selectedItem = (OrderLineViewModel)orderListView.SelectedItem;
             if (selectedItem == null)
             {
                 MessageBox.Show("Nothing selected. Select a book to Remove", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -174,6 +181,25 @@ namespace Bookshop
                         || data.Name.IndexOf(Search.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
+        }
+
+        private void OnQuantityChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = (TextBox)sender;
+            if (int.TryParse(textbox.Text, out var currentQuantity) && int.TryParse(textbox.Tag.ToString(), out var selectedId))
+            {
+                foreach (var item in _availableList)
+                {
+                    if (item.Id == selectedId)
+                    {
+                        if (currentQuantity > item.Quantity)
+                        {
+                            textbox.Text = item.Quantity.ToString();
+                        }
+                    }
+                }
+            }
+            CalculateTotal();
         }
     }
 }

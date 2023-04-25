@@ -21,6 +21,6 @@
         <TextBox x:Name="from" HorizontalAlignment="Left" Margin="314,-95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="to" HorizontalAlignment="Left" Margin="170,-95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="489,-96,0,0" VerticalAlignment="Top" Click="Button_Sort"/>
-
+        <DatePicker x:Name="fromDate" Margin="-11,-146,551,405"></DatePicker>
     </Grid>
 </Page>

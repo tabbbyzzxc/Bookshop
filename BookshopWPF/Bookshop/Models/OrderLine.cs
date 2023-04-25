@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bookshop
+﻿namespace Bookshop.Models
 {
-    public class ReportLine
+    public class OrderLine
     {
         public long Id { get; set; }
 
@@ -17,7 +11,7 @@ namespace Bookshop
         public decimal SellPrice { get; set; }
 
         public int Quantity { get; set; }
-
+        
         public decimal Total
         {
             get

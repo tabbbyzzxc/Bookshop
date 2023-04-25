@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookshop
+namespace Bookshop.ViewModels
 {
-    public class OrderLine : INotifyPropertyChanged
+    public class OrderLineViewModel : INotifyPropertyChanged
     {
         private int _quantity;
         public long Id { get; set; }
@@ -28,17 +27,8 @@ namespace Bookshop
             }
             set
             {
-                if (value <= FindMaxQuantity(Id))
-                {
-                    _quantity = value;
-                    OnProperyChanged("Total");
-                }
-                else
-                {
-                    _quantity = FindMaxQuantity(Id);
-                    OnProperyChanged("Total");
-                    
-                }
+                _quantity = value;
+                OnProperyChanged("Total");
             }
         }
 
@@ -60,18 +50,6 @@ namespace Bookshop
             }
         }
 
-        private int FindMaxQuantity(long id)
-        {
-            var repo = new BookQuantityRepository();
-            var bookList = repo.GetBooksIds();
-            foreach (var item in bookList)
-            {
-                if (item.BookId == id)
-                {
-                    return item.Quantity;
-                }
-            }
-            return 0;
-        }
+
     }
 }

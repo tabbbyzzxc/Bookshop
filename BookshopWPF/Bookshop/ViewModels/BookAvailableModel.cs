@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookshop
+namespace Bookshop.ViewModels
 {
-    class BookAvailableModel
+    public class BookAvailableModel
     {
         public long Id { get; set; }
 
@@ -14,8 +14,8 @@ namespace Bookshop
 
         public string Author { get; set; }
 
-        public decimal SellPrice { get; set; } 
-        
+        public decimal SellPrice { get; set; }
+
         public int Quantity { get; set; }
 
 
