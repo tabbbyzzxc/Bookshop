@@ -24,23 +24,32 @@ namespace Bookshop
     /// </summary>
     public partial class ReportPage : Page
     {
-        private ObservableCollection<Order> _orders;
+    
         public ReportPage()
         {
-            var repo = new OrderRepository();
-            _orders = new ObservableCollection<Order>(repo.GetAllOrders());
             InitializeComponent();
-            listView.ItemsSource = _orders;
-            
-            
+            fromDate.SelectedDate = DateTime.Now;
+            dueDate.SelectedDate = DateTime.Now;
+
         }
 
         private void Button_Sort(object sender, RoutedEventArgs e)
         {
-            DateTime fromTime = Convert.ToDateTime(from.Text);
-            DateTime toTime = Convert.ToDateTime(to.Text);
-            var report = new ReportManager();
-            report.MakeReport(fromTime, toTime);
+            if(fromDate.SelectedDate == null || dueDate.SelectedDate == null)
+            {
+                MessageBox.Show("Please select report dates", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var due = dueDate.SelectedDate.Value;
+
+            DateTime fromTime = fromDate.SelectedDate.Value;
+            DateTime dueTime = new DateTime(due.Year, due.Month, due.Day, 23, 59, 59);
+            
+            var reportManager = new ReportManager();
+            var report = reportManager.MakeReport(fromTime, dueTime);
+            listView.ItemsSource = report.ReportList;
+            totalAmount.Content = report.TotalAmount;
+            totalQuantity.Content = report.TotalQuantity;
         }
     }
 

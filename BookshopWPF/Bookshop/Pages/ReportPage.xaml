@@ -8,19 +8,41 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ReportPage">
 
-    <Grid Margin="118,167,0,0">
-        <Label Content="Sales report" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <ListView x:Name="listView" Margin="-50,-37,50,37">
+    <Grid Margin="0,0,20,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label  Content="Sales report" HorizontalAlignment="Center" Grid.ColumnSpan="5" FontSize="24"/>
+        <Label Content="From" Grid.Row="1" HorizontalAlignment="Right"></Label>
+        <DatePicker x:Name="fromDate" Grid.Column="1" Grid.Row="1"></DatePicker>
+        <Label Content="Due" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"></Label>
+        <DatePicker x:Name="dueDate" Grid.Column="3" Grid.Row="1"></DatePicker>
+        <Button Content="Generate Report" Click="Button_Sort" Grid.Column="4" Grid.Row="1" Margin="10,0,0,0"/>
+        <ListView x:Name="listView" Grid.Row="2" Grid.ColumnSpan="5" Margin="0,10,0,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}"/>
-                    <GridViewColumn x:Name="column" Header="Date" DisplayMemberBinding="{Binding OrderLine}"/>
+                    <GridViewColumn Width="100" Header="Author" DisplayMemberBinding="{Binding Author}"/>
+                    <GridViewColumn Width="100" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Width="100" Header="Amount" DisplayMemberBinding="{Binding SellPrice}"/>
+                    <GridViewColumn Width="100" Header="Quantity" DisplayMemberBinding="{Binding Quantity}"/>
+                    <GridViewColumn Width="100" Header="Total" DisplayMemberBinding="{Binding Total}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="from" HorizontalAlignment="Left" Margin="314,-95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="to" HorizontalAlignment="Left" Margin="170,-95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="489,-96,0,0" VerticalAlignment="Top" Click="Button_Sort"/>
-        <DatePicker x:Name="fromDate" Margin="-11,-146,551,405"></DatePicker>
+        <Label Content="Total Quantity:" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Right"></Label>
+        <Label x:Name="totalQuantity" Content="0" Grid.Row="3" Grid.Column="4"></Label>
+        <Label Content="Total Amount:" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right"></Label>
+        <Label x:Name="totalAmount" Content="0" Grid.Row="4" Grid.Column="4"></Label>
     </Grid>
 </Page>

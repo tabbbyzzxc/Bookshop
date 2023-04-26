@@ -10,16 +10,18 @@ namespace Bookshop.Models
     {
         public List<ReportLine> ReportList { get; set; } = new List<ReportLine>();
 
-        public decimal Total
+        public decimal TotalAmount
         {
             get
             {
-                decimal total = 0;
-                foreach (var book in ReportList)
-                {
-                    total += book.Total;
-                }
-                return total;
+                return ReportList.Sum(x => x.Total);
+            }
+        }
+        public int TotalQuantity
+        {
+            get
+            {
+                return ReportList.Sum(x => x.Quantity);
             }
         }
     }
