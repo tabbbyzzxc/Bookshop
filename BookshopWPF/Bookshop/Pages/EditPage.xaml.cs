@@ -46,14 +46,7 @@ namespace Bookshop
         private void OnSearch(object sender, TextChangedEventArgs e)
         {
             var text = Search.Text;
-            var filteredBooks = new List<Book>();
-            foreach(Book book in _books)
-            {
-                if(book.Name.Contains(text, StringComparison.OrdinalIgnoreCase) || book.Author.Contains(text, StringComparison.OrdinalIgnoreCase))
-                {
-                    filteredBooks.Add(book);
-                }
-            }
+            var filteredBooks = _books.Where(x => x.Name.Contains(text, StringComparison.OrdinalIgnoreCase) || x.Author.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
             listView.ItemsSource= filteredBooks;
         }
     }

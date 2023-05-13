@@ -2,24 +2,41 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Bookshop"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddBookPage">
 
     <Grid>
-        <Label Content="Add Book" HorizontalAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Label Content="Author" HorizontalAlignment="Left" Margin="138,118,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="145,169,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label Content="Buy Price" HorizontalAlignment="Left" Margin="122,225,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label Content="Sell Price" HorizontalAlignment="Left" Margin="122,281,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
         
-        <TextBox x:Name="AuthorName" HorizontalAlignment="Left" Margin="212,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16" TextChanged="AuthorName_TextChanged"/>
-        <TextBox x:Name="NameBook" HorizontalAlignment="Left" Margin="212,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
-        <TextBox x:Name="BuyPrice" HorizontalAlignment="Left" Margin="212,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
-        <TextBox x:Name="SellPrice" HorizontalAlignment="Left" Margin="212,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="343" Height="26" FontSize="16"/>
-        <Button Content="Add" HorizontalAlignment="Left" Margin="326,342,0,0" VerticalAlignment="Top" Height="46" Width="114" FontSize="18" Click="Button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <Label Content="Add Book" HorizontalAlignment="Center" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="24" Margin="0,0,0,20"/>
+        
+        <Label Content="Author" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox x:Name="AuthorName" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Width="343" Height="26" FontSize="16"/>
+
+        <Label Content="Name" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox x:Name="NameBook" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Width="343" Height="26" FontSize="16"/>
+
+        <Label Content="Buy Price" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox x:Name="BuyPrice" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" Width="343" Height="26" FontSize="16"/>
+
+        <Label Content="Sell Price" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox x:Name="SellPrice" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Width="343" Height="26" FontSize="16"/>
+       
+        <Button Content="Add" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="46" Width="114" FontSize="18" Click="Button_Click" Margin="0,20,0,0"/>
 
     </Grid>
 </Page>

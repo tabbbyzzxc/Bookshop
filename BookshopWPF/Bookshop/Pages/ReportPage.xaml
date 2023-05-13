@@ -23,11 +23,17 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <Label  Content="Sales report" HorizontalAlignment="Center" Grid.ColumnSpan="5" FontSize="24"/>
-        <Label Content="From" Grid.Row="1" HorizontalAlignment="Right"></Label>
-        <DatePicker x:Name="fromDate" Grid.Column="1" Grid.Row="1"></DatePicker>
-        <Label Content="Due" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"></Label>
-        <DatePicker x:Name="dueDate" Grid.Column="3" Grid.Row="1"></DatePicker>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1">
+            <Label Content="From" HorizontalAlignment="Right"></Label>
+            <DatePicker x:Name="fromDate"></DatePicker>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3">
+            <Label Content="Due" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"></Label>
+            <DatePicker x:Name="dueDate" Grid.Column="3" Grid.Row="1"></DatePicker>
+        </StackPanel>
+        
         <Button Content="Generate Report" Click="Button_Sort" Grid.Column="4" Grid.Row="1" Margin="10,0,0,0"/>
         <ListView x:Name="listView" Grid.Row="2" Grid.ColumnSpan="5" Margin="0,10,0,0">
             <ListView.View>
@@ -40,9 +46,15 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Total Quantity:" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Right"></Label>
-        <Label x:Name="totalQuantity" Content="0" Grid.Row="3" Grid.Column="4"></Label>
-        <Label Content="Total Amount:" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right"></Label>
-        <Label x:Name="totalAmount" Content="0" Grid.Row="4" Grid.Column="4"></Label>
+        <StackPanel Orientation="Horizontal"  Grid.Row="3" Grid.Column="3">
+            <Label Content="Total Quantity:"  HorizontalAlignment="Right"></Label>
+            <Label x:Name="totalQuantity" Content="0"></Label>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"  Grid.Row="4" Grid.Column="3">
+            <Label Content="Total Amount:" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right"></Label>
+            <Label x:Name="totalAmount" Content="0" Grid.Row="4" Grid.Column="4"></Label>
+        </StackPanel>
+            
+       
     </Grid>
 </Page>

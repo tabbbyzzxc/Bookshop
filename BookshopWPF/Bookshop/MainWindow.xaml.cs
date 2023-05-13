@@ -27,34 +27,35 @@ namespace Bookshop
             Frame1.Content = new WelcomePage();
         }
 
-        private void Checkout_Click(object sender, RoutedEventArgs e)
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame1.Content = new CheckoutPage();
-        }
-
-        private void Report_Click(object sender, RoutedEventArgs e)
-        {
-            Frame1.Content = new ReportPage();
-        }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame1.Content = new AddBookPage();
-        }
-
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame1.Content = new EditPage();
-        }
-
-        private void ReceiptButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame1.Content = new ReceiptPage();
-        }
-
-        private void MissingButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame1.Content = new MissingPage();
+            var button = (Button)sender;
+            Page page;
+            switch (button.Name)
+            {
+                case "CheckoutButton":
+                    page = new CheckoutPage();
+                    break;
+                case "ReportButton":
+                    page = new ReportPage();
+                    break;
+                case "AddButton":
+                    page = new AddBookPage();
+                    break;
+                case "EditButton":
+                    page = new EditPage();
+                    break;
+                case "ReceiptButton":
+                    page = new ReceiptPage();
+                    break;
+                case "MissingButton":
+                    page = new MissingPage();
+                    break;
+                default:
+                    page = new WelcomePage();
+                    break;
+            }
+            Frame1.Content = page;
         }
     }
 }

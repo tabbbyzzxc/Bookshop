@@ -26,12 +26,12 @@ namespace Bookshop
     public partial class ReceiptPage : Page
     {
         private ObservableCollection<Book> _books;
+        private BookRepository _bookRepository = new BookRepository();
         private ObservableCollection<BookIncomeModel> _bookIncomeModels;
 
         public ReceiptPage()
         {
-            BookRepository repo = new BookRepository();
-            var allBooks = repo.GetAllBooks();
+            var allBooks = _bookRepository.GetAllBooks();
             _books = new ObservableCollection<Book>(allBooks);
             _bookIncomeModels = new ObservableCollection<BookIncomeModel>();
             InitializeComponent();
@@ -43,7 +43,7 @@ namespace Bookshop
         private void Add()
         {
             var selectedItem = (Book)listView.SelectedItem;
-            if(selectedItem == null)
+            if (selectedItem == null)
             {
                 MessageBox.Show("Nothing selected. Select a book to Add", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -55,13 +55,11 @@ namespace Bookshop
                 Author = selectedItem.Author,
                 BuyPrice = selectedItem.BuyPrice
             };
-            foreach (var item in _bookIncomeModels)
+
+            if (_bookIncomeModels.Any(x => x.Id == selectedItem.Id))
             {
-                if (book.Id == item.Id)
-                {
-                    MessageBox.Show("Book already added", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                MessageBox.Show("Book already added", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             _bookIncomeModels.Add(book);
         }
@@ -74,14 +72,8 @@ namespace Bookshop
                 MessageBox.Show("Nothing selected. Select a book to Remove", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            foreach (var item in _bookIncomeModels)
-            {
-                if(item.Id == selectedItem.Id)
-                {
-                    _bookIncomeModels.Remove(item);
-                    return;
-                }
-            }
+            _bookIncomeModels.Remove(selectedItem);
+            return;
         }
 
         private void listView_Add(object sender, MouseButtonEventArgs e)
@@ -111,14 +103,8 @@ namespace Bookshop
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-            var repo = new BookQuantityRepository();
-            var list = new List<BookQuantity>();
-            
-            foreach (var item in _bookIncomeModels)
-            {
-                list.Add(new BookQuantity(item.Id, item.Quantity));
-            }
-            repo.AddQuantity(list);
+            var list = _bookIncomeModels.Select(item => new BookQuantity(item.Id, item.Quantity)).ToList();
+            _bookRepository.AddQuantity(list);
             MessageBox.Show("Book(s) added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             _bookIncomeModels.Clear();
         }

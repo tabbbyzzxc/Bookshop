@@ -23,10 +23,10 @@ namespace Bookshop
     {
         public MissingPage()
         {
-            MissingRepository repo = new MissingRepository();
+            BookRepository repo = new BookRepository();
             
             InitializeComponent();
-            listView.ItemsSource = repo.Find();
+            listView.ItemsSource = repo.GetMissingBooks();
         }
     }
 }

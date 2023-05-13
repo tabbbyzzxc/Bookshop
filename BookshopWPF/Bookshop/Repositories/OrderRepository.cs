@@ -26,18 +26,18 @@ namespace Bookshop.Repositories
             }
         }
 
-        public bool PlaceOrder(Order order)
+        public bool SaveOrder(Order order)
         {
             if (order.Total == 0)
             {
                 return false;
             }
+
             var orderList = GetAllOrders();
             order.Id = GetNewId(orderList);
-
             orderList.Add(order);
-            string serializedList = JsonSerializer.Serialize(orderList);
 
+            string serializedList = JsonSerializer.Serialize(orderList);
             File.WriteAllText(_pathFile, serializedList);
             return true;
         }
@@ -49,37 +49,26 @@ namespace Bookshop.Repositories
             {
                 return new List<Order>();
             }
+
             var orderList = JsonSerializer.Deserialize<List<Order>>(content);
             return orderList;
         }
 
-        public List<Order> SortOrdersViaDate(DateTime fromDate, DateTime toDate)
+        public List<Order> GetOrdersByDate(DateTime fromDate, DateTime toDate)
         {
-            var sortedOrders = new List<Order>();
-
             var orders = GetAllOrders();
-            foreach (var order in orders)
-            {
-                if (order.Date >= fromDate && order.Date <= toDate)
-                {
-                    sortedOrders.Add(order);
-
-                }
-            }
-            return sortedOrders;
+            var filteredOrders = orders.Where(x => x.Date >= fromDate && x.Date <= toDate).ToList();
+            return filteredOrders;
         }
 
         private long GetNewId(List<Order> list)
         {
-            long maxId = 0;
-            foreach (var item in list)
+            
+            if (!list.Any())
             {
-                if (item.Id > maxId)
-                {
-                    maxId = item.Id;
-                }
+                return 1;
             }
-            return maxId + 1;
+            return list.Max(x => x.Id) + 1;
         }
 
 

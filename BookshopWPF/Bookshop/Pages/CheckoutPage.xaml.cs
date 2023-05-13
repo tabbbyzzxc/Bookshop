@@ -25,26 +25,24 @@ namespace Bookshop
     public partial class CheckoutPage : Page
     {
 
-        private ObservableCollection<BookAvailableModel> _availableList;
+        private ObservableCollection<BookAvailableModel> _availableBooksList;
         private ObservableCollection<OrderLineViewModel> _orderLineList;
+        private BookRepository _bookRepository = new BookRepository();
+        private OrderRepository _orderRepository = new OrderRepository();
+
         public CheckoutPage()
         {
-            var repo = new BookQuantityRepository();
-            var allBooks = repo.GetAvailableBooks();
-            _availableList = new ObservableCollection<BookAvailableModel>(allBooks);
+            var allBooks = _bookRepository.GetAvailableBooks();
+            _availableBooksList = new ObservableCollection<BookAvailableModel>(allBooks);
             _orderLineList = new ObservableCollection<OrderLineViewModel>();
             InitializeComponent();
-            availableBooksListView.ItemsSource = _availableList;
+            availableBooksListView.ItemsSource = _availableBooksList;
             orderListView.ItemsSource = _orderLineList;
-            CollectionViewSource.GetDefaultView(availableBooksListView.ItemsSource).Filter = Filter;
-
-
         }
 
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-            var repo = new OrderRepository();
             var order = new Order()
             {
                 OrderList = _orderLineList.Select(x => new OrderLine
@@ -58,10 +56,9 @@ namespace Bookshop
                 }).ToList(),
                 Date = DateTime.Now
             };
-            if (repo.PlaceOrder(order))
+            if (_orderRepository.SaveOrder(order))
             {
-                var repoQuantity = new BookQuantityRepository();
-                repoQuantity.UpdateBookQuantity(order);
+                _bookRepository.UpdateBookQuantity(order);
                 MessageBox.Show("Order placed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 _orderLineList.Clear();
                 return;
@@ -71,16 +68,13 @@ namespace Bookshop
                 MessageBox.Show("Order was empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 _orderLineList.Clear();
             }
-            
-
-
         }
 
 
 
         private void Button_Cancel(object sender, RoutedEventArgs e)
         {
-            
+            _orderLineList.Clear();
         }
 
         private void availableBooksListView_Add(object sender, MouseButtonEventArgs e)
@@ -113,6 +107,13 @@ namespace Bookshop
                 MessageBox.Show("Nothing selected. Select a book to Add", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            if (_orderLineList.Any(x => x.Id == selectedItem.Id))
+            {
+                MessageBox.Show("Book already added", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             var orderLine = new OrderLineViewModel()
             {
                 Id = selectedItem.Id,
@@ -121,14 +122,7 @@ namespace Bookshop
                 SellPrice = selectedItem.SellPrice,
                 Quantity = 1
             };
-            foreach (var item in _orderLineList)
-            {
-                if (orderLine.Id == item.Id)
-                {
-                    MessageBox.Show("Book already added", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
+
             _orderLineList.Add(orderLine);
         }
 
@@ -140,64 +134,34 @@ namespace Bookshop
                 MessageBox.Show("Nothing selected. Select a book to Remove", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            foreach (var item in _orderLineList)
-            {
-                if (item.Id == selectedItem.Id)
-                {
-                    _orderLineList.Remove(item);
-                    return;
-                }
-            }
-           
+
+            _orderLineList.Remove(selectedItem);
         }
 
         private void CalculateTotal()
         {
-            decimal sum = 0;
-            foreach (var book in _orderLineList)
-            {
-                sum += Convert.ToDecimal(book.Total);
-            }
-            totalLabel.Content = $"Total: {sum.ToString()}";
+            decimal sum = _orderLineList.Sum(x => x.Total);
+            totalLabel.Content = sum.ToString();
         }
 
-   
-
-        private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+        private void OnSearch(object sender, TextChangedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(availableBooksListView.ItemsSource).Refresh();
+            var text = Search.Text;
+            var filteredBooks = _availableBooksList.Where(x => x.Name.Contains(text, StringComparison.OrdinalIgnoreCase) || x.Author.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
+            availableBooksListView.ItemsSource = filteredBooks;
         }
         
-        private bool Filter(object item)
-        {
-            if (String.IsNullOrEmpty(Search.Text))
-            {
-                return true;
-            }
-            else
-            {
-                var data = item as BookAvailableModel;
-                return (data.Author.IndexOf(Search.Text, StringComparison.OrdinalIgnoreCase) >= 0
-                        || data.Name.IndexOf(Search.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
-
-        }
-
         private void OnQuantityChanged(object sender, TextChangedEventArgs e)
         {
             var textbox = (TextBox)sender;
             if (int.TryParse(textbox.Text, out var currentQuantity) && int.TryParse(textbox.Tag.ToString(), out var selectedId))
             {
-                foreach (var item in _availableList)
+                var selectedBook = _availableBooksList.First(x => x.Id == selectedId);
+                if (currentQuantity > selectedBook.Quantity)
                 {
-                    if (item.Id == selectedId)
-                    {
-                        if (currentQuantity > item.Quantity)
-                        {
-                            textbox.Text = item.Quantity.ToString();
-                        }
-                    }
+                    textbox.Text = selectedBook.Quantity.ToString();
                 }
+                
             }
             CalculateTotal();
         }

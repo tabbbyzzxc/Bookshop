@@ -8,22 +8,31 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CheckoutPage">
 
-    <Grid>
+    <Grid Margin="0,0,20,20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"></ColumnDefinition>
-            <ColumnDefinition Width="1.5*"></ColumnDefinition>
-            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
         <Label Content="Order" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.Column="1"/>
-        <Label Content="Books available" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top"></Label>
-        <TextBox x:Name="Search" TextChanged="OnSearchTextChanged" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="0,5,50,0"/>
-
-        <ListView x:Name="availableBooksListView" Grid.Row="1" Width="274" Height="263" Margin="0,30,0,0" MouseDoubleClick="availableBooksListView_Add">
+        <Label Content="Books Available" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Label Content="Books Ordered" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top">
+            <Label Content="Search"></Label>
+            <TextBox x:Name="Search" TextChanged="OnSearch" HorizontalAlignment="Center"  Text="" Width="120" Height="20"/>
+        </StackPanel>
+        
+        <ListView x:Name="availableBooksListView" Grid.Row="2" MouseDoubleClick="availableBooksListView_Add">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="68.5"/>
@@ -33,9 +42,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Grid.Column="1" Grid.Row="1" Content="&gt;&gt;&gt;" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="100" Margin="0,78,0,0" Click="Button_Add"/>
-        <Button Grid.Column="1" Grid.Row="1" Content="&lt;&lt;&lt;" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="100" Margin="0,148,0,0" Click="Button_Remove"/>
-        <ListView x:Name="orderListView" Grid.Row="1" Grid.Column="2" Width="274" Margin="37,30,37,83" MouseDoubleClick="orderListView_Remove">
+        
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Button  Content="&gt;&gt;&gt;" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="100" Click="Button_Add" Margin="0,0,0,10"/>
+            <Button  Content="&lt;&lt;&lt;" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="100" Click="Button_Remove"/>
+        </StackPanel>
+        
+        <ListView x:Name="orderListView" Grid.Row="2" Grid.Column="2" MouseDoubleClick="orderListView_Remove">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="54.8"/>
@@ -53,9 +66,16 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="totalLabel" Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,37,44"/>
-        <Button Grid.Column="2" Grid.Row="2" Content="Order" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="40" Width="100" Margin="82,12,0,0" Click="Button_Save"/>
-        <Button Grid.Column="2" Grid.Row="2" Content="Cancel" HorizontalAlignment="Left" Width="100" Height="40" Margin="187,12,0,30" Click="Button_Cancel"/>
-
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Label Content="Total: "></Label>
+            <Label x:Name="totalLabel" Content="0" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button Content="Order" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="40" Width="100" Margin="0,0,10,0" Click="Button_Save"/>
+            <Button Content="Cancel" HorizontalAlignment="Left" Width="100" Height="40" Click="Button_Cancel"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

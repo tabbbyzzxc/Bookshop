@@ -30,7 +30,6 @@ namespace Bookshop
             InitializeComponent();
             fromDate.SelectedDate = DateTime.Now;
             dueDate.SelectedDate = DateTime.Now;
-
         }
 
         private void Button_Sort(object sender, RoutedEventArgs e)
@@ -40,8 +39,8 @@ namespace Bookshop
                 MessageBox.Show("Please select report dates", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            var due = dueDate.SelectedDate.Value;
 
+            var due = dueDate.SelectedDate.Value;
             DateTime fromTime = fromDate.SelectedDate.Value;
             DateTime dueTime = new DateTime(due.Year, due.Month, due.Day, 23, 59, 59);
             

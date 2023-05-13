@@ -9,7 +9,6 @@
       Title="WelcomePage">
 
     <Grid>
-        <Label Content="Book shop" HorizontalAlignment="Center" Margin="0,140,0,0" VerticalAlignment="Top" Height="85" Width="564" FontSize="48"/>
-
+        <Label Content="Book shop" HorizontalAlignment="Center"  VerticalAlignment="Center" HorizontalContentAlignment="Center" Height="85" Width="564" FontSize="48"/>
     </Grid>
 </Page>

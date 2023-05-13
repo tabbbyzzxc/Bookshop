@@ -22,6 +22,7 @@ namespace Bookshop
     /// </summary>
     public partial class AddBookPage : Page
     {
+        private BookRepository bookRepo = new BookRepository();
         public AddBookPage()
         {
             InitializeComponent();
@@ -30,28 +31,26 @@ namespace Bookshop
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string tempName = NameBook.Text;
-            if (String.IsNullOrWhiteSpace(tempName))
+            if (string.IsNullOrWhiteSpace(tempName))
             {
                 MessageBox.Show("The 'Name' field is required", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             string tempAuth = AuthorName.Text;
-            decimal tempBuy, tempSell;
-            bool ok = decimal.TryParse(BuyPrice.Text, out tempBuy);
-            if (!ok)
+            if (!decimal.TryParse(BuyPrice.Text, out var tempBuy))
             {
                 MessageBox.Show("The 'Buy Price' field must contain a numeric value", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            ok = decimal.TryParse(SellPrice.Text, out tempSell);
-            if (!ok)
+            ;
+            if (!decimal.TryParse(SellPrice.Text, out var tempSell))
             {
                 MessageBox.Show("The 'Sell Price' field must contain a numeric value", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             var book = new Book(tempName, tempAuth, tempBuy, tempSell);
-            var bookRepo = new BookRepository();
+           
             
             if(bookRepo.AddBook(book))
             {
@@ -70,9 +69,6 @@ namespace Bookshop
             
         }
 
-        private void AuthorName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        
     }
 }

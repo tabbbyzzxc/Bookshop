@@ -10,7 +10,6 @@ namespace Bookshop
 {
     public class ReportManager
     {
-        private List<Order> _orders;
         public ReportManager()
         {
 
@@ -20,10 +19,10 @@ namespace Bookshop
         public Report MakeReport(DateTime from, DateTime to)
         {
             var repo = new OrderRepository();
-            var list = repo.SortOrdersViaDate(from, to);
+            var filteredOrders = repo.GetOrdersByDate(from, to);
             var report = new Report();
 
-            foreach (var order in list)
+            foreach (var order in filteredOrders)
             {
                 var orderList = order.OrderList;
                 foreach (var item in orderList)
