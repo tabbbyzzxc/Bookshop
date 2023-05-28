@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Bookshop.Models;
-using Bookshop.Repositories;
+using Bookshop.ProductsLib;
+using Bookshop.ProductsLib.Repositories;
 
 namespace Bookshop
 {
@@ -46,7 +37,7 @@ namespace Bookshop
         private void OnSearch(object sender, TextChangedEventArgs e)
         {
             var text = Search.Text;
-            var filteredBooks = _books.Where(x => x.Name.Contains(text, StringComparison.OrdinalIgnoreCase) || x.Author.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredBooks = _books.Where(x => x.Title.Contains(text, StringComparison.OrdinalIgnoreCase) || x.Author.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
             listView.ItemsSource= filteredBooks;
         }
     }

@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using System.Windows.Automation.Peers;
-using Bookshop.Models;
-using Bookshop.ViewModels;
+﻿using System.Text.Json;
 
-namespace Bookshop.Repositories
+namespace Bookshop.ProductsLib.Repositories
 {
 
 
@@ -39,32 +26,32 @@ namespace Bookshop.Repositories
                 File.Create(_pathQuantityDB);
             }
         }
-        public bool AddBook(Book book)
+        public bool AddBook(Product product)
         {
-            var bookList = GetAllBooks();
-            var exist = bookList.FirstOrDefault(x => x.Author == book.Author && x.Name == book.Name);
-            if(exist != null)
+            var bookProductsList = GetAllBookProducts();
+            var exist = bookProductsList.FirstOrDefault(x => x.Author == bookProduct.Author && x.Title == bookProduct.Title);
+            if (exist != null)
             {
                 return false;
             }
 
-            book.Id = GetNewId(bookList);
-            bookList.Add(book);
+            bookProduct.Id = GetNewId(bookProductsList);
+            bookProductsList.Add(book);
 
-            string serializedList = JsonSerializer.Serialize(bookList);
+            string serializedList = JsonSerializer.Serialize(bookProductsList);
             File.WriteAllText(_pathBooksDB, serializedList);
             return true;
         }
 
-        public List<Book> GetAllBooks()
+        public List<Product> GetAllBookProducts()
         {
             var content = File.ReadAllText(_pathBooksDB);
             if (string.IsNullOrWhiteSpace(content))
             {
-                return new List<Book>();
+                return new List<BookProduct>();
             }
 
-            var bookList = JsonSerializer.Deserialize<List<Book>>(content);
+            var bookList = JsonSerializer.Deserialize<List<BookProduct>>(content);
             return bookList;
         }
 
@@ -79,10 +66,10 @@ namespace Bookshop.Repositories
             }
 
             item.Author = book.Author;
-            item.Name = book.Name;
+            item.Title = book.Title;
             item.BuyPrice = book.BuyPrice;
             item.SellPrice = book.SellPrice;
-            
+
             string serializedList = JsonSerializer.Serialize(bookList);
             File.WriteAllText(_pathBooksDB, serializedList);
         }
@@ -96,7 +83,7 @@ namespace Bookshop.Repositories
             return missingBooks;
         }
 
-     
+
         public void AddQuantity(List<BookQuantity> arrivalList)
         {
 
@@ -104,7 +91,7 @@ namespace Bookshop.Repositories
             foreach (var book in arrivalList)
             {
                 var exist = existingQuantities.FirstOrDefault(x => x.BookId == book.BookId);
-                if(exist != null)
+                if (exist != null)
                 {
                     exist.Quantity += book.Quantity;
                 }
@@ -130,22 +117,22 @@ namespace Bookshop.Repositories
             return bookIdList;
         }
 
-        public List<BookAvailableModel> GetAvailableBooks()
+      /*  public List<BookAvailableModel> GetAvailableBooks()
         {
-            
+
             var allBooks = GetAllBooks();
-            var booksQuantities = GetBooksQuantities();       
+            var booksQuantities = GetBooksQuantities();
             var availableQuantitiesIds = booksQuantities.Where(x => x.Quantity > 0).Select(x => x.BookId).ToList();
             var availableBooks = allBooks.Where(x => availableQuantitiesIds.Contains(x.Id)).Select(x => new BookAvailableModel()
             {
                 Id = x.Id,
                 Author = x.Author,
-                Name = x.Name,
+                Name = x.Title,
                 SellPrice = x.SellPrice,
-                Quantity = booksQuantities.First(y => y.BookId == x.Id).Quantity 
+                Quantity = booksQuantities.First(y => y.BookId == x.Id).Quantity
             }).ToList();
             return availableBooks;
-        }
+        }*/
 
         public void UpdateBookQuantity(Order order)
         {

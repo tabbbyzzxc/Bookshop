@@ -1,4 +1,4 @@
-﻿namespace Bookshop.Models
+﻿namespace Bookshop.ProductsLib
 {
     public class BookQuantity
     {

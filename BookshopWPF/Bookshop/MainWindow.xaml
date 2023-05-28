@@ -5,11 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Bookshop" Height="450" Width="1200" MinHeight="600" MinWidth="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"></Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+
+
+
         <Button Name="CheckoutButton" Width="150" Height="52" Content="To order" VerticalAlignment="Top" Margin="25,33,0,0" Click="MenuButton_Click"/>
         <Button Name="ReportButton" Width="150" Height="23" VerticalAlignment="Top" Margin="25,90,0,0" Content="Sales Report" Click="MenuButton_Click"/>
         <Button Name="AddButton" Width="150" Height="25" Content="Add book" VerticalAlignment="Top" Margin="25,205,0,0" Click="MenuButton_Click"/>

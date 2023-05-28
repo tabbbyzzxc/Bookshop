@@ -73,7 +73,11 @@
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Button Content="Order" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="40" Width="100" Margin="0,0,10,0" Click="Button_Save"/>
+            <Button Content="Order" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="40" Width="100" Margin="0,0,10,0" Click="Button_Save" Background="#0d6efd">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
             <Button Content="Cancel" HorizontalAlignment="Left" Width="100" Height="40" Click="Button_Cancel"/>
         </StackPanel>
         

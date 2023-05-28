@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bookshop.Models;
-using Bookshop.Repositories;
+﻿using Bookshop.ProductsLib.Repositories;
 
-namespace Bookshop
+namespace Bookshop.ProductsLib
 {
     public class ReportManager
     {
@@ -15,12 +9,32 @@ namespace Bookshop
 
 
         }
-
-        public Report MakeReport(DateTime from, DateTime to)
+  
+        public Report MakeReport(int reportType ,DateTime from, DateTime to)
         {
             var repo = new OrderRepository();
-            var filteredOrders = repo.GetOrdersByDate(from, to);
+            DateTime currentDate = DateTime.Now;
+            List<Order> filteredOrders = new List<Order>();
+            switch (reportType)
+            {
+                case 1:
+                    filteredOrders = repo.GetOrdersByDate(new DateTime(currentDate.Day), to);
+                    break;
+                case 2:
+                    filteredOrders = repo.GetOrdersByDate(new DateTime((currentDate.DayOfYear + 6) / 7), to);
+                    break;
+                case 3:
+                    filteredOrders = repo.GetOrdersByDate(new DateTime(currentDate.Year, currentDate.Month, 1), to);
+                    break;
+                case 4:
+                    filteredOrders = repo.GetOrdersByDate(new DateTime(currentDate.Year), to);
+                    break;
+                default:
+                    filteredOrders = repo.GetOrdersByDate(from, to);
+                    break;
+            }
             var report = new Report();
+
 
             foreach (var order in filteredOrders)
             {
@@ -47,5 +61,7 @@ namespace Bookshop
             }
             return report;
         }
+
+
     }
 }

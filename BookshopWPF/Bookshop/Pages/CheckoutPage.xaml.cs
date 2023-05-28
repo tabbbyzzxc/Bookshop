@@ -13,8 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Bookshop.Models;
-using Bookshop.Repositories;
+using Bookshop.ProductsLib;
+using Bookshop.ProductsLib.Repositories;
 using Bookshop.ViewModels;
 
 namespace Bookshop

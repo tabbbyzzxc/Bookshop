@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using Bookshop.Models;
+﻿using System.Text.Json;
+using Bookshop.ProductsLib;
 
-namespace Bookshop.Repositories
+namespace Bookshop.ProductsLib.Repositories
 {
     public class OrderRepository
     {
@@ -63,7 +56,7 @@ namespace Bookshop.Repositories
 
         private long GetNewId(List<Order> list)
         {
-            
+
             if (!list.Any())
             {
                 return 1;
