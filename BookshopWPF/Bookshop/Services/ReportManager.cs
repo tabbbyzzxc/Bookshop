@@ -1,18 +1,15 @@
-﻿using Bookshop.ProductsLib.Repositories;
+﻿using Bookshop.ProductsLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Bookshop.ProductsLib
+namespace Bookshop.Services
 {
     public class ReportManager
     {
-        public ReportManager()
+        public Report MakeReport(int reportType, DateTime from, DateTime to)
         {
-
-
-        }
-  
-        public Report MakeReport(int reportType ,DateTime from, DateTime to)
-        {
-            var repo = new OrderRepository();
+            var repo = new OrderService();
             DateTime currentDate = DateTime.Now;
             List<Order> filteredOrders = new List<Order>();
             switch (reportType)

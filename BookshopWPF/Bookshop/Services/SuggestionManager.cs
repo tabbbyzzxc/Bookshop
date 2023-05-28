@@ -1,10 +1,10 @@
-﻿using Bookshop.ProductsLib.Repositories;
+﻿using Bookshop.ProductsLib;
 
-namespace Bookshop.ProductsLib
+namespace Bookshop.Services
 {
     public class SuggestionManager
     {
-            
+/*
         private BookRepository _repo = new BookRepository();
 
         public List<Book> GetRecommendedBooks(string genre)
@@ -33,6 +33,6 @@ namespace Bookshop.ProductsLib
                 recommendedBooksList.Add(bookList[i]);
             }
             return recommendedBooksList;
-        }
+        }*/
     }
 }

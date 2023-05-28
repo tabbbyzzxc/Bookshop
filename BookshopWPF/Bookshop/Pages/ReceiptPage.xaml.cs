@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Bookshop.ViewModels;
 using Bookshop.ProductsLib;
-using Bookshop.ProductsLib.Repositories;
+using Bookshop.Services;
 
 namespace Bookshop
 {
@@ -15,17 +14,17 @@ namespace Bookshop
     /// </summary>
     public partial class ReceiptPage : Page
     {
-        private ObservableCollection<Book> _books;
-        private BookRepository _bookRepository = new BookRepository();
+        private ObservableCollection<Product> _allProducts;
+        private ProductService _productService = new ProductService();
         private ObservableCollection<BookIncomeModel> _bookIncomeModels;
 
         public ReceiptPage()
         {
-            var allBooks = _bookRepository.GetAllBooks();
-            _books = new ObservableCollection<Book>(allBooks);
+            var allProducts = _productService.GetAllProducts();
+            _allProducts = new ObservableCollection<Product>(allProducts);
             _bookIncomeModels = new ObservableCollection<BookIncomeModel>();
             InitializeComponent();
-            listView.ItemsSource = _books;
+            listView.ItemsSource = _allProducts;
             arrivalListView.ItemsSource = _bookIncomeModels;
             
         }
@@ -93,10 +92,10 @@ namespace Bookshop
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-            var list = _bookIncomeModels.Select(item => new BookQuantity(item.Id, item.Quantity)).ToList();
-            _bookRepository.AddQuantity(list);
+            /*var list = _bookIncomeModels.Select(item => new BookQuantity(item.Id, item.Quantity)).ToList();
+            _productService.AddQuantity(list);
             MessageBox.Show("Book(s) added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            _bookIncomeModels.Clear();
+            _bookIncomeModels.Clear();*/
         }
     }
 }

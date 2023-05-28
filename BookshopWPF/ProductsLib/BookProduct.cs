@@ -8,7 +8,7 @@
 
         }
 
-        public BookProduct(long id, string description, decimal sellPrice, decimal buyPrice, int quantity, string title, string author, string genre, string language) : base(id, description, sellPrice, buyPrice, quantity)
+        public BookProduct(string description, decimal sellPrice, decimal buyPrice, string title, string author, string genre, string language) : base(description, sellPrice, buyPrice)
         {
             Title = title;
             Author = author;

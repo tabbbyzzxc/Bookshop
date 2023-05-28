@@ -6,8 +6,8 @@ public class Book : BookProduct
     {
 
     }
-    public Book(long id, string description, decimal sellPrice, decimal buyPrice, int quantity, string title, string author,string genre, string language, string paperType, int pageQuantity)
-        : base(id, description, sellPrice, buyPrice, quantity, title, author, genre, language)
+    public Book(string description, decimal sellPrice, decimal buyPrice, string title, string author, string genre, string language, string paperType, int pageQuantity)
+        : base(description, sellPrice, buyPrice, title, author, genre, language)
     {
         PaperType = paperType;
         PageQuantity = pageQuantity;
@@ -20,7 +20,7 @@ public class Book : BookProduct
 
     public override string GetDescription()
     {
-        return base.GetDescription();
+        return base.GetDescription() + $"Paper Type: {PaperType}, Page Quantity: {PageQuantity}";
     }
 
     public override string GetProductType()

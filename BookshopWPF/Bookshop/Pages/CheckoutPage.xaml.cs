@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Bookshop.ProductsLib;
-using Bookshop.ProductsLib.Repositories;
+using Bookshop.Services;
 using Bookshop.ViewModels;
 
 namespace Bookshop
@@ -25,18 +17,18 @@ namespace Bookshop
     public partial class CheckoutPage : Page
     {
 
-        private ObservableCollection<BookAvailableModel> _availableBooksList;
+        private ObservableCollection<Product> _availableProductList;
         private ObservableCollection<OrderLineViewModel> _orderLineList;
-        private BookRepository _bookRepository = new BookRepository();
-        private OrderRepository _orderRepository = new OrderRepository();
+        private ProductService _productService = new ProductService();
+        private OrderService _orderService = new OrderService();
 
         public CheckoutPage()
         {
-            var allBooks = _bookRepository.GetAvailableBooks();
-            _availableBooksList = new ObservableCollection<BookAvailableModel>(allBooks);
+            var allProduct = _productService.GetAllProducts();
+            _availableProductList = new ObservableCollection<Product>(allProduct);
             _orderLineList = new ObservableCollection<OrderLineViewModel>();
             InitializeComponent();
-            availableBooksListView.ItemsSource = _availableBooksList;
+            availableBooksListView.ItemsSource = _availableProductList;
             orderListView.ItemsSource = _orderLineList;
         }
 
@@ -56,9 +48,8 @@ namespace Bookshop
                 }).ToList(),
                 Date = DateTime.Now
             };
-            if (_orderRepository.SaveOrder(order))
+            if (_orderService.AddOrder(order))
             {
-                _bookRepository.UpdateBookQuantity(order);
                 MessageBox.Show("Order placed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 _orderLineList.Clear();
                 return;
@@ -147,7 +138,7 @@ namespace Bookshop
         private void OnSearch(object sender, TextChangedEventArgs e)
         {
             var text = Search.Text;
-            var filteredBooks = _availableBooksList.Where(x => x.Name.Contains(text, StringComparison.OrdinalIgnoreCase) || x.Author.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredBooks = _availableProductList.Where(x => x.GetDescription().Contains(text, StringComparison.OrdinalIgnoreCase)).ToList(); //переделать
             availableBooksListView.ItemsSource = filteredBooks;
         }
         
@@ -156,7 +147,7 @@ namespace Bookshop
             var textbox = (TextBox)sender;
             if (int.TryParse(textbox.Text, out var currentQuantity) && int.TryParse(textbox.Tag.ToString(), out var selectedId))
             {
-                var selectedBook = _availableBooksList.First(x => x.Id == selectedId);
+                var selectedBook = _availableProductList.First(x => x.Id == selectedId);
                 if (currentQuantity > selectedBook.Quantity)
                 {
                     textbox.Text = selectedBook.Quantity.ToString();

@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Bookshop.Services;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Bookshop.ProductsLib.Repositories;
 
 namespace Bookshop
 {
@@ -23,10 +10,10 @@ namespace Bookshop
     {
         public MissingPage()
         {
-            BookRepository repo = new BookRepository();
+            var productService = new ProductService();
             
             InitializeComponent();
-            listView.ItemsSource = repo.GetMissingBooks();
+            listView.ItemsSource = productService.GetMissingProducts();
         }
     }
 }

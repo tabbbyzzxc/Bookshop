@@ -11,7 +11,11 @@
         public decimal SellPrice { get; set; }
 
         public int Quantity { get; set; }
-        
+
+        public Order Order { get; set; }
+
+        public long OrderId { get; set; }
+
         public decimal Total
         {
             get

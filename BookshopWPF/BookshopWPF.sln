@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookshop", "Bookshop\Bookshop.csproj", "{E438E423-105D-4BE2-AEF0-25C06FD93FD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookshop.ProductsLib", "ProductsLib\Bookshop.ProductsLib.csproj", "{6545560F-0A5B-4EF2-BA0B-32164DB7332A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookshop.ProductsLib", "ProductsLib\Bookshop.ProductsLib.csproj", "{6545560F-0A5B-4EF2-BA0B-32164DB7332A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp3", "ConsoleApp3\ConsoleApp3.csproj", "{CCA68C30-3577-40C8-906A-49839D4A3F89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6545560F-0A5B-4EF2-BA0B-32164DB7332A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6545560F-0A5B-4EF2-BA0B-32164DB7332A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6545560F-0A5B-4EF2-BA0B-32164DB7332A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCA68C30-3577-40C8-906A-49839D4A3F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA68C30-3577-40C8-906A-49839D4A3F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA68C30-3577-40C8-906A-49839D4A3F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA68C30-3577-40C8-906A-49839D4A3F89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

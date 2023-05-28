@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Bookshop.ProductsLib;
-using Bookshop.ProductsLib.Repositories;
+using Bookshop.Services;
 
 namespace Bookshop
 {
@@ -19,7 +19,7 @@ namespace Bookshop
 
         private void SaveButton(object sender, RoutedEventArgs e)
         {
-            BookRepository repo = new BookRepository();
+            BookService repo = new BookService();
             repo.UpdateBook(_book);
             Close();
         }

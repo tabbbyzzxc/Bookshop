@@ -13,13 +13,11 @@ namespace Bookshop.ProductsLib
             
         }
 
-        protected Product(long id, string description, decimal sellPrice, decimal buyPrice, int quantity)
+        protected Product(string description, decimal sellPrice, decimal buyPrice)
         {
-            Id = id;
             Description = description;
             SellPrice = sellPrice;
             BuyPrice = buyPrice;
-            Quantity = quantity;
         }
 
         public long Id { get; set; }

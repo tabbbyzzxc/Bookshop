@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookshop.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,24 @@ namespace Bookshop
                     break;
             }
             Frame1.Content = page;
+        }
+
+        private void ItemTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = (ComboBoxItem)ItemTypeComboBox.SelectedItem;
+            switch(selectedItem.Content.ToString())
+            {
+                case "Book":
+                    {
+                        Frame1.Content = new AddBookPage();
+                        break;
+                    }
+                case "Audio Book":
+                    {
+                        Frame1.Content = new AddAudioBookPage();
+                        break;
+                    }
+            }
         }
     }
 }

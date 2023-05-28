@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Bookshop.ProductsLib;
+using Bookshop.Services;
 
 namespace Bookshop
 {
@@ -16,7 +16,7 @@ namespace Bookshop
             InitializeComponent();
             fromDate.SelectedDate = DateTime.Now;
             dueDate.SelectedDate = DateTime.Now;
-            sortComboBox.SelectedIndex = 0;
+            //sortComboBox.SelectedIndex = 0;
         }
 
         private void Button_Sort(object sender, RoutedEventArgs e)
@@ -32,7 +32,7 @@ namespace Bookshop
             DateTime dueTime = new DateTime(due.Year, due.Month, due.Day, 23, 59, 59);
             
             var reportManager = new ReportManager();
-            var report = reportManager.MakeReport(fromTime, dueTime);
+            var report = reportManager.MakeReport(1,fromTime, dueTime);
             listView.ItemsSource = report.ReportList;
             totalAmount.Content = report.TotalAmount;
             totalQuantity.Content = report.TotalQuantity;

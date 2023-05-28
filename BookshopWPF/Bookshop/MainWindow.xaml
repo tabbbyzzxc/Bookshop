@@ -21,14 +21,28 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
         <Button Name="CheckoutButton" Width="150" Height="52" Content="To order" VerticalAlignment="Top" Margin="25,33,0,0" Click="MenuButton_Click"/>
+       
         <Button Name="ReportButton" Width="150" Height="23" VerticalAlignment="Top" Margin="25,90,0,0" Content="Sales Report" Click="MenuButton_Click"/>
+
+        <ComboBox x:Name="ItemTypeComboBox" Width="150" Height="50" Margin="25,150,0,0" FontSize="20" SelectedIndex="0" SelectionChanged="ItemTypeComboBox_SelectionChanged">
+            <ComboBoxItem Content="Add product" IsEnabled="false"/>
+            <ComboBoxItem Content="Book" />
+            <ComboBoxItem Content="Audio Book" />
+        </ComboBox>
+
         <Button Name="AddButton" Width="150" Height="25" Content="Add book" VerticalAlignment="Top" Margin="25,205,0,0" Click="MenuButton_Click"/>
+       
         <Button Name="EditButton" Width="150" Height="25" Margin="25,235,0,0" Content="Edit book" VerticalAlignment="Top" Click="MenuButton_Click"/>
+       
         <Button Name="ReceiptButton" Width="150" Height="25" Margin="25,265,0,0" Content="Arrival of goods" VerticalAlignment="Top" Click="MenuButton_Click"/>
+        
         <Button Name="MissingButton" Width="150" Height="25" Margin="25,295,0,0" Content="Missing books" VerticalAlignment="Top" Click="MenuButton_Click"/>
+       
         <Frame x:Name="Frame1" Grid.Column="1" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>

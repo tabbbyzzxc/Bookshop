@@ -6,8 +6,8 @@
         {
 
         }
-        public AudioBook(long id, string description, decimal sellPrice, decimal buyPrice, int quantity, string title, string author, string genre, string language, string format)
-            : base(id, description, sellPrice, buyPrice, quantity, title, author, genre, language)
+        public AudioBook(string description, decimal sellPrice, decimal buyPrice, string title, string author, string genre, string language, string format)
+            : base(description, sellPrice, buyPrice, title, author, genre, language)
         {
             Format = format;
         }

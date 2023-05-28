@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Bookshop.ProductsLib;
-using Bookshop.ProductsLib.Repositories;
+using Bookshop.Services;
 
 namespace Bookshop
 {
@@ -12,15 +12,14 @@ namespace Bookshop
     /// Interaction logic for EditPage.xaml
     /// </summary>
     public partial class EditPage : Page
-    {
-        private List<Book> _books;
+    { 
+        private List<Product> _allProducts = new List<Product>();
+        private ProductService _productService = new ProductService();
         public EditPage()
         {
-            
-            BookRepository repo = new BookRepository();
-            _books= repo.GetAllBooks();
+            var allProducts = _productService.GetAllProducts();
             InitializeComponent();
-            listView.ItemsSource = _books;
+            listView.ItemsSource = _allProducts;
 
         }
 
@@ -37,7 +36,7 @@ namespace Bookshop
         private void OnSearch(object sender, TextChangedEventArgs e)
         {
             var text = Search.Text;
-            var filteredBooks = _books.Where(x => x.Title.Contains(text, StringComparison.OrdinalIgnoreCase) || x.Author.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredBooks = _allProducts.Where(x => x.GetDescription().Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
             listView.ItemsSource= filteredBooks;
         }
     }
