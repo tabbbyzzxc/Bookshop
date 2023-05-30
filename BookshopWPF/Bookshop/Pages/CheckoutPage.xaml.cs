@@ -24,7 +24,7 @@ namespace Bookshop
 
         public CheckoutPage()
         {
-            var allProduct = _productService.GetAllProducts();
+            var allProduct = _productService.GetAllProducts(false);
             _availableProductList = new ObservableCollection<Product>(allProduct);
             _orderLineList = new ObservableCollection<OrderLineViewModel>();
             InitializeComponent();

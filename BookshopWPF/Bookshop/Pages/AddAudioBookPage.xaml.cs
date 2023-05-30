@@ -49,7 +49,7 @@ namespace Bookshop.Pages
                 return;
             }
 
-            var audioBook = new AudioBook(Description.Text, tempSell, tempBuy, tempTitle, tempAuth, GenreComboBox.SelectedItem.ToString(), Language.Text, FormatComboBox.SelectedItem.ToString());
+            var audioBook = new AudioBook(Description.Text, tempSell, tempBuy, tempTitle, tempAuth, GenreComboBox.Text, Language.Text, FormatComboBox.Text);
 
 
             if (audioBookRepo.AddAudioBook(audioBook))

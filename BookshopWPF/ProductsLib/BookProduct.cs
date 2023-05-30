@@ -1,6 +1,6 @@
 ﻿namespace Bookshop.ProductsLib
 {
-    public class BookProduct : Product
+    public abstract class BookProduct : Product
     {
 
         public BookProduct()
@@ -29,9 +29,5 @@
             return base.GetDescription() + $"Title: {Title}, Author: {Author}, Genre: {Genre}, Language: {Language} ";
         }
 
-        public override string GetProductType()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

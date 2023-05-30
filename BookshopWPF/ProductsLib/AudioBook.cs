@@ -14,15 +14,14 @@
 
         public string Format { get; set; }
 
+        public override string MainData => $"{Author}. {Title}. {Genre}";
+
+        public override string ProductType => "Audio Book";
 
         public override string GetDescription()
         {
             return base.GetDescription();
         }
 
-        public override string GetProductType()
-        {
-            return "Audio Book";
-        }
     }
 }

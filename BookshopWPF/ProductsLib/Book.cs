@@ -18,13 +18,14 @@ public class Book : BookProduct
     public int PageQuantity { get; set; }
 
 
+
+    public override string MainData => $"{Author}. {Title}. {Genre}";
+
+    public override string ProductType => "Book";
+
     public override string GetDescription()
     {
         return base.GetDescription() + $"Paper Type: {PaperType}, Page Quantity: {PageQuantity}";
     }
 
-    public override string GetProductType()
-    {
-        return "Book";
-    }
 }

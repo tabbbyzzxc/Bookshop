@@ -13,8 +13,10 @@ namespace Bookshop
         private BookService bookRepo = new BookService();
         public AddBookPage()
         {
-
+        
             InitializeComponent();
+            GenreComboBox.ItemsSource = AppConstants.Genres;
+            PaperTypeComboBox.ItemsSource = AppConstants.PaperTypes;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -46,7 +48,8 @@ namespace Bookshop
                 return;
             }
 
-            var book = new Book(Description.Text, tempSell, tempBuy, tempTitle, tempAuth, GenreComboBox.SelectedItem.ToString(), Language.Text, PaperTypeComboBox.SelectedItem.ToString(), tempPageCount);
+
+            var book = new Book(Description.Text, tempSell, tempBuy, tempTitle, tempAuth, GenreComboBox.Text, Language.Text, PaperTypeComboBox.Text, tempPageCount);
            
             
             if(bookRepo.AddBook(book))

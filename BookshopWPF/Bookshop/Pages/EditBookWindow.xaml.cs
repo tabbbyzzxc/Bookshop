@@ -9,18 +9,20 @@ namespace Bookshop
     /// </summary>
     public partial class EditBookWindow : Window
     {
-        private Book _book;
         public EditBookWindow(Book book)
         {
             InitializeComponent();
+            GenreComboBox.ItemsSource = AppConstants.Genres;
+            PaperTypeComboBox.ItemsSource = AppConstants.PaperTypes;
             DataContext = book;
-            _book = book;
         }
 
         private void SaveButton(object sender, RoutedEventArgs e)
         {
-            BookService repo = new BookService();
-            repo.UpdateBook(_book);
+            
+            BookService bookService = new BookService();
+            bookService.UpdateBook(DataContext as Book);
+            
             Close();
         }
 

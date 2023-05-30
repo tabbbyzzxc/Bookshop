@@ -37,12 +37,6 @@
         
         <Label Content="Genre" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Top" FontSize="18"/>
         <ComboBox x:Name="GenreComboBox" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" Width="343" Height="26" FontSize="16" SelectedIndex="0">
-            <ComboBoxItem Content="Adventure" />
-            <ComboBoxItem Content="Biography" />
-            <ComboBoxItem Content="Fantasy" />
-            <ComboBoxItem Content="Mystery" />
-            <ComboBoxItem Content="Romance" />
-            <ComboBoxItem Content="Science Fiction" />
         </ComboBox>
 
 
@@ -57,8 +51,6 @@
 
         <Label Content="Page Type" HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Top" FontSize="18"/>
         <ComboBox x:Name="PaperTypeComboBox" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="1" Width="343" Height="26" FontSize="16" SelectedIndex="0">
-            <ComboBoxItem Content="Hardcover" />
-            <ComboBoxItem Content="Paperback" />
         </ComboBox>
 
         <Label Content="Page Count" HorizontalAlignment="Right" Grid.Row="8" VerticalAlignment="Top" FontSize="18"/>

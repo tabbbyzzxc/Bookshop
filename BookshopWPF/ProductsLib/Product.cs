@@ -30,11 +30,14 @@ namespace Bookshop.ProductsLib
 
         public int Quantity { get; set; }
 
+        public abstract string MainData { get; }
+
+        public abstract string ProductType { get; }
+
         public virtual string GetDescription()
         {
             return $"Id: {Id}, Description: {Description}, Sell price: {SellPrice}, Buy price: {BuyPrice}, Quantity: {Quantity} ";
         }
 
-        public abstract string GetProductType();
     }
 }

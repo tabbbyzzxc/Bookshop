@@ -9,10 +9,17 @@ namespace Bookshop.Services
 {
     public class AudioBookService
     {
-        public List<AudioBook> GetAllAudioBooks()
+        public List<AudioBook> GetAllAudioBooks(bool includeMissingAudioBooks)
         {
             using var db = new ProductDbContext();
-            return db.AudioBooks.Where(x => x.Quantity > 0).ToList();
+            var audioBooks = db.AudioBooks.AsQueryable();
+            if (!includeMissingAudioBooks)
+            {
+                audioBooks = audioBooks.Where(x => x.Quantity > 0);
+
+            }
+
+            return audioBooks.ToList();
         }
 
         public bool AddAudioBook(AudioBook audioBook)
@@ -38,7 +45,14 @@ namespace Bookshop.Services
             {
                 return;
             }
-
+            item.Author = audioBook.Author;
+            item.Title = audioBook.Title;
+            item.Genre = audioBook.Genre;
+            item.BuyPrice = audioBook.BuyPrice;
+            item.SellPrice = audioBook.SellPrice;
+            item.Language = audioBook.Language;
+            item.Description = audioBook.Description;
+            item.Format = audioBook.Format;
             db.Update(item);
             db.SaveChanges();
 

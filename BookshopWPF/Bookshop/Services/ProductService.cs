@@ -9,13 +9,13 @@ namespace Bookshop.Services
 {
     public class ProductService
     {
-        public List<Product> GetAllProducts()
+        public List<Product> GetAllProducts(bool includeMissingProducts = false)
         {
             var _allProducts = new List<Product>();
             BookService _bookService = new BookService();
             AudioBookService _audioBookService = new AudioBookService();
-            var allBooks = _bookService.GetAllBooks();
-            var allAudioBooks = _audioBookService.GetAllAudioBooks();
+            var allBooks = _bookService.GetAllBooks(includeMissingProducts);
+            var allAudioBooks = _audioBookService.GetAllAudioBooks(includeMissingProducts);
             _allProducts.AddRange(allBooks);
             _allProducts.AddRange(allAudioBooks);
             return _allProducts;

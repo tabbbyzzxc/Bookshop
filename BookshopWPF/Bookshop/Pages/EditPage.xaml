@@ -22,11 +22,10 @@
             <TextBox x:Name="Search" TextChanged="OnSearch" HorizontalAlignment="Center"  Text="" Width="120" Height="20"/>
         </StackPanel>
 
-        <ListView x:Name="listView" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="listView_MouseDoubleClick" Grid.Row="2">
+        <ListView x:Name="listView" MouseDoubleClick="listView_MouseDoubleClick" Grid.Row="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="300"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="300"/>
+                    <GridViewColumn Header="Product Description" DisplayMemberBinding="{Binding MainData}" Width="600"/>
                     <GridViewColumn Header="Buy Price" DisplayMemberBinding="{Binding BuyPrice}"/>
                     <GridViewColumn Header="Sell Price" DisplayMemberBinding="{Binding SellPrice}"/>
                 </GridView>

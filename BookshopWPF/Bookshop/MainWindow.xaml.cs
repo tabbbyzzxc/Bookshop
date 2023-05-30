@@ -35,7 +35,7 @@ namespace Bookshop
             switch (button.Name)
             {
                 case "CheckoutButton":
-                    page = new CheckoutPage();
+                    page = new OrderPage();
                     break;
                 case "ReportButton":
                     page = new ReportPage();

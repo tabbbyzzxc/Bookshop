@@ -1,0 +1,65 @@
+﻿<Page x:Class="Bookshop.Pages.OrderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Bookshop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OrderPage">
+
+    <Grid Margin="0,0,10,0">
+        <ContentControl x:Name="NewOrderPage">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition />
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Order" FontSize="24" HorizontalAlignment="Center"></Label>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10">
+                    <Label Content="Search: "></Label>
+                    <TextBox x:Name="SearchTextBox" Width="100" Height="24"></TextBox>
+                </StackPanel>
+
+                <ListView x:Name="listView" MouseDoubleClick="listView_MouseDoubleClick" Grid.Row="2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Product Description" DisplayMemberBinding="{Binding MainData}" Width="520"/>
+                            <GridViewColumn Header="Product Type" DisplayMemberBinding="{Binding ProductType}" Width="100"/>
+                            <GridViewColumn Header="Price" DisplayMemberBinding="{Binding SellPrice}" Width="80"/>
+                            <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="100"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Button Content="Open cart" Grid.Row="3" HorizontalAlignment="Center" Height="46" Width="114" Margin="0,10,0,10" Click="OpenCart_Click"/>
+            </Grid>
+        </ContentControl>
+
+        <ContentControl x:Name="CartPage" Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Cart" FontSize="24" HorizontalAlignment="Center"></Label>
+
+                <DataGrid x:Name="orderDataGrid" AutoGenerateColumns="true" Grid.Row="1"></DataGrid>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,10">
+                    <Button Content="Order" Margin="0,0,10,0" Width="114" Height="46" Click="Order_Click"></Button>
+                    <Button Content="Clear" Margin="0,0,10,0" Width="114" Height="46" Click="ClearBtn_Click"></Button>
+                    <Button Content="Close" Width="114" Height="46" Click="CloseBtn_Click"></Button>
+                </StackPanel>
+                
+            </Grid>
+        </ContentControl>
+    </Grid>
+</Page>

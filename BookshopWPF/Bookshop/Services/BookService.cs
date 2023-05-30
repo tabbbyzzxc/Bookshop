@@ -10,10 +10,18 @@ namespace Bookshop.Services
 {
     public class BookService
     {
-        public List<Book> GetAllBooks()
+
+        public List<Book> GetAllBooks(bool includeMissingBooks)
         {
             using var db = new ProductDbContext();
-            return db.Books.Where(x => x.Quantity > 0).ToList();
+            var books = db.Books.AsQueryable();
+            if (!includeMissingBooks)
+            {
+                books = books.Where(x => x.Quantity > 0);
+                
+            }
+
+            return books.ToList();
         }
 
         public bool AddBook(Book book)
@@ -39,7 +47,15 @@ namespace Bookshop.Services
             {
                 return;
             }
-            
+            item.Description = book.Description;
+            item.SellPrice =book.SellPrice;
+            item.BuyPrice =book.BuyPrice;
+            item.Title = book.Title;
+            item.Author = book.Author;
+            item.PaperType = book.PaperType;
+            item.PageQuantity = book.PageQuantity;
+            item.Genre = book.Genre;
+            item.Language = book.Language;
             db.Update(item);
             db.SaveChanges();
             
