@@ -1,14 +1,12 @@
-﻿namespace Bookshop.ProductsLib
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Bookshop.ProductsLib
 {
     public class OrderLine
     {
         public long Id { get; set; }
 
-        public string Name { get; set; }
-
-        public string Author { get; set; }
-
-        public decimal SellPrice { get; set; }
+        public Guid UniqueId { get; set; } //change
 
         public int Quantity { get; set; }
 
@@ -16,12 +14,10 @@
 
         public long OrderId { get; set; }
 
-        public decimal Total
-        {
-            get
-            {
-                return SellPrice * Quantity;
-            }
-        }
+        [NotMapped]
+        public Product Product { get; set; }
+
+        public decimal Total => Quantity * Product.SellPrice;
+        
     }
 }

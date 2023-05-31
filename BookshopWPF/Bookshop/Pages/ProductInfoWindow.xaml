@@ -5,16 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bookshop.Pages"
         mc:Ignorable="d"
-        Title="ProductInfoWindow" Height="450" Width="800">
+        Title="ProductInfoWindow" Height="500" Width="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label x:Name="informationLabel"></Label>
+        <Label x:Name="informationLabel" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"></Label>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Grid x:Name="infoGrid" Grid.Row="1" Margin="0,0,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Button Content="Add to cart" Margin="0,0,10,0" Width="114" Height="46" Click="AddBtn_Click"></Button>
             <Button Content="Close" Width="114" Height="46" Click="CloseBtn_Click"></Button>
         </StackPanel>

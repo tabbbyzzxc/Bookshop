@@ -7,6 +7,7 @@ using System.Windows;
 using System;
 using Bookshop.ViewModels;
 using System.Linq;
+using System.Xml;
 
 namespace Bookshop.Pages
 {
@@ -15,13 +16,14 @@ namespace Bookshop.Pages
     /// </summary>
     public partial class OrderPage : Page
     {
-        private List<Product> _allProducts = new List<Product>();
+        private ObservableCollection<Product> _allProducts = new ObservableCollection<Product>();
         private ProductService _productService = new ProductService();
         private ObservableCollection<CartProductModel> _orderedItems = new ObservableCollection<CartProductModel>();
+        private OrderService _orderService = new OrderService();
         public OrderPage()
         {
             InitializeComponent();
-            _allProducts = _productService.GetAllProducts(true);
+            _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
             listView.ItemsSource = _allProducts;
             orderDataGrid.ItemsSource = _orderedItems;
             orderDataGrid.CellEditEnding += OrderDataGrid_CellEditEnding;
@@ -33,7 +35,7 @@ namespace Bookshop.Pages
             var selected = orderDataGrid.SelectedItem as CartProductModel;
             if (selected != null && int.TryParse(inputText, out var quantity))
             {
-                var product = _allProducts.First(x => x.Id == selected.Id);
+                var product = _allProducts.First(x => x.UniqueId == selected.UniqueId);
                 if (quantity > product.Quantity)
                 {
                     selected.Quantity = product.Quantity;
@@ -50,19 +52,20 @@ namespace Bookshop.Pages
             }
 
             orderDataGrid.Columns[0].Visibility = Visibility.Hidden;
-            orderDataGrid.Columns[1].Width = 300;
-            orderDataGrid.Columns[1].Header = "Product";
-            orderDataGrid.Columns[1].IsReadOnly = true;
-            orderDataGrid.Columns[2].Width = 100;
-            orderDataGrid.Columns[2].Header = "Type";
+            orderDataGrid.Columns[1].Visibility = Visibility.Hidden;
+            orderDataGrid.Columns[2].Width = 300;
+            orderDataGrid.Columns[2].Header = "Product";
             orderDataGrid.Columns[2].IsReadOnly = true;
             orderDataGrid.Columns[3].Width = 100;
+            orderDataGrid.Columns[3].Header = "Type";
             orderDataGrid.Columns[3].IsReadOnly = true;
+            orderDataGrid.Columns[4].Width = 100;
+            orderDataGrid.Columns[4].IsReadOnly = true;
             
-            orderDataGrid.Columns[4].Width = 100; // quantity
+            orderDataGrid.Columns[5].Width = 100; // quantity
             
-            orderDataGrid.Columns[5].Width = 100;
-            orderDataGrid.Columns[5].IsReadOnly = true;
+            orderDataGrid.Columns[6].Width = 100;
+            orderDataGrid.Columns[6].IsReadOnly = true;
         }
 
         private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -77,28 +80,49 @@ namespace Bookshop.Pages
             }
         }
 
-        private void OpenCart_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void OpenCart_Click(object sender, RoutedEventArgs e)
         {
-            NewOrderPage.Visibility = Visibility.Hidden;
-            CartPage.Visibility = Visibility.Visible;
+            TogglePages();
             InitDataGrid();
         }
 
-        private void Order_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Order_Click(object sender, RoutedEventArgs e)
         {
-
+            Order order = new Order()
+            {
+                Date = DateTime.Now,
+                OrderList = _orderedItems.Select(x => new OrderLine()
+                {
+                    UniqueId = x.UniqueId,
+                    Quantity = x.Quantity,
+                    Product = _allProducts.First(y => y.UniqueId == x.UniqueId)
+                    
+                }).ToList()
+            };
+            _orderService.AddOrder(order);
+            _orderedItems.Clear();
+            _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
+            listView.ItemsSource = _allProducts;
+            TogglePages();
+            
         }
+        
 
-        private void CloseBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            NewOrderPage.Visibility = Visibility.Visible;
-            CartPage.Visibility = Visibility.Hidden;
+            TogglePages();
         }
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
             _orderedItems.Clear();
+        }
+
+        private void TogglePages()
+        {
+            NewOrderPage.Visibility = NewOrderPage.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            CartPage.Visibility = CartPage.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
         }
     }
 }

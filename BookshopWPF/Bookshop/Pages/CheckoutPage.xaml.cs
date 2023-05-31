@@ -40,9 +40,6 @@ namespace Bookshop
                 OrderList = _orderLineList.Select(x => new OrderLine
                 {
                     Id = x.Id,
-                    Author = x.Author,
-                    Name = x.Name,
-                    SellPrice = x.SellPrice,
                     Quantity = x.Quantity
 
                 }).ToList(),

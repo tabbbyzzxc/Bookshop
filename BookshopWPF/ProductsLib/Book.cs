@@ -28,4 +28,18 @@ public class Book : BookProduct
         return base.GetDescription() + $"Paper Type: {PaperType}, Page Quantity: {PageQuantity}";
     }
 
+    public override Dictionary<string, string> GetProductInfoParameters()
+    {
+        return new Dictionary<string, string>
+        {
+            { "Author", Author },
+            { "Title", Title },
+            { "Genre", Genre },
+            { "Language", Language },
+            { "Paper type", PaperType },
+            { "Page count", PageQuantity.ToString()},
+            { "Description", Description},
+            { "Price", SellPrice.ToString()}
+        };
+    }
 }

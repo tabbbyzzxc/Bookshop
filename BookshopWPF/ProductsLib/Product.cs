@@ -22,6 +22,8 @@ namespace Bookshop.ProductsLib
 
         public long Id { get; set; }
 
+        public Guid UniqueId { get; set; }
+
         public string Description { get; set; }
 
         public decimal SellPrice { get; set; }
@@ -38,6 +40,8 @@ namespace Bookshop.ProductsLib
         {
             return $"Id: {Id}, Description: {Description}, Sell price: {SellPrice}, Buy price: {BuyPrice}, Quantity: {Quantity} ";
         }
+
+        public abstract Dictionary<string, string> GetProductInfoParameters();
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Bookshop.ViewModels
@@ -7,6 +8,8 @@ namespace Bookshop.ViewModels
     {
         private int _quantity;
         public long Id { get; set; }
+
+        public Guid UniqueId { get; set; }
 
         public string ProductName { get; set; }
 

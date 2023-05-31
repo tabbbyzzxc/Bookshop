@@ -8,16 +8,15 @@ namespace Bookshop.Services
 {
     public class OrderService
     {
+        private ProductService productService = new ProductService();
+
         public bool AddOrder(Order order)
         {
-            if (order.Total == 0)
-            {
-                return false;
-            }
-
             var db = new ProductDbContext();
             db.Orders.Add(order);
             db.SaveChanges();
+            productService.UpdateQuantities(order);
+
             return true;
         }
 
@@ -34,5 +33,6 @@ namespace Bookshop.Services
             return filteredOrders;
         }
 
+        
     }
 }

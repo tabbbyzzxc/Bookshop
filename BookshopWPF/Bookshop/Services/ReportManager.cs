@@ -44,9 +44,6 @@ namespace Bookshop.Services
                         report.ReportList.Add(new ReportLine()
                         {
                             Id = item.Id,
-                            Name = item.Name,
-                            Author = item.Author,
-                            SellPrice = item.SellPrice,
                             Quantity = item.Quantity,
                         });
                     }

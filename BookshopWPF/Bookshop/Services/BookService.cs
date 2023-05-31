@@ -33,6 +33,7 @@ namespace Bookshop.Services
                 return false;
             }
 
+            book.UniqueId = Guid.NewGuid();
             db.Books.Add(book);
             db.SaveChanges();
 

@@ -23,5 +23,19 @@
             return base.GetDescription();
         }
 
+        public override Dictionary<string, string> GetProductInfoParameters()
+        {
+            return new Dictionary<string, string>
+        {
+            { "Author", Author },
+            { "Title", Title },
+            { "Genre", Genre },
+            { "Language", Language },
+            { "Format", Format },
+            { "Description", Description},
+            { "Price", SellPrice.ToString()}
+        };
+        }
+
     }
 }

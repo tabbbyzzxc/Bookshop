@@ -31,6 +31,7 @@ namespace Bookshop.Services
                 return false;
             }
 
+            audioBook.UniqueId = Guid.NewGuid();
             db.AudioBooks.Add(audioBook);
             db.SaveChanges();
 
