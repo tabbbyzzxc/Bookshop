@@ -1,32 +1,39 @@
 ﻿using Bookshop.ProductsLib;
 using Bookshop.Services;
+using Bookshop.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.Windows;
-using System;
-using Bookshop.ViewModels;
 using System.Linq;
-using System.Xml;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace Bookshop.Pages
 {
     /// <summary>
-    /// Interaction logic for OrderPage.xaml
+    /// Interaction logic for ReturnInvoicePage.xaml
     /// </summary>
-    public partial class OrderPage : Page
+    public partial class ReturnInvoicePage : Page
     {
         private ObservableCollection<Product> _allProducts = new ObservableCollection<Product>();
         private ProductService _productService = new ProductService();
-        private ObservableCollection<CartProductModel> _orderedItems = new ObservableCollection<CartProductModel>();
-        private OrderService _orderService = new OrderService();
-        private SuggestionManager _suggestionManager = new SuggestionManager();
-        public OrderPage()
+        private ObservableCollection<CartProductModel> _invoicedItems = new ObservableCollection<CartProductModel>();
+        private InvoiceService _invoiceService = new InvoiceService();
+        public ReturnInvoicePage()
         {
             InitializeComponent();
             _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
             listView.ItemsSource = _allProducts;
-            orderDataGrid.ItemsSource = _orderedItems;
+            orderDataGrid.ItemsSource = _invoicedItems;
             orderDataGrid.CellEditEnding += OrderDataGrid_CellEditEnding;
         }
 
@@ -40,14 +47,14 @@ namespace Bookshop.Pages
                 if (quantity > product.Quantity)
                 {
                     ordered.Quantity = product.Quantity + 1;
-                    ((TextBox)e.EditingElement).Text = (product.Quantity+1).ToString();
+                    ((TextBox)e.EditingElement).Text = (product.Quantity + 1).ToString();
                     product.Quantity -= ordered.Quantity;
                 }
                 else
-                {   
+                {
                     product.Quantity -= quantity - 1;
                 }
-                
+
             }
 
         }
@@ -69,9 +76,9 @@ namespace Bookshop.Pages
             orderDataGrid.Columns[3].IsReadOnly = true;
             orderDataGrid.Columns[4].Width = 100;
             orderDataGrid.Columns[4].IsReadOnly = true;
-            
+
             orderDataGrid.Columns[5].Width = 100; // quantity
-            
+
             orderDataGrid.Columns[6].Width = 100;
             orderDataGrid.Columns[6].IsReadOnly = true;
         }
@@ -81,42 +88,42 @@ namespace Bookshop.Pages
             var selectedItem = listView.SelectedItem as Product;
             if (selectedItem != null)
             {
-                var suggestedProducts = _suggestionManager.GetRecommendedProducts(selectedItem);
-                new ProductInfoWindow(selectedItem, _orderedItems, suggestedProducts).ShowDialog();
+                new ProductAddQuantityWindow(selectedItem, _invoicedItems).ShowDialog();
 
                 orderDataGrid.Items.Refresh();
                 listView.Items.Refresh();
             }
         }
 
-        private void OpenCart_Click(object sender, RoutedEventArgs e)
+        private void OpenInvoice_Click(object sender, RoutedEventArgs e)
         {
             TogglePages();
-            
+
             InitDataGrid();
         }
 
-        private void Order_Click(object sender, RoutedEventArgs e)
+        private void Invoice_Click(object sender, RoutedEventArgs e)
         {
-            Order order = new Order()
+            Invoice invoice = new Invoice()
             {
                 Date = DateTime.Now,
-                OrderList = _orderedItems.Select(x => new OrderLine()
+                InvoiceType = InvoiceType.Return,
+                InvoiceLines = _invoicedItems.Select(x => new InvoiceLine()
                 {
                     ProductUniqueId = x.UniqueId,
                     Quantity = x.Quantity,
                     Product = _allProducts.First(y => y.UniqueId == x.UniqueId)
-                    
+
                 }).ToList()
             };
-            _orderService.AddOrder(order);
-            _orderedItems.Clear();
+            _invoiceService.AddInvoice(invoice);
+            _invoicedItems.Clear();
             _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
             listView.ItemsSource = _allProducts;
             TogglePages();
-            
+
         }
-        
+
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -126,14 +133,14 @@ namespace Bookshop.Pages
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in _orderedItems) 
+            foreach (var item in _invoicedItems)
             {
-                var product = _allProducts.First(x =>  x.UniqueId == item.UniqueId);
+                var product = _allProducts.First(x => x.UniqueId == item.UniqueId);
                 product.Quantity += item.Quantity;
             }
 
             listView.Items.Refresh();
-            _orderedItems.Clear();
+            _invoicedItems.Clear();
         }
 
         private void TogglePages()

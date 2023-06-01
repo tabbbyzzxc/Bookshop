@@ -12,31 +12,51 @@ namespace Bookshop.Pages
     /// </summary>
     public partial class ProductInfoWindow : Window
     {
-        private readonly Product _product;
+        private Product _product;
         private readonly ObservableCollection<CartProductModel> _orderedItems;
 
-        public ProductInfoWindow(Product product, ObservableCollection<CartProductModel> orderedItems)
+        public ProductInfoWindow(Product product, ObservableCollection<CartProductModel> orderedItems, System.Collections.Generic.List<Product> suggestedProducts)
         {
             InitializeComponent();
            
             _product = product;
             _orderedItems = orderedItems;
+            recommendedTextBlock.Text = string.Join(", ", suggestedProducts.Select(x => x.MainData));
             RenderInfo();
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            var cartModel = new CartProductModel()
+            if (_product.Quantity == 0)
             {
-                Id = _product.Id,
-                UniqueId = _product.UniqueId,
-                ProductName = _product.MainData,
-                ProductType = _product.ProductType,
-                Price = _product.SellPrice,
-                Quantity = 1
-            };
-            _orderedItems.Add(cartModel);
-            
+                Close();
+                return;
+            }
+
+            var orderProductExists = _orderedItems.FirstOrDefault(x => x.UniqueId == _product.UniqueId);
+
+            if (orderProductExists != null)
+            {
+                orderProductExists.Quantity++;
+            }
+            else
+            {
+
+                var cartModel = new CartProductModel()
+                {
+                    Id = _product.Id,
+                    UniqueId = _product.UniqueId,
+                    ProductName = _product.MainData,
+                    ProductType = _product.ProductType,
+                    Price = _product.SellPrice,
+                    Quantity = 1
+                };
+
+                _orderedItems.Add(cartModel);
+                
+            }
+
+            _product.Quantity--;
             Close();
         }
 

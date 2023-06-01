@@ -1,38 +1,43 @@
 ﻿using Bookshop.ProductsLib;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Documents;
 
 namespace Bookshop.Services
 {
     public class SuggestionManager
     {
-/*
-        private BookRepository _repo = new BookRepository();
-
-        public List<Book> GetRecommendedBooks(string genre)
+        public List<Product> GetRecommendedProducts(Product product)
         {
-
-            Random rnd = new Random();
-            var bookList = _repo.GetAllBooks().Where(x => x.Genre == genre).ToList();
-            var recommendedBooksList = new List<Book>();
-            for (int i = 0; i < 3; i++)
+            switch (product)
             {
-                var number = rnd.Next(0, bookList.Count);
-                recommendedBooksList.Add(bookList[i]);
+                case Book book:
+                    {
+                        return GetRecommendedBooks(book.Genre);
+                    }
+                case AudioBook audioBook:
+                    {
+                        return GetRecommendedAudioBooks(audioBook.Genre);
+                    }
+                default:
+                    {
+                        return new List<Product>();
+                    }
             }
-            return recommendedBooksList;
         }
 
-        public List<Book> GetRecommendedAudioBooks(string genre)
+        private List<Product> GetRecommendedBooks(string genre)
         {
+            using var db = new ProductDbContext();
+            var books = db.Books.Where(x => x.Genre == genre).Take(3).ToList();
+            return books.Cast<Product>().ToList();
+        }
 
-            Random rnd = new Random();
-            var bookList = _repo.GetAllBooks().Where(x => x.Genre == genre).ToList();
-            var recommendedBooksList = new List<Book>();
-            for (int i = 0; i < 3; i++)
-            {
-                var number = rnd.Next(0, bookList.Count);
-                recommendedBooksList.Add(bookList[i]);
-            }
-            return recommendedBooksList;
-        }*/
+        private List<Product> GetRecommendedAudioBooks(string genre)
+        {
+            using var db = new ProductDbContext();
+            var audioBooks = db.AudioBooks.Where(x => x.Genre == genre).Take(3).ToList();
+            return audioBooks.Cast<Product>().ToList();
+        }
     }
 }

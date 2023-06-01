@@ -56,12 +56,13 @@ namespace Bookshop
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<OrderLine> OrderLines { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrderLine>().HasOne(o => o.Order).WithMany(o => o.OrderList).HasForeignKey(o => o.OrderId);
-            //modelBuilder.Entity<OrderLine>().HasOne(o => o.Product).WithOne(o => o.UniqueId).HasForeignKey(o => o.ProductId);
+            modelBuilder.Entity<InvoiceLine>().HasOne(o => o.Invoice).WithMany(o => o.InvoiceLines).HasForeignKey(o => o.InvoiceId);
+            
             base.OnModelCreating(modelBuilder);
         }
 

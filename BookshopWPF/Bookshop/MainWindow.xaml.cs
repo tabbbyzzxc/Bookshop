@@ -28,53 +28,44 @@ namespace Bookshop
             Frame1.Content = new WelcomePage();
         }
 
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var button = (Button)sender;
+            var button = (MenuItem)sender;
             Page page;
-            switch (button.Name)
+            switch (button.Header)
             {
-                case "CheckoutButton":
+                case "New order":
                     page = new OrderPage();
                     break;
                 case "ReportButton":
                     page = new ReportPage();
                     break;
-                case "AddButton":
+                case "Book":
                     page = new AddBookPage();
                     break;
-                case "EditButton":
+                case "Audiobook":
+                    page = new AddAudioBookPage();
+                    break;
+                case "Edit product":
                     page = new EditPage();
                     break;
-                case "ReceiptButton":
-                    page = new ReceiptPage();
+                case "Income Invoice":
+                    page = new ProductIncomePage();
+                    break;
+                case "Return Invoice":
+                    page = new ReturnInvoicePage();
                     break;
                 case "MissingButton":
                     page = new MissingPage();
+                    break;
+                case "Custom":
+                    page = new ReportPage();
                     break;
                 default:
                     page = new WelcomePage();
                     break;
             }
             Frame1.Content = page;
-        }
-
-        private void ItemTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedItem = (ComboBoxItem)ItemTypeComboBox.SelectedItem;
-            switch(selectedItem.Content.ToString())
-            {
-                case "Book":
-                    {
-                        Frame1.Content = new AddBookPage();
-                        break;
-                    }
-                case "Audio Book":
-                    {
-                        Frame1.Content = new AddAudioBookPage();
-                        break;
-                    }
-            }
         }
     }
 }

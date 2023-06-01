@@ -8,21 +8,20 @@ namespace Bookshop.ProductsLib
 {
     public class Report
     {
-        public List<ReportLine> ReportList { get; set; } = new List<ReportLine>();
+        public List<ReportLine> OrderedProducts { get; set; } = new List<ReportLine>();
 
-        public decimal TotalAmount
-        {
-            get
-            {
-                return ReportList.Sum(x => x.Total);
-            }
-        }
-        public int TotalQuantity
-        {
-            get
-            {
-                return ReportList.Sum(x => x.Quantity);
-            }
-        }
+        public List<ReportLine> ReturnedProducts { get; set; } = new List<ReportLine>();
+
+
+        public decimal TotalOrderedAmount => OrderedProducts.Sum(x => x.Total);
+
+        public int TotalOrderedQuantity => OrderedProducts.Sum(x =>x.Quantity);
+
+        public decimal TotalReturnedAmount => ReturnedProducts.Sum(x => x.Total);
+
+        public int TotalReturnedQuantity => ReturnedProducts.Sum(x => x.Quantity);
+
+        public Decimal TotalAmount => TotalOrderedAmount - TotalReturnedAmount;
+
     }
 }

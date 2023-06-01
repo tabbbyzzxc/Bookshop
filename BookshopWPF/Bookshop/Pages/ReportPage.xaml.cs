@@ -27,15 +27,19 @@ namespace Bookshop
                 return;
             }
 
-            var due = dueDate.SelectedDate.Value;
-            DateTime fromTime = fromDate.SelectedDate.Value;
-            DateTime dueTime = new DateTime(due.Year, due.Month, due.Day, 23, 59, 59);
+            var dateOption = sortComboBox.SelectedIndex;
+
+           
             
             var reportManager = new ReportManager();
-            var report = reportManager.MakeReport(1,fromTime, dueTime);
-            listView.ItemsSource = report.ReportList;
+            var report = reportManager.MakeReport(dateOption, fromDate.SelectedDate.Value, dueDate.SelectedDate.Value);
+            orderedListView.ItemsSource = report.OrderedProducts;
+            returnedListView.ItemsSource = report.ReturnedProducts;
+            totalOrderedAmount.Content = report.TotalOrderedAmount;
+            totalOrderedQuantity.Content = report.TotalOrderedQuantity;
+            totalReturnedAmount.Content = report.TotalReturnedAmount;
+            totalReturnedQuantity.Content = report.TotalReturnedQuantity;
             totalAmount.Content = report.TotalAmount;
-            totalQuantity.Content = report.TotalQuantity;
         }
     }
 

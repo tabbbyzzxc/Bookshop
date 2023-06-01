@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="4*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -21,8 +22,13 @@
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
             </Grid>
-
-            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Label Content="Recommended products:" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"></Label>
+            <TextBlock x:Name="recommendedTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"></TextBlock>
+        </StackPanel>
+        
+        
+            <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
             <Button Content="Add to cart" Margin="0,0,10,0" Width="114" Height="46" Click="AddBtn_Click"></Button>
             <Button Content="Close" Width="114" Height="46" Click="CloseBtn_Click"></Button>
         </StackPanel>

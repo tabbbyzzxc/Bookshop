@@ -60,5 +60,35 @@ namespace Bookshop.Services
             db.SaveChanges();
 
         }
+
+        public void UpdateQuantities(Invoice invoice)
+        {
+            using ProductDbContext db = new ProductDbContext();
+            var products = invoice.InvoiceLines.Select(x => x.Product);
+            var orderedBooks = products.OfType<Book>().ToList();
+            var orderedAudioBooks = products.OfType<AudioBook>().ToList();
+            var booksToUpdate = db.Books.Where(x => orderedBooks.Select(y => y.UniqueId).Contains(x.UniqueId)).ToList();
+
+            foreach (var book in booksToUpdate)
+            {
+                var orderedBookQuantity = invoice.InvoiceLines.First(x => x.Product.UniqueId == book.UniqueId).Quantity;
+                book.Quantity += orderedBookQuantity;
+            }
+
+            db.UpdateRange(booksToUpdate);
+
+            var audioBooksToUpdate = db.AudioBooks.Where(x => orderedAudioBooks.Select(y => y.UniqueId).Contains(x.UniqueId)).ToList();
+
+            foreach (var audioBook in audioBooksToUpdate)
+            {
+                var orderedAudioBookQuantity = invoice.InvoiceLines.First(x => x.Product.UniqueId == audioBook.UniqueId).Quantity;
+                audioBook.Quantity += orderedAudioBookQuantity;
+            }
+
+            db.UpdateRange(audioBooksToUpdate);
+
+            db.SaveChanges();
+
+        }
     }
 }

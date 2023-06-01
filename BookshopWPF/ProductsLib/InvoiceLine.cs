@@ -2,22 +2,21 @@
 
 namespace Bookshop.ProductsLib
 {
-    public class OrderLine
+    public class InvoiceLine
     {
         public long Id { get; set; }
 
-        public Guid ProductUniqueId { get; set; }
+        public Guid ProductUniqueId { get; set; } //change
 
         public int Quantity { get; set; }
 
-        public Order Order { get; set; }
+        public Invoice Invoice { get; set; }
 
-        public long OrderId { get; set; }
+        public long InvoiceId { get; set; }
 
         [NotMapped]
         public Product Product { get; set; }
 
         public decimal Total => Quantity * Product.SellPrice;
-        
     }
 }

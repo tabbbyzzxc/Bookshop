@@ -1,4 +1,5 @@
 ﻿using Bookshop.ProductsLib;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,27 +8,37 @@ namespace Bookshop.Services
 {
     public class ReportManager
     {
+        private InvoiceService _invoiceService = new InvoiceService();
+        private OrderService _orderService = new OrderService();
+        
         public Report MakeReport(int reportType, DateTime from, DateTime to)
         {
-            var repo = new OrderService();
+            to = new DateTime(to.Year, to.Month, to.Day, 23, 59, 59);
+            List<Invoice> invoices;
+            List<Order> filteredOrders;
             DateTime currentDate = DateTime.Now;
-            List<Order> filteredOrders = new List<Order>();
+            
             switch (reportType)
             {
                 case 1:
-                    filteredOrders = repo.GetOrdersByDate(new DateTime(currentDate.Day), to);
+                    filteredOrders = _orderService.GetOrdersByDate(currentDate.Date, to);
+                    invoices = _invoiceService.GetInvoicesByDate(currentDate.Date, to, InvoiceType.Return);
                     break;
                 case 2:
-                    filteredOrders = repo.GetOrdersByDate(new DateTime((currentDate.DayOfYear + 6) / 7), to);
+                    filteredOrders = _orderService.GetOrdersByDate(currentDate.Date.AddDays(-(int)currentDate.Date.DayOfWeek + 1), to);
+                    invoices = _invoiceService.GetInvoicesByDate(currentDate.Date.AddDays(-(int)currentDate.Date.DayOfWeek + 1), to, InvoiceType.Return);
                     break;
                 case 3:
-                    filteredOrders = repo.GetOrdersByDate(new DateTime(currentDate.Year, currentDate.Month, 1), to);
+                    filteredOrders = _orderService.GetOrdersByDate(new DateTime(currentDate.Year, currentDate.Month, 1), to);
+                    invoices = _invoiceService.GetInvoicesByDate(new DateTime(currentDate.Year, currentDate.Month, 1), to, InvoiceType.Return);
                     break;
                 case 4:
-                    filteredOrders = repo.GetOrdersByDate(new DateTime(currentDate.Year), to);
+                    filteredOrders = _orderService.GetOrdersByDate(new DateTime(currentDate.Year, 1 , 1, 0, 0, 0), to);
+                    invoices = _invoiceService.GetInvoicesByDate(new DateTime(currentDate.Year, 1, 1, 0, 0, 0), to, InvoiceType.Return);
                     break;
                 default:
-                    filteredOrders = repo.GetOrdersByDate(from, to);
+                    filteredOrders = _orderService.GetOrdersByDate(from,to);
+                    invoices = _invoiceService.GetInvoicesByDate(from, to, InvoiceType.Return);
                     break;
             }
             var report = new Report();
@@ -38,12 +49,12 @@ namespace Bookshop.Services
                 var orderList = order.OrderList;
                 foreach (var item in orderList)
                 {
-                    var reportLine = report.ReportList.FirstOrDefault(x => x.Id == item.Id);
+                    var reportLine = report.OrderedProducts.FirstOrDefault(x => x.ProductUniqueId == item.ProductUniqueId);
                     if (reportLine == null)
                     {
-                        report.ReportList.Add(new ReportLine()
+                        report.OrderedProducts.Add(new ReportLine()
                         {
-                            Id = item.Id,
+                            ProductUniqueId = item.ProductUniqueId,
                             Quantity = item.Quantity,
                         });
                     }
@@ -53,6 +64,28 @@ namespace Bookshop.Services
                     }
                 }
             }
+
+            foreach (var invoice in invoices)
+            {
+                var invoiceList = invoice.InvoiceLines;
+                foreach (var item in invoiceList)
+                {
+                    var reportLine = report.ReturnedProducts.FirstOrDefault(x => x.ProductUniqueId == item.ProductUniqueId);
+                    if (reportLine == null)
+                    {
+                        report.ReturnedProducts.Add(new ReportLine()
+                        {
+                            ProductUniqueId = item.ProductUniqueId,
+                            Quantity = item.Quantity,
+                        });
+                    }
+                    else
+                    {
+                        reportLine.Quantity += item.Quantity;
+                    }
+                }
+            }
+
             return report;
         }
 

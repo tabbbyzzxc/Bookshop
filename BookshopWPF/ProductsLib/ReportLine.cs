@@ -8,22 +8,15 @@ namespace Bookshop.ProductsLib
 {
     public class ReportLine
     {
-        public long Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Author { get; set; }
+        public Guid ProductUniqueId { get; set; }
 
         public decimal SellPrice { get; set; }
 
         public int Quantity { get; set; }
 
-        public decimal Total
-        {
-            get
-            {
-                return SellPrice * Quantity;
-            }
-        }
+        public Product Product { get; set; }
+
+        public decimal Total => SellPrice * Quantity;
+        
     }
 }
