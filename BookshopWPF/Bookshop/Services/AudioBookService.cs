@@ -2,24 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bookshop.Services
 {
     public class AudioBookService
     {
-        public List<AudioBook> GetAllAudioBooks(bool includeMissingAudioBooks)
+        public List<AudioBook> GetAllAudioBooks()
         {
             using var db = new ProductDbContext();
-            var audioBooks = db.AudioBooks.AsQueryable();
-            if (!includeMissingAudioBooks)
-            {
-                audioBooks = audioBooks.Where(x => x.Quantity > 0);
+            return db.AudioBooks.ToList();
+        }
 
-            }
+        public List<AudioBook> GetAvailableAudioBooks()
+        {
+            using var db = new ProductDbContext();
+            return db.AudioBooks.Where(x => x.Quantity > 0).ToList();
+        }
 
-            return audioBooks.ToList();
+        public List<AudioBook> GetMissingAudioBooks()
+        {
+            using var db = new ProductDbContext();
+            return db.AudioBooks.Where(x => x.Quantity == 0).ToList();
         }
 
         public bool AddAudioBook(AudioBook audioBook)
@@ -59,10 +62,10 @@ namespace Bookshop.Services
 
         }
 
-        public List<AudioBook> GetMissingAudioBooks()
+        public List<AudioBook> GetAudioBooksByIds(List<Guid> productIds)
         {
             using var db = new ProductDbContext();
-            return db.AudioBooks.Where(x => x.Quantity == 0).ToList();
+            return db.AudioBooks.Where(x => productIds.Contains(x.UniqueId)).ToList();
         }
     }
 }

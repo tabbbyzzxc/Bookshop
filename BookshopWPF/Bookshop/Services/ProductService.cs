@@ -1,9 +1,7 @@
 ﻿using Bookshop.ProductsLib;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bookshop.Services
 {
@@ -11,34 +9,68 @@ namespace Bookshop.Services
     {
         private BookService _bookService = new BookService();
         private AudioBookService _audioBookService = new AudioBookService();
-        public List<Product> GetAllProducts(bool includeMissingProducts = false)
+
+        public List<Product> GetAllProducts()
         {
-            var _allProducts = new List<Product>();
-            var allBooks = _bookService.GetAllBooks(includeMissingProducts);
-            var allAudioBooks = _audioBookService.GetAllAudioBooks(includeMissingProducts);
-            _allProducts.AddRange(allBooks);
-            _allProducts.AddRange(allAudioBooks);
-            return _allProducts;
+            var allProducts = new List<Product>();
+
+            var allBooks = _bookService.GetAllBooks();
+            var allAudioBooks = _audioBookService.GetAllAudioBooks();
+
+            allProducts.AddRange(allBooks);
+            allProducts.AddRange(allAudioBooks);
+
+            return allProducts;
+        }
+
+        public List<Product> GetAvailableProducts()
+        {
+            var availableProducts = new List<Product>();
+
+            var availableBooks = _bookService.GetAvailableBooks();
+            var availableAudioBooks = _audioBookService.GetAvailableAudioBooks();
+
+            availableProducts.AddRange(availableBooks);
+            availableProducts.AddRange(availableAudioBooks);
+
+            return availableProducts;
         }
 
         public List<Product> GetMissingProducts()
         {
-            var _missingProducts = new List<Product>();
-            var allBooks = _bookService.GetMissingBooks();
-            var allAudioBooks = _audioBookService.GetMissingAudioBooks();
-            _missingProducts.AddRange(allBooks);
-            _missingProducts.AddRange(allAudioBooks);
-            return _missingProducts;
+            var missingProducts = new List<Product>();
+
+            var missingBooks = _bookService.GetMissingBooks();
+            var missingAudioBooks = _audioBookService.GetMissingAudioBooks();
+
+            missingProducts.AddRange(missingBooks);
+            missingProducts.AddRange(missingAudioBooks);
+
+            return missingProducts;
+        }
+
+        public List<Product> GetProductsByIds(List<Guid> productIds)
+        {
+            var products = new List<Product>();
+
+            var books = _bookService.GetBooksByIds(productIds);
+            var audioBooks = _audioBookService.GetAudioBooksByIds(productIds);
+
+            products.AddRange(books);
+            products.AddRange(audioBooks);
+
+            return products;
         }
 
         public void UpdateQuantities(Order order)
         {
             using ProductDbContext db = new ProductDbContext();
-            var products = order.OrderList.Select(x => x.Product);
-            var orderedBooks = products.OfType<Book>().ToList();
-            var orderedAudioBooks = products.OfType<AudioBook>().ToList();
-            var booksToUpdate = db.Books.Where(x => orderedBooks.Select(y => y.UniqueId).Contains(x.UniqueId)).ToList();
 
+            var orderedProducts = order.OrderList.Select(x => x.Product);
+            var orderedBooks = orderedProducts.OfType<Book>().ToList();
+            var orderedAudioBooks = orderedProducts.OfType<AudioBook>().ToList();
+
+            var booksToUpdate = _bookService.GetBooksByIds(orderedBooks.Select(y => y.UniqueId).ToList());
             foreach (var book in booksToUpdate)
             {
                 var orderedBookQuantity = order.OrderList.First(x => x.Product.UniqueId == book.UniqueId).Quantity;
@@ -47,8 +79,7 @@ namespace Bookshop.Services
 
             db.UpdateRange(booksToUpdate);
 
-            var audioBooksToUpdate = db.AudioBooks.Where(x => orderedAudioBooks.Select(y => y.UniqueId).Contains(x.UniqueId)).ToList();
-
+            var audioBooksToUpdate = _audioBookService.GetAudioBooksByIds(orderedAudioBooks.Select(y => y.UniqueId).ToList());
             foreach (var audioBook in audioBooksToUpdate)
             {
                 var orderedAudioBookQuantity = order.OrderList.First(x => x.Product.UniqueId == audioBook.UniqueId).Quantity;
@@ -56,19 +87,18 @@ namespace Bookshop.Services
             }
 
             db.UpdateRange(audioBooksToUpdate);
-
             db.SaveChanges();
-
         }
 
         public void UpdateQuantities(Invoice invoice)
         {
             using ProductDbContext db = new ProductDbContext();
-            var products = invoice.InvoiceLines.Select(x => x.Product);
-            var orderedBooks = products.OfType<Book>().ToList();
-            var orderedAudioBooks = products.OfType<AudioBook>().ToList();
-            var booksToUpdate = db.Books.Where(x => orderedBooks.Select(y => y.UniqueId).Contains(x.UniqueId)).ToList();
 
+            var invoicedProducts = invoice.InvoiceLines.Select(x => x.Product);
+            var invoicedBooks = invoicedProducts.OfType<Book>().ToList();
+            var invoicedAudioBooks = invoicedProducts.OfType<AudioBook>().ToList();
+
+            var booksToUpdate = _bookService.GetBooksByIds(invoicedBooks.Select(y => y.UniqueId).ToList());
             foreach (var book in booksToUpdate)
             {
                 var orderedBookQuantity = invoice.InvoiceLines.First(x => x.Product.UniqueId == book.UniqueId).Quantity;
@@ -77,8 +107,7 @@ namespace Bookshop.Services
 
             db.UpdateRange(booksToUpdate);
 
-            var audioBooksToUpdate = db.AudioBooks.Where(x => orderedAudioBooks.Select(y => y.UniqueId).Contains(x.UniqueId)).ToList();
-
+            var audioBooksToUpdate = _audioBookService.GetAudioBooksByIds(invoicedAudioBooks.Select(y => y.UniqueId).ToList());
             foreach (var audioBook in audioBooksToUpdate)
             {
                 var orderedAudioBookQuantity = invoice.InvoiceLines.First(x => x.Product.UniqueId == audioBook.UniqueId).Quantity;
@@ -86,9 +115,7 @@ namespace Bookshop.Services
             }
 
             db.UpdateRange(audioBooksToUpdate);
-
             db.SaveChanges();
-
         }
     }
 }

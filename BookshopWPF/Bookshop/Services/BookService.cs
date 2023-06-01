@@ -2,26 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Bookshop.Services
 {
     public class BookService
     {
-
-        public List<Book> GetAllBooks(bool includeMissingBooks)
+        public List<Book> GetAllBooks()
         {
             using var db = new ProductDbContext();
-            var books = db.Books.AsQueryable();
-            if (!includeMissingBooks)
-            {
-                books = books.Where(x => x.Quantity > 0);
-                
-            }
+            return db.Books.ToList();
+        }
 
-            return books.ToList();
+        public List<Book> GetAvailableBooks()
+        {
+            using var db = new ProductDbContext();
+            return db.Books.Where(x => x.Quantity > 0).ToList();
+        }
+
+        public List<Book> GetMissingBooks()
+        {
+            using var db = new ProductDbContext();
+            return db.Books.Where(x => x.Quantity == 0).ToList();
         }
 
         public bool AddBook(Book book)
@@ -49,8 +50,8 @@ namespace Bookshop.Services
                 return;
             }
             item.Description = book.Description;
-            item.SellPrice =book.SellPrice;
-            item.BuyPrice =book.BuyPrice;
+            item.SellPrice = book.SellPrice;
+            item.BuyPrice = book.BuyPrice;
             item.Title = book.Title;
             item.Author = book.Author;
             item.PaperType = book.PaperType;
@@ -59,13 +60,13 @@ namespace Bookshop.Services
             item.Language = book.Language;
             db.Update(item);
             db.SaveChanges();
-            
+
         }
 
-        public List<Book> GetMissingBooks()
+        public IEnumerable<Product> GetBooksByIds(List<Guid> productIds)
         {
             using var db = new ProductDbContext();
-            return db.Books.Where(x => x.Quantity == 0).ToList();
+            return db.Books.Where(x => productIds.Contains(x.UniqueId)).ToList();
         }
     }
 }

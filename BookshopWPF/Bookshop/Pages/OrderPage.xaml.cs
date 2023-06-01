@@ -1,13 +1,11 @@
 ﻿using Bookshop.ProductsLib;
 using Bookshop.Services;
-using System.Collections.Generic;
+using Bookshop.ViewModels;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows;
 using System;
-using Bookshop.ViewModels;
-using System.Linq;
-using System.Xml;
 
 namespace Bookshop.Pages
 {
@@ -24,7 +22,7 @@ namespace Bookshop.Pages
         public OrderPage()
         {
             InitializeComponent();
-            _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
+            _allProducts = new ObservableCollection<Product>(_productService.GetAvailableProducts());
             listView.ItemsSource = _allProducts;
             orderDataGrid.ItemsSource = _orderedItems;
             orderDataGrid.CellEditEnding += OrderDataGrid_CellEditEnding;
@@ -40,14 +38,14 @@ namespace Bookshop.Pages
                 if (quantity > product.Quantity)
                 {
                     ordered.Quantity = product.Quantity + 1;
-                    ((TextBox)e.EditingElement).Text = (product.Quantity+1).ToString();
+                    ((TextBox)e.EditingElement).Text = (product.Quantity + 1).ToString();
                     product.Quantity -= ordered.Quantity;
                 }
                 else
-                {   
+                {
                     product.Quantity -= quantity - 1;
                 }
-                
+
             }
 
         }
@@ -69,9 +67,9 @@ namespace Bookshop.Pages
             orderDataGrid.Columns[3].IsReadOnly = true;
             orderDataGrid.Columns[4].Width = 100;
             orderDataGrid.Columns[4].IsReadOnly = true;
-            
+
             orderDataGrid.Columns[5].Width = 100; // quantity
-            
+
             orderDataGrid.Columns[6].Width = 100;
             orderDataGrid.Columns[6].IsReadOnly = true;
         }
@@ -92,7 +90,7 @@ namespace Bookshop.Pages
         private void OpenCart_Click(object sender, RoutedEventArgs e)
         {
             TogglePages();
-            
+
             InitDataGrid();
         }
 
@@ -106,17 +104,17 @@ namespace Bookshop.Pages
                     ProductUniqueId = x.UniqueId,
                     Quantity = x.Quantity,
                     Product = _allProducts.First(y => y.UniqueId == x.UniqueId)
-                    
+
                 }).ToList()
             };
             _orderService.AddOrder(order);
             _orderedItems.Clear();
-            _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
+            _allProducts = new ObservableCollection<Product>(_productService.GetAvailableProducts());
             listView.ItemsSource = _allProducts;
             TogglePages();
-            
+
         }
-        
+
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -126,9 +124,9 @@ namespace Bookshop.Pages
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in _orderedItems) 
+            foreach (var item in _orderedItems)
             {
-                var product = _allProducts.First(x =>  x.UniqueId == item.UniqueId);
+                var product = _allProducts.First(x => x.UniqueId == item.UniqueId);
                 product.Quantity += item.Quantity;
             }
 
