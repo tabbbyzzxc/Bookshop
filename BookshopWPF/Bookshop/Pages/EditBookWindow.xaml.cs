@@ -15,6 +15,7 @@ namespace Bookshop
             GenreComboBox.ItemsSource = AppConstants.Genres;
             PaperTypeComboBox.ItemsSource = AppConstants.PaperTypes;
             DataContext = book;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void SaveButton(object sender, RoutedEventArgs e)

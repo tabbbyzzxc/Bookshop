@@ -24,10 +24,6 @@
 
         public string Language { get; set; }
 
-        public override string GetDescription()
-        {
-            return base.GetDescription() + $"Title: {Title}, Author: {Author}, Genre: {Genre}, Language: {Language} ";
-        }
-
+        public override string Сharacteristics => $"Author: {Author}. Title: {Title}. Genre: {Genre}. Language: {Language}.";
     }
 }

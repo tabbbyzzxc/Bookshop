@@ -20,10 +20,7 @@
 
         public override string ProductCode => $"ABK000-{Id}";
 
-        public override string GetDescription()
-        {
-            return base.GetDescription();
-        }
+        public override string Сharacteristics => $"{base.Сharacteristics} Format: {Format}";
 
         public override Dictionary<string, string> GetProductInfoParameters()
         {

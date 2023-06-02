@@ -24,11 +24,16 @@ namespace Bookshop.Pages
     {
         private Product _product;
         private ObservableCollection<CartProductModel> _cartModels;
-        public ProductAddQuantityWindow(Product selectedItem, ObservableCollection<CartProductModel> cartModels)
+        private InvoiceType _invoiceType;
+
+        public ProductAddQuantityWindow(Product selectedItem, ObservableCollection<CartProductModel> cartModels, InvoiceType type)
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             _product = selectedItem;
             _cartModels = cartModels;
+            _invoiceType = type;
+            quantityTextBox.Text = "1";
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
@@ -40,20 +45,19 @@ namespace Bookshop.Pages
             }
 
             var orderProductExists = _cartModels.FirstOrDefault(x => x.UniqueId == _product.UniqueId);
-
             if (orderProductExists != null)
             {
                 orderProductExists.Quantity += quantity;
             }
             else
             {
-
                 var cartModel = new CartProductModel()
                 {
+                    ProductCode = _product.ProductCode,
                     UniqueId = _product.UniqueId,
                     ProductName = _product.MainData,
                     ProductType = _product.ProductType,
-                    Price = _product.SellPrice,
+                    Price = _invoiceType == InvoiceType.Income ? _product.BuyPrice : _product.SellPrice,
                     Quantity = quantity
                 };
 

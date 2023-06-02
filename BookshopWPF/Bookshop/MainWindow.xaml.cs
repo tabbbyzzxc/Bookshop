@@ -74,6 +74,12 @@ namespace Bookshop
                 case "Missing Products":
                     page = new MissingProductsPage();
                     break;
+                case "View orders":
+                    page = new OrderListPage();
+                    break;
+                case "View invoices":
+                    page = new InvoiceListPage();
+                    break;
                 default:
                     page = new WelcomePage();
                     break;

@@ -13,8 +13,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
-        
-        <Label Content="Missing products"/>
+
+        <Label Content="Missing products"  FontSize="24" HorizontalAlignment="Center"/>
         <ListView x:Name="missingProductsListView" Grid.Row="1">
             <ListView.View>
                 <GridView>

@@ -2,20 +2,10 @@
 using Bookshop.Services;
 using Bookshop.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bookshop.Pages
 {
@@ -28,82 +18,90 @@ namespace Bookshop.Pages
         private ProductService _productService = new ProductService();
         private ObservableCollection<CartProductModel> _invoicedItems = new ObservableCollection<CartProductModel>();
         private InvoiceService _invoiceService = new InvoiceService();
+        private DocumentService _documentService = new DocumentService();
+
         public ReturnInvoicePage()
         {
             InitializeComponent();
             _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
-            listView.ItemsSource = _allProducts;
-            orderDataGrid.ItemsSource = _invoicedItems;
-            orderDataGrid.CellEditEnding += OrderDataGrid_CellEditEnding;
+            productsListView.ItemsSource = _allProducts;
+            invoiceDataGrid.ItemsSource = _invoicedItems;
+            invoiceDataGrid.CellEditEnding += InvoiceDataGrid_CellEditEnding;
         }
 
-        private void OrderDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        private void InvoiceDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             var inputText = ((TextBox)e.EditingElement).Text;
-            var ordered = orderDataGrid.SelectedItem as CartProductModel;
-            if (ordered != null && int.TryParse(inputText, out var quantity))
+            var invoiced = invoiceDataGrid.SelectedItem as CartProductModel;
+            if (invoiced != null && int.TryParse(inputText, out var quantity))
             {
-                var product = _allProducts.First(x => x.UniqueId == ordered.UniqueId);
+                var product = _allProducts.First(x => x.UniqueId == invoiced.UniqueId);
                 if (quantity > product.Quantity)
                 {
-                    ordered.Quantity = product.Quantity + 1;
                     ((TextBox)e.EditingElement).Text = (product.Quantity + 1).ToString();
-                    product.Quantity -= ordered.Quantity;
                 }
-                else
-                {
-                    product.Quantity -= quantity - 1;
-                }
-
             }
-
         }
 
         private void InitDataGrid()
         {
-            if (!orderDataGrid.Columns.Any())
+            if (!invoiceDataGrid.Columns.Any())
             {
                 return;
             }
 
-            orderDataGrid.Columns[0].Visibility = Visibility.Hidden;
-            orderDataGrid.Columns[1].Visibility = Visibility.Hidden;
-            orderDataGrid.Columns[2].Width = 300;
-            orderDataGrid.Columns[2].Header = "Product";
-            orderDataGrid.Columns[2].IsReadOnly = true;
-            orderDataGrid.Columns[3].Width = 100;
-            orderDataGrid.Columns[3].Header = "Type";
-            orderDataGrid.Columns[3].IsReadOnly = true;
-            orderDataGrid.Columns[4].Width = 100;
-            orderDataGrid.Columns[4].IsReadOnly = true;
+            Style cellRightAlignmentStyle = new Style(typeof(DataGridCell));
+            cellRightAlignmentStyle.Setters.Add(new Setter(HorizontalAlignmentProperty, HorizontalAlignment.Right));
 
-            orderDataGrid.Columns[5].Width = 100; // quantity
+            invoiceDataGrid.Columns[0].Header = "Code";
+            invoiceDataGrid.Columns[0].Width = 80;
+            invoiceDataGrid.Columns[0].IsReadOnly = true;
 
-            orderDataGrid.Columns[6].Width = 100;
-            orderDataGrid.Columns[6].IsReadOnly = true;
+            invoiceDataGrid.Columns[1].Visibility = Visibility.Hidden;
+
+            invoiceDataGrid.Columns[2].Width = 500;
+            invoiceDataGrid.Columns[2].Header = "Product";
+            invoiceDataGrid.Columns[2].IsReadOnly = true;
+
+            invoiceDataGrid.Columns[3].Width = 80;
+            invoiceDataGrid.Columns[3].Header = "Type";
+            invoiceDataGrid.Columns[3].IsReadOnly = true;
+
+            invoiceDataGrid.Columns[4].Width = 80; // price
+            invoiceDataGrid.Columns[4].IsReadOnly = true;
+            invoiceDataGrid.Columns[4].CellStyle = cellRightAlignmentStyle;
+
+            invoiceDataGrid.Columns[5].Width = 100; // quantity
+            invoiceDataGrid.Columns[5].CellStyle = cellRightAlignmentStyle;
+
+            invoiceDataGrid.Columns[6].Width = 100; // total
+            invoiceDataGrid.Columns[6].IsReadOnly = true;
+            invoiceDataGrid.Columns[6].CellStyle = cellRightAlignmentStyle;
         }
 
-        private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void OnProductItem_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var selectedItem = listView.SelectedItem as Product;
+            var selectedItem = productsListView.SelectedItem as Product;
             if (selectedItem != null)
             {
-                new ProductAddQuantityWindow(selectedItem, _invoicedItems).ShowDialog();
-
-                orderDataGrid.Items.Refresh();
-                listView.Items.Refresh();
+                new ProductAddQuantityWindow(selectedItem, _invoicedItems, InvoiceType.Return).ShowDialog();
+                invoiceDataGrid.Items.Refresh();
             }
         }
 
         private void OpenInvoice_Click(object sender, RoutedEventArgs e)
         {
             TogglePages();
-
             InitDataGrid();
         }
 
         private void Invoice_Click(object sender, RoutedEventArgs e)
         {
+            if (!_invoicedItems.Any())
+            {
+                return;
+            }
+
             Invoice invoice = new Invoice()
             {
                 Date = DateTime.Now,
@@ -119,27 +117,20 @@ namespace Bookshop.Pages
             _invoiceService.AddInvoice(invoice);
             _invoicedItems.Clear();
             _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
-            listView.ItemsSource = _allProducts;
+            productsListView.ItemsSource = _allProducts;
             TogglePages();
 
+            var check = _documentService.CreatePrintDocument(invoice);
+            new PrintWindow(check).ShowDialog();
         }
-
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-
             TogglePages();
         }
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in _invoicedItems)
-            {
-                var product = _allProducts.First(x => x.UniqueId == item.UniqueId);
-                product.Quantity += item.Quantity;
-            }
-
-            listView.Items.Refresh();
             _invoicedItems.Clear();
         }
 

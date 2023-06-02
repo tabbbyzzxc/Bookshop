@@ -27,6 +27,7 @@ namespace Bookshop.Pages
             GenreComboBox.ItemsSource = AppConstants.Genres;
             FormatComboBox.ItemsSource = AppConstants.Formats;
             DataContext = audioBook;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void SaveButton(object sender, RoutedEventArgs e)

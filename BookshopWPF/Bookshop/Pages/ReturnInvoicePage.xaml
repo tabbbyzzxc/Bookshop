@@ -26,10 +26,11 @@
                     <TextBox x:Name="SearchTextBox" Width="100" Height="24"></TextBox>
                 </StackPanel>
 
-                <ListView x:Name="listView" MouseDoubleClick="listView_MouseDoubleClick" Grid.Row="2">
+                <ListView x:Name="productsListView" MouseDoubleClick="OnProductItem_DoubleClick" Grid.Row="2">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Product Description" DisplayMemberBinding="{Binding MainData}" Width="520"/>
+                            <GridViewColumn Header="Code" DisplayMemberBinding="{Binding ProductCode}" Width="100"/>
+                            <GridViewColumn Header="Product Description" DisplayMemberBinding="{Binding MainData}" Width="450"/>
                             <GridViewColumn Header="Product Type" DisplayMemberBinding="{Binding ProductType}" Width="100"/>
                             <GridViewColumn Header="Price" DisplayMemberBinding="{Binding SellPrice}" Width="80"/>
                         </GridView>
@@ -50,12 +51,12 @@
 
                 <Label Content="Cart" FontSize="24" HorizontalAlignment="Center"></Label>
 
-                <DataGrid x:Name="orderDataGrid" AutoGenerateColumns="true" Grid.Row="1"></DataGrid>
+                <DataGrid x:Name="invoiceDataGrid" AutoGenerateColumns="true" Grid.Row="1"></DataGrid>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,10">
                     <Button Content="Save" Margin="0,0,10,0" Width="114" Height="46" Click="Invoice_Click"></Button>
                     <Button Content="Clear" Margin="0,0,10,0" Width="114" Height="46" Click="ClearBtn_Click"></Button>
-                    <Button Content="Close" Width="114" Height="46" Click="CloseBtn_Click"></Button>
+                    <Button Content="Back" Width="114" Height="46" Click="CloseBtn_Click"></Button>
                 </StackPanel>
 
             </Grid>

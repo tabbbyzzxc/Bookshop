@@ -23,10 +23,7 @@ public class Book : BookProduct
 
     public override string ProductCode => $"BK000-{Id}";
 
-    public override string GetDescription()
-    {
-        return base.GetDescription() + $"Paper Type: {PaperType}, Page Quantity: {PageQuantity}";
-    }
+    public override string Сharacteristics => $"{base.Сharacteristics} Paper type: {PaperType}. Page quantity: {PageQuantity}";
 
     public override Dictionary<string, string> GetProductInfoParameters()
     {

@@ -6,7 +6,7 @@ namespace Bookshop.ProductsLib
     {
         public long Id { get; set; }
 
-        public Guid ProductUniqueId { get; set; } //change
+        public Guid ProductUniqueId { get; set; }
 
         public int Quantity { get; set; }
 

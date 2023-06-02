@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bookshop.ProductsLib
+﻿namespace Bookshop.ProductsLib
 {
 
     public enum InvoiceType
@@ -17,6 +10,8 @@ namespace Bookshop.ProductsLib
     public class Invoice
     {
         public long Id { get; set; }
+
+        public string Name => $"{InvoiceType} Invoice №000{Id}";
 
         public DateTime Date { get; set; }
 

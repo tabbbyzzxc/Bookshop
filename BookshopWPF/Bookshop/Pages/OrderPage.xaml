@@ -11,7 +11,6 @@
     <Grid>
         <ContentControl x:Name="NewOrderPage">
             <Grid>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -27,6 +26,17 @@
                 </StackPanel>
 
                 <ListView x:Name="productsListView" MouseDoubleClick="OnProductItem_DoubleClick" Grid.Row="2">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <ToolTip>
+                                        <TextBlock Text="{Binding Сharacteristics}" />
+                                    </ToolTip>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Code" DisplayMemberBinding="{Binding ProductCode}" Width="100"/>

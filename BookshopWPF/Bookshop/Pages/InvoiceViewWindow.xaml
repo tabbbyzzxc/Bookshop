@@ -1,0 +1,40 @@
+﻿<Window x:Class="Bookshop.Pages.InvoiceViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bookshop.Pages"
+        mc:Ignorable="d"
+        Title="InvoiceViewWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="orderNameLabel" FontSize="24" HorizontalAlignment="Center" />
+        <Label x:Name="orderDateLabel" FontSize="18" Grid.Row="1" />
+
+        <DataGrid x:Name="cartDataGrid" AutoGenerateColumns="false" Grid.Row="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Code" Binding="{Binding Product.ProductCode}" />
+                <DataGridTextColumn Header="Product" Binding="{Binding Product.MainData}" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Product.ProductType}" />
+                <DataGridTextColumn Header="Price" Binding="{Binding Product.SellPrice}" />
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+                <DataGridTextColumn Header="Total" Binding="{Binding Total}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label x:Name="orderTotalLabel" FontSize="18" Grid.Row="3"></Label>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center" Margin="0,10,0,10">
+            <Button Content="Print" Margin="0,0,10,0" Width="114" Height="46" Click="Print_Click"></Button>
+            <Button Content="Close" Width="114" Height="46" Click="Close_Click"></Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -19,7 +19,7 @@ namespace Bookshop.Pages
         public ProductInfoWindow(Product product, ObservableCollection<CartProductModel> orderedItems, List<Product> suggestedProducts)
         {
             InitializeComponent();
-           
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             _product = product;
             _orderedItems = orderedItems;
             recommendedTextBlock.Text = string.Join(",\n ", suggestedProducts.Select(x => x.MainData));

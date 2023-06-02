@@ -19,6 +19,7 @@ namespace Bookshop.Pages
         private ObservableCollection<CartProductModel> _orderedProducts = new ObservableCollection<CartProductModel>();
         private OrderService _orderService = new OrderService();
         private SuggestionManager _suggestionManager = new SuggestionManager();
+        private DocumentService _documentService = new DocumentService();
 
         public OrderPage()
         {
@@ -98,6 +99,11 @@ namespace Bookshop.Pages
 
         private void Order_Click(object sender, RoutedEventArgs e)
         {
+            if (!_orderedProducts.Any())
+            {
+                return;
+            }
+            
             Order order = new Order()
             {
                 Date = DateTime.Now,
@@ -114,7 +120,8 @@ namespace Bookshop.Pages
             _allProducts = new ObservableCollection<Product>(_productService.GetAvailableProducts());
             productsListView.ItemsSource = _allProducts;
             TogglePages();
-            MessageBox.Show("Order was successfully added", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            var check = _documentService.CreatePrintDocument(order);
+            new PrintWindow(check).ShowDialog();
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)

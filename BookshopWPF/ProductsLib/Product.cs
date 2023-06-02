@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bookshop.ProductsLib
+﻿namespace Bookshop.ProductsLib
 {
     public abstract class Product
     {
@@ -38,10 +32,7 @@ namespace Bookshop.ProductsLib
 
         public abstract string ProductType { get; }
 
-        public virtual string GetDescription()
-        {
-            return $"Id: {Id}, Description: {Description}, Sell price: {SellPrice}, Buy price: {BuyPrice}, Quantity: {Quantity} ";
-        }
+        public abstract string Сharacteristics { get; }
 
         public abstract Dictionary<string, string> GetProductInfoParameters();
 

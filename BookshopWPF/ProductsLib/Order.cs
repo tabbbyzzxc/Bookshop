@@ -10,6 +10,8 @@ namespace Bookshop.ProductsLib
     {
         public long Id { get; set; }
 
+        public string Name => $"Order №000{Id}";
+
         public DateTime Date { get; set; }
 
         public List<OrderLine> OrderList { get; set; } = new List<OrderLine>();

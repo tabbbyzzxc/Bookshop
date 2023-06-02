@@ -10,7 +10,7 @@
             <Setter Property="FontSize" Value="16" />
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -31,10 +31,8 @@
                     <MenuItem Header="Book" Click="MenuItem_Click"/>
                     <MenuItem Header="Audiobook" Click="MenuItem_Click"/>
                 </MenuItem>
-                
                 <MenuItem Header="Edit product" Click="MenuItem_Click"/>
-
-
+                <MenuItem Header="Missing Products" Click="MenuItem_Click" />
             </MenuItem>
             <MenuItem Header="Invoice" Style="{StaticResource MenuItemStyle}">
                 <MenuItem Header="Income Invoice" Click="MenuItem_Click"/>
@@ -48,10 +46,8 @@
                 <MenuItem Header="Year" Click="MenuItem_Click"/>
                 <MenuItem Header="Custom" Click="MenuItem_Click"/>
             </MenuItem>
-            <MenuItem Header="Missing Products" Click="MenuItem_Click" Style="{StaticResource MenuItemStyle}">
-            </MenuItem>
         </Menu>
-        
+
         <Frame Margin="20" x:Name="Frame1" Grid.Row="1"  NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>
