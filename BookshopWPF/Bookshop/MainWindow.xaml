@@ -48,6 +48,8 @@
                 <MenuItem Header="Year" Click="MenuItem_Click"/>
                 <MenuItem Header="Custom" Click="MenuItem_Click"/>
             </MenuItem>
+            <MenuItem Header="Missing Products" Click="MenuItem_Click" Style="{StaticResource MenuItemStyle}">
+            </MenuItem>
         </Menu>
         
         <Frame Margin="20" x:Name="Frame1" Grid.Row="1"  NavigationUIVisibility="Hidden"></Frame>

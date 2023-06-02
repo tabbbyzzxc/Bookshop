@@ -71,6 +71,9 @@ namespace Bookshop
                 case "Custom":
                     page = new ReportPage(ReportType.Custom);
                     break;
+                case "Missing Products":
+                    page = new MissingProductsPage();
+                    break;
                 default:
                     page = new WelcomePage();
                     break;

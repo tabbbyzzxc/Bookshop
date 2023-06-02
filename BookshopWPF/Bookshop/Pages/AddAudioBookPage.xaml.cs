@@ -59,6 +59,10 @@ namespace Bookshop.Pages
                 NameBook.Clear();
                 BuyPrice.Clear();
                 SellPrice.Clear();
+                GenreComboBox.SelectedIndex = 0;
+                Language.Clear();
+                FormatComboBox.SelectedIndex = 0;
+                Description.Clear();
                 return;
             }
             else
