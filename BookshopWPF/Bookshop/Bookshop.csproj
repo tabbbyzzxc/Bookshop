@@ -8,15 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\image.jpg" />
+    <None Remove="Resources\image.png" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="bin\Debug\net6.0-windows\Database\dbFile.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\image.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProductsLib\Bookshop.ProductsLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\image.png" />
   </ItemGroup>
 
   <ItemGroup>

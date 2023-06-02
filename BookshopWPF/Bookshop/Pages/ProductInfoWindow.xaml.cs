@@ -22,7 +22,7 @@ namespace Bookshop.Pages
            
             _product = product;
             _orderedItems = orderedItems;
-            recommendedTextBlock.Text = string.Join(",\n ", suggestedProducts.Select(x => x.));
+            recommendedTextBlock.Text = string.Join(",\n ", suggestedProducts.Select(x => x.MainData));
             if (!CanOrderProduct())
             {
                 addToCartBtn.IsEnabled = false;
