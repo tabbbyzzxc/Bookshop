@@ -29,10 +29,21 @@ namespace Bookshop.Services
         public List<Invoice> GetInvoicesByDate(DateTime fromDate, DateTime toDate, InvoiceType type)
         {
             var db = new ProductDbContext();
-            var filteredInvoices = db.Invoices.Where(x => x.Date >= fromDate && x.Date <= toDate && x.InvoiceType == type).ToList();
+            var filteredInvoices = db.Invoices
+                .Where(x => x.Date >= fromDate && x.Date <= toDate && x.InvoiceType == type)
+                .Include(x => x.InvoiceLines)
+                .ToList();
+            var productIds = filteredInvoices.SelectMany(x => x.InvoiceLines).Distinct().Select(x => x.ProductUniqueId).ToList();
+            var products = productService.GetProductsByIds(productIds);
+            foreach (var invoice in filteredInvoices)
+            {
+                foreach (var invoiceLine in invoice.InvoiceLines)
+                {
+                    invoiceLine.Product = products.FirstOrDefault(x => x.UniqueId == invoiceLine.ProductUniqueId);
+                }
+            }
+
             return filteredInvoices;
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bookshop.Pages;
+using Bookshop.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,9 +38,6 @@ namespace Bookshop
                 case "New order":
                     page = new OrderPage();
                     break;
-                case "ReportButton":
-                    page = new ReportPage();
-                    break;
                 case "Book":
                     page = new AddBookPage();
                     break;
@@ -58,8 +56,20 @@ namespace Bookshop
                 case "MissingButton":
                     page = new MissingPage();
                     break;
+                case "Day":
+                    page = new ReportPage(ReportType.Day);
+                    break;
+                case "Week":
+                    page = new ReportPage(ReportType.Week);
+                    break;
+                case "Month":
+                    page = new ReportPage(ReportType.Month);
+                    break;
+                case "Year":
+                    page = new ReportPage(ReportType.Year);
+                    break;
                 case "Custom":
-                    page = new ReportPage();
+                    page = new ReportPage(ReportType.Custom);
                     break;
                 default:
                     page = new WelcomePage();

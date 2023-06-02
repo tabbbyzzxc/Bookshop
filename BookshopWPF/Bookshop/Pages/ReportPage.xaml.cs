@@ -10,29 +10,35 @@ namespace Bookshop
     /// </summary>
     public partial class ReportPage : Page
     {
-    
-        public ReportPage()
+        private ReportManager _reportManager = new ReportManager();
+
+        public ReportPage(ReportType reportType)
         {
             InitializeComponent();
             fromDate.SelectedDate = DateTime.Now;
             dueDate.SelectedDate = DateTime.Now;
-            //sortComboBox.SelectedIndex = 0;
+            sortComboBox.SelectedIndex = (int)reportType;
+            if (reportType != ReportType.Custom)
+            {
+                RenderReport(reportType);
+            }
         }
 
         private void Button_Sort(object sender, RoutedEventArgs e)
         {
-            if(fromDate.SelectedDate == null || dueDate.SelectedDate == null)
+            if (fromDate.SelectedDate == null || dueDate.SelectedDate == null)
             {
                 MessageBox.Show("Please select report dates", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            var dateOption = sortComboBox.SelectedIndex;
+            var choice = sortComboBox.SelectedIndex;
+            RenderReport((ReportType)choice);
+        }
 
-           
-            
-            var reportManager = new ReportManager();
-            var report = reportManager.MakeReport(dateOption, fromDate.SelectedDate.Value, dueDate.SelectedDate.Value);
+        private void RenderReport(ReportType reportType)
+        {
+            var report = _reportManager.MakeReport(reportType, fromDate.SelectedDate.Value, dueDate.SelectedDate.Value);
             orderedListView.ItemsSource = report.OrderedProducts;
             returnedListView.ItemsSource = report.ReturnedProducts;
             totalOrderedAmount.Content = report.TotalOrderedAmount;
@@ -41,7 +47,19 @@ namespace Bookshop
             totalReturnedQuantity.Content = report.TotalReturnedQuantity;
             totalAmount.Content = report.TotalAmount;
         }
-    }
 
-   
+        private void SetControlVisibility(ReportType reportType)
+        {
+            if (calendarPanel != null)
+            {
+                calendarPanel.Visibility = reportType == ReportType.Custom ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
+
+        private void sortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var reportType = (ReportType)sortComboBox.SelectedIndex;
+            SetControlVisibility(reportType);
+        }
+    }
 }

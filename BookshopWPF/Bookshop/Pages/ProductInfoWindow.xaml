@@ -5,31 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bookshop.Pages"
         mc:Ignorable="d"
-        Title="ProductInfoWindow" Height="500" Width="800">
+        Title="ProductInfoWindow" Height="700" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Label x:Name="informationLabel" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"></Label>
 
-            <Grid x:Name="infoGrid" Grid.Row="1" Margin="0,0,20,0">
+        <StackPanel Grid.Row="1" Margin="0,0,20,0">
+            <Grid x:Name="infoGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
             </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Label Content="Recommended products:" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"></Label>
-            <TextBlock x:Name="recommendedTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"></TextBlock>
+            <Border Height="0.5" Background="Black" Margin="10,0,0,0" />
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Label Content="Recommended products:" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"></Label>
+                <TextBlock x:Name="recommendedTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"></TextBlock>
+            </StackPanel>
         </StackPanel>
-        
-        
-            <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
-            <Button Content="Add to cart" Margin="0,0,10,0" Width="114" Height="46" Click="AddBtn_Click"></Button>
+
+        <Label x:Name="warningLabel" FontSize="16" Grid.Row="2" HorizontalAlignment="Center" Visibility="Hidden">
+            <TextBlock Foreground="Red" FontWeight="Medium">WARNING! <TextBlock Foreground="Black" FontWeight="Medium">You cannot add the item because it is out of stock.</TextBlock></TextBlock>
+        </Label>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+            <Button Content="Add to cart" x:Name="addToCartBtn" Margin="0,0,10,0" Width="114" Height="46" Click="AddBtn_Click"></Button>
             <Button Content="Close" Width="114" Height="46" Click="CloseBtn_Click"></Button>
         </StackPanel>
     </Grid>

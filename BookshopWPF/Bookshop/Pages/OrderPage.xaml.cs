@@ -14,83 +14,85 @@ namespace Bookshop.Pages
     /// </summary>
     public partial class OrderPage : Page
     {
-        private ObservableCollection<Product> _allProducts = new ObservableCollection<Product>();
+        private ObservableCollection<Product> _allProducts;
         private ProductService _productService = new ProductService();
-        private ObservableCollection<CartProductModel> _orderedItems = new ObservableCollection<CartProductModel>();
+        private ObservableCollection<CartProductModel> _orderedProducts = new ObservableCollection<CartProductModel>();
         private OrderService _orderService = new OrderService();
         private SuggestionManager _suggestionManager = new SuggestionManager();
+
         public OrderPage()
         {
             InitializeComponent();
             _allProducts = new ObservableCollection<Product>(_productService.GetAvailableProducts());
-            listView.ItemsSource = _allProducts;
-            orderDataGrid.ItemsSource = _orderedItems;
-            orderDataGrid.CellEditEnding += OrderDataGrid_CellEditEnding;
+            productsListView.ItemsSource = _allProducts;
+            cartDataGrid.ItemsSource = _orderedProducts;
+            cartDataGrid.CellEditEnding += CartDataGrid_CellEditEnding;
         }
 
-        private void OrderDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        private void CartDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             var inputText = ((TextBox)e.EditingElement).Text;
-            var ordered = orderDataGrid.SelectedItem as CartProductModel;
-            if (ordered != null && int.TryParse(inputText, out var quantity))
+            var orderedProduct = cartDataGrid.SelectedItem as CartProductModel;
+            if (orderedProduct != null && int.TryParse(inputText, out var quantity))
             {
-                var product = _allProducts.First(x => x.UniqueId == ordered.UniqueId);
+                var product = _allProducts.First(x => x.UniqueId == orderedProduct.UniqueId);
                 if (quantity > product.Quantity)
                 {
-                    ordered.Quantity = product.Quantity + 1;
-                    ((TextBox)e.EditingElement).Text = (product.Quantity + 1).ToString();
-                    product.Quantity -= ordered.Quantity;
+                    ((TextBox)e.EditingElement).Text = product.Quantity.ToString();
                 }
-                else
-                {
-                    product.Quantity -= quantity - 1;
-                }
-
             }
-
         }
 
         private void InitDataGrid()
         {
-            if (!orderDataGrid.Columns.Any())
+            if (!cartDataGrid.Columns.Any())
             {
                 return;
             }
+            
+            Style cellRightAlignmentStyle = new Style(typeof(DataGridCell));
+            cellRightAlignmentStyle.Setters.Add(new Setter(HorizontalAlignmentProperty, HorizontalAlignment.Right));
 
-            orderDataGrid.Columns[0].Visibility = Visibility.Hidden;
-            orderDataGrid.Columns[1].Visibility = Visibility.Hidden;
-            orderDataGrid.Columns[2].Width = 300;
-            orderDataGrid.Columns[2].Header = "Product";
-            orderDataGrid.Columns[2].IsReadOnly = true;
-            orderDataGrid.Columns[3].Width = 100;
-            orderDataGrid.Columns[3].Header = "Type";
-            orderDataGrid.Columns[3].IsReadOnly = true;
-            orderDataGrid.Columns[4].Width = 100;
-            orderDataGrid.Columns[4].IsReadOnly = true;
+            cartDataGrid.Columns[0].Header = "Code";
+            cartDataGrid.Columns[0].Width = 80;
+            cartDataGrid.Columns[0].IsReadOnly = true;
 
-            orderDataGrid.Columns[5].Width = 100; // quantity
+            cartDataGrid.Columns[1].Visibility = Visibility.Hidden;
 
-            orderDataGrid.Columns[6].Width = 100;
-            orderDataGrid.Columns[6].IsReadOnly = true;
+            cartDataGrid.Columns[2].Width = 500;
+            cartDataGrid.Columns[2].Header = "Product";
+            cartDataGrid.Columns[2].IsReadOnly = true;
+
+            cartDataGrid.Columns[3].Width = 80;
+            cartDataGrid.Columns[3].Header = "Type";
+            cartDataGrid.Columns[3].IsReadOnly = true;
+
+            cartDataGrid.Columns[4].Width = 80; // price
+            cartDataGrid.Columns[4].IsReadOnly = true;
+            cartDataGrid.Columns[4].CellStyle = cellRightAlignmentStyle;
+
+            cartDataGrid.Columns[5].Width = 100; // quantity
+            cartDataGrid.Columns[5].CellStyle = cellRightAlignmentStyle;
+
+            cartDataGrid.Columns[6].Width = 100; // total
+            cartDataGrid.Columns[6].IsReadOnly = true;
+            cartDataGrid.Columns[6].CellStyle = cellRightAlignmentStyle;
         }
 
-        private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void OnProductItem_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var selectedItem = listView.SelectedItem as Product;
-            if (selectedItem != null)
+            var selectedProduct = productsListView.SelectedItem as Product;
+            if (selectedProduct != null)
             {
-                var suggestedProducts = _suggestionManager.GetRecommendedProducts(selectedItem);
-                new ProductInfoWindow(selectedItem, _orderedItems, suggestedProducts).ShowDialog();
-
-                orderDataGrid.Items.Refresh();
-                listView.Items.Refresh();
+                var suggestedProducts = _suggestionManager.GetRecommendedProducts(selectedProduct);
+                new ProductInfoWindow(selectedProduct, _orderedProducts, suggestedProducts).ShowDialog();
+                cartDataGrid.Items.Refresh();
             }
         }
 
         private void OpenCart_Click(object sender, RoutedEventArgs e)
         {
             TogglePages();
-
             InitDataGrid();
         }
 
@@ -99,7 +101,7 @@ namespace Bookshop.Pages
             Order order = new Order()
             {
                 Date = DateTime.Now,
-                OrderList = _orderedItems.Select(x => new OrderLine()
+                OrderList = _orderedProducts.Select(x => new OrderLine()
                 {
                     ProductUniqueId = x.UniqueId,
                     Quantity = x.Quantity,
@@ -108,30 +110,21 @@ namespace Bookshop.Pages
                 }).ToList()
             };
             _orderService.AddOrder(order);
-            _orderedItems.Clear();
+            _orderedProducts.Clear();
             _allProducts = new ObservableCollection<Product>(_productService.GetAvailableProducts());
-            listView.ItemsSource = _allProducts;
+            productsListView.ItemsSource = _allProducts;
             TogglePages();
-
+            MessageBox.Show("Order was successfully added", "", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-
             TogglePages();
         }
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in _orderedItems)
-            {
-                var product = _allProducts.First(x => x.UniqueId == item.UniqueId);
-                product.Quantity += item.Quantity;
-            }
-
-            listView.Items.Refresh();
-            _orderedItems.Clear();
+            _orderedProducts.Clear();
         }
 
         private void TogglePages()

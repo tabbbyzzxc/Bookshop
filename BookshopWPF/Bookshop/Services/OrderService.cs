@@ -29,10 +29,21 @@ namespace Bookshop.Services
         public List<Order> GetOrdersByDate(DateTime fromDate, DateTime toDate)
         {
             var db = new ProductDbContext();
-            var filteredOrders = db.Orders.Where(x => x.Date >= fromDate && x.Date <= toDate).ToList();
+            var filteredOrders = db.Orders
+                .Where(x => x.Date >= fromDate && x.Date <= toDate)
+                .Include(x => x.OrderList)
+                .ToList();
+            var productIds = filteredOrders.SelectMany(x => x.OrderList).Distinct().Select(x => x.ProductUniqueId).ToList();
+            var products = productService.GetProductsByIds(productIds);
+            foreach (var order in filteredOrders)
+            {
+                foreach (var orderline in order.OrderList)
+                {
+                    orderline.Product = products.FirstOrDefault(x => x.UniqueId == orderline.ProductUniqueId);
+                }
+            }
+
             return filteredOrders;
         }
-
-        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Bookshop.ProductsLib;
 using Bookshop.ViewModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -15,36 +16,33 @@ namespace Bookshop.Pages
         private Product _product;
         private readonly ObservableCollection<CartProductModel> _orderedItems;
 
-        public ProductInfoWindow(Product product, ObservableCollection<CartProductModel> orderedItems, System.Collections.Generic.List<Product> suggestedProducts)
+        public ProductInfoWindow(Product product, ObservableCollection<CartProductModel> orderedItems, List<Product> suggestedProducts)
         {
             InitializeComponent();
            
             _product = product;
             _orderedItems = orderedItems;
             recommendedTextBlock.Text = string.Join(", ", suggestedProducts.Select(x => x.MainData));
-            RenderInfo();
+            if (!CanOrderProduct())
+            {
+                addToCartBtn.IsEnabled = false;
+                warningLabel.Visibility = Visibility.Visible;
+            }
+            RenderProductInfo();
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (_product.Quantity == 0)
+            var orderedProductExist = _orderedItems.FirstOrDefault(x => x.UniqueId == _product.UniqueId);
+            if (orderedProductExist != null)
             {
-                Close();
-                return;
-            }
-
-            var orderProductExists = _orderedItems.FirstOrDefault(x => x.UniqueId == _product.UniqueId);
-
-            if (orderProductExists != null)
-            {
-                orderProductExists.Quantity++;
+                orderedProductExist.Quantity++;
             }
             else
             {
-
                 var cartModel = new CartProductModel()
                 {
-                    Id = _product.Id,
+                    ProductCode = _product.ProductCode,
                     UniqueId = _product.UniqueId,
                     ProductName = _product.MainData,
                     ProductType = _product.ProductType,
@@ -53,19 +51,12 @@ namespace Bookshop.Pages
                 };
 
                 _orderedItems.Add(cartModel);
-                
             }
 
-            _product.Quantity--;
             Close();
         }
 
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void RenderInfo()
+        private void RenderProductInfo()
         {
             informationLabel.Content = _product.ProductType;
             var fields = _product.GetProductInfoParameters();
@@ -101,9 +92,28 @@ namespace Bookshop.Pages
                 infoGrid.Children.Add(infoTextBlock);
 
                 infoGrid.Children.Add(headerLabel);
-
-
             }
+        }
+
+        private bool CanOrderProduct()
+        {
+            if (_product.Quantity == 0)
+            {
+                return false;
+            }
+
+            var orderedProductExist = _orderedItems.FirstOrDefault(x => x.UniqueId == _product.UniqueId);
+            if (orderedProductExist == null)
+            {
+                return true;
+            }
+
+            return orderedProductExist.Quantity < _product.Quantity;
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

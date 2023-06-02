@@ -18,6 +18,8 @@
 
         public override string ProductType => "Audio Book";
 
+        public override string ProductCode => $"ABK000-{Id}";
+
         public override string GetDescription()
         {
             return base.GetDescription();

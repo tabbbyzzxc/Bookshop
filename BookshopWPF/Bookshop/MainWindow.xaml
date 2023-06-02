@@ -4,16 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Bookshop" Height="450" Width="1200" MinHeight="600" MinWidth="800">
+        Title="Bookshop" Height="450" Width="1200" MinHeight="600" MinWidth="800" Background="#FFF3F0F0">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"></Setter>
-                </Style>
-            </Style.Resources>
-        </Style>
-
         <Style x:Key="MenuItemStyle" TargetType="MenuItem">
             <Setter Property="FontSize" Value="16" />
         </Style>
@@ -53,7 +45,6 @@
                 <MenuItem Header="Day" Click="MenuItem_Click"/>
                 <MenuItem Header="Week" Click="MenuItem_Click"/>
                 <MenuItem Header="Month" Click="MenuItem_Click"/>
-                <MenuItem Header="Quarter" Click="MenuItem_Click"/>
                 <MenuItem Header="Year" Click="MenuItem_Click"/>
                 <MenuItem Header="Custom" Click="MenuItem_Click"/>
             </MenuItem>

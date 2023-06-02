@@ -32,6 +32,8 @@ namespace Bookshop.ProductsLib
 
         public int Quantity { get; set; }
 
+        public abstract string ProductCode { get;}
+
         public abstract string MainData { get; }
 
         public abstract string ProductType { get; }

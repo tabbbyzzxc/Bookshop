@@ -50,7 +50,6 @@ namespace Bookshop.Pages
 
                 var cartModel = new CartProductModel()
                 {
-                    Id = _product.Id,
                     UniqueId = _product.UniqueId,
                     ProductName = _product.MainData,
                     ProductType = _product.ProductType,

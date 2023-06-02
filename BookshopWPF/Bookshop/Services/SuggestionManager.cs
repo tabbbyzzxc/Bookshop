@@ -13,11 +13,11 @@ namespace Bookshop.Services
             {
                 case Book book:
                     {
-                        return GetRecommendedBooks(book.Genre);
+                        return GetRecommendedBooks(book);
                     }
                 case AudioBook audioBook:
                     {
-                        return GetRecommendedAudioBooks(audioBook.Genre);
+                        return GetRecommendedAudioBooks(audioBook);
                     }
                 default:
                     {
@@ -26,17 +26,23 @@ namespace Bookshop.Services
             }
         }
 
-        private List<Product> GetRecommendedBooks(string genre)
+        private List<Product> GetRecommendedBooks(Book book)
         {
             using var db = new ProductDbContext();
-            var books = db.Books.Where(x => x.Genre == genre).Take(3).ToList();
+            var books = db.Books
+                .Where(x => x.Genre == book.Genre && x.UniqueId != book.UniqueId)
+                .Take(3)
+                .ToList();
             return books.Cast<Product>().ToList();
         }
 
-        private List<Product> GetRecommendedAudioBooks(string genre)
+        private List<Product> GetRecommendedAudioBooks(AudioBook audioBook)
         {
             using var db = new ProductDbContext();
-            var audioBooks = db.AudioBooks.Where(x => x.Genre == genre).Take(3).ToList();
+            var audioBooks = db.AudioBooks
+                .Where(x => x.Genre == audioBook.Genre && x.UniqueId != audioBook.UniqueId)
+                .Take(3)
+                .ToList();
             return audioBooks.Cast<Product>().ToList();
         }
     }

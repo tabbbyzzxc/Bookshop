@@ -17,11 +17,11 @@ public class Book : BookProduct
 
     public int PageQuantity { get; set; }
 
-
-
     public override string MainData => $"{Author}. {Title}. {Genre}";
 
     public override string ProductType => "Book";
+
+    public override string ProductCode => $"BK000-{Id}";
 
     public override string GetDescription()
     {

@@ -7,7 +7,8 @@ namespace Bookshop.ViewModels
     public class CartProductModel : INotifyPropertyChanged
     {
         private int _quantity;
-        public long Id { get; set; }
+
+        public string ProductCode { get; set; }
 
         public Guid UniqueId { get; set; }
 
@@ -25,7 +26,6 @@ namespace Bookshop.ViewModels
             }
             set
             {
-
                 _quantity = value;
                 OnProperyChanged("Total");
             }
@@ -33,7 +33,6 @@ namespace Bookshop.ViewModels
 
         public decimal Total => Quantity * Price;
         
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void OnProperyChanged([CallerMemberName] string prop = "")

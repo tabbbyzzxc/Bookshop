@@ -29,33 +29,37 @@
         </Grid.ColumnDefinitions>
         
         <Label  Content="Sales report" HorizontalAlignment="Center" Grid.ColumnSpan="5" FontSize="24"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1">
-            <Label Content="From" HorizontalAlignment="Right"></Label>
-            <DatePicker x:Name="fromDate"></DatePicker>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2">
-            <Label Content="Due" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"></Label>
-            <DatePicker x:Name="dueDate" Grid.Column="3" Grid.Row="1"></DatePicker>
-        </StackPanel>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1">
             <Label Content="Sort by" HorizontalAlignment="Right"></Label>
-            <ComboBox x:Name="sortComboBox" Width="100" SelectedIndex="0">
+            <ComboBox x:Name="sortComboBox" Width="100" SelectedIndex="0" SelectionChanged="sortComboBox_SelectionChanged">
                 <ComboBoxItem IsEnabled="False">Select an option</ComboBoxItem>
                 <ComboBoxItem Content="Day"></ComboBoxItem>
                 <ComboBoxItem Content="Week"></ComboBoxItem>
                 <ComboBoxItem Content="Month"></ComboBoxItem>
                 <ComboBoxItem Content="Year"></ComboBoxItem>
+                <ComboBoxItem Content="Custom"></ComboBoxItem>
             </ComboBox>
         </StackPanel>
         
-        <Button Content="Generate Report" Click="Button_Sort" Grid.Column="4" Grid.Row="1" Margin="10,0,0,0"/>
+        <StackPanel Orientation="Horizontal" x:Name="calendarPanel" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,20,0">
+                <Label Content="From" HorizontalAlignment="Right"></Label>
+                <DatePicker x:Name="fromDate"></DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Due" Grid.Row="1" HorizontalAlignment="Right"></Label>
+                <DatePicker x:Name="dueDate"></DatePicker>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Content="Generate Report" Click="Button_Sort" Grid.Column="4" Grid.Row="1" Margin="10,0,0,0" HorizontalAlignment="Left" Width="120"/>
         <Label Content="Ordered products" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="11" FontWeight="Bold" Grid.Row="2"></Label>
         <ListView x:Name="orderedListView" Grid.Row="3" Grid.ColumnSpan="5">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Product" DisplayMemberBinding="{Binding MainData}"/>
-                    <GridViewColumn Width="100" Header="Amount" DisplayMemberBinding="{Binding SellPrice}"/>
+                    <GridViewColumn Width="500" Header="Product" DisplayMemberBinding="{Binding Product.MainData}"/>
+                    <GridViewColumn Width="100" Header="Price" DisplayMemberBinding="{Binding Product.SellPrice}"/>
                     <GridViewColumn Width="100" Header="Quantity" DisplayMemberBinding="{Binding Quantity}"/>
                     <GridViewColumn Width="100" Header="Total" DisplayMemberBinding="{Binding Total}"/>
                 </GridView>
@@ -76,8 +80,8 @@
         <ListView x:Name="returnedListView" Grid.Row="6" Grid.ColumnSpan="5">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Product" DisplayMemberBinding="{Binding MainData}"/>
-                    <GridViewColumn Width="100" Header="Amount" DisplayMemberBinding="{Binding SellPrice}"/>
+                    <GridViewColumn Width="500" Header="Product" DisplayMemberBinding="{Binding Product.MainData}"/>
+                    <GridViewColumn Width="100" Header="Price" DisplayMemberBinding="{Binding Product.SellPrice}"/>
                     <GridViewColumn Width="100" Header="Quantity" DisplayMemberBinding="{Binding Quantity}"/>
                     <GridViewColumn Width="100" Header="Total" DisplayMemberBinding="{Binding Total}"/>
                 </GridView>
