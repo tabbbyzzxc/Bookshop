@@ -1,6 +1,11 @@
 ﻿using Bookshop.ProductsLib;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace Bookshop
 {
@@ -13,40 +18,49 @@ namespace Bookshop
             {
                 GenerateRandomProducts();
             }
+            
         }
 
         private void GenerateRandomProducts()
         {
+            string[] languages = { "Ukrainian", "English", "Spanish", "French", "German" };
+            string json = Bookshop.Properties.Resources.JSONTEXT;
+            var random = new Random();
+            List<Book> list = JsonSerializer.Deserialize<List<Book>>(json);
 
-            var book = new Book
+            var audioBooks = list.Take(20).Select(x => new AudioBook 
             {
-                Author = "Дженніфер Л. Арментраут",
-                Title = "Війна двох королев",
-                BuyPrice = 1000,
-                Description = "Маківка стала не лише королевою, а й богом, проте це її геть не тішить. Хіба може вона почуватися щасливою, коли Кастіл, її споріднене серце, є бранцем Кривавої королеви? Дівчина ладна на все, аби звільнити коханого, але для цього їй доведеться переконати військову еліту Атлантії вести війну за її правилами та знайти рівновагу між особистим життям і вищою метою — звільненням Солісу від тиранії Кривавої королеви.",
-                Genre = AppConstants.Genres[2],
-                Language = "Ukrainian",
-                PageQuantity = 100,
-                PaperType = AppConstants.PaperTypes[0],
-                SellPrice = 1500,
-                Quantity = 100,
+                Title = x.Title,
+                Author = x.Author,
+                Description = x.Description,
+                Genre = x.Genre,
+                Format = AppConstants.Formats[random.Next(AppConstants.Formats.Length)],
+                BuyPrice = random.Next(50, 120),
+                SellPrice = random.Next(120, 200),
+                Quantity = random.Next(1, 200),
+                Language = languages[random.Next(languages.Length)],
                 UniqueId = Guid.NewGuid()
-            };
-            var audio = new AudioBook
+        });
+
+            AudioBooks.AddRange(audioBooks);
+
+            var books = list.Skip(20).Take(list.Count - 20).Select(x => new Book
             {
-                Author = "Ерін Гантер",
-                Title = "Нове пророцтво",
-                BuyPrice = 900,
-                Description = "«Коты-воины» — мировой бестселлер, серия приключенческих романов-фэнтези для детей и подростков. Первая книга серии была написана в 2001 году британскими писательницами под общим псевдонимом Эрин Гантер (Кейт Кэри, Черит Болдри, Тай Сазерленд, Виктория Голмс). В Украине книги серии «Коты-воины» появились в 2016 году.",
-                Genre = AppConstants.Genres[1],
-                Language = "Ukrainian",
-                Format = AppConstants.Formats[0],
-                SellPrice = 1200,
-                Quantity = 20,
+                Title= x.Title,
+                Author= x.Author,
+                Description = x.Description,
+                Genre = x.Genre,
+                PageQuantity = random.Next(100, 500),
+                PaperType = AppConstants.PaperTypes[random.Next(AppConstants.PaperTypes.Length)],
+                BuyPrice = random.Next(50, 120),
+                SellPrice = random.Next(120, 200),
+                Quantity = random.Next(1, 200),
+                Language = languages[random.Next(languages.Length)],
                 UniqueId = Guid.NewGuid()
-            };
-            Books.Add(book);
-            AudioBooks.Add(audio);
+            });
+
+            Books.AddRange(books);
+
             SaveChanges();
         }
 

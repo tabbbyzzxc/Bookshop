@@ -26,7 +26,7 @@
             <Border Height="0.5" Background="Black" Margin="10,0,0,0" />
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <Label Content="Recommended products:" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"></Label>
-                <TextBlock x:Name="recommendedTextBlock" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"></TextBlock>
+                <TextBlock x:Name="recommendedTextBlock" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="14"></TextBlock>
             </StackPanel>
         </StackPanel>
 

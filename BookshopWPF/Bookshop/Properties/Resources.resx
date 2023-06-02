@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\image.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="JSONTEXT" xml:space="preserve">
+    <value>[
+  {
+    "Title": "To Kill a Mockingbird",
+    "Author": "Harper Lee",
+    "Description": "A classic novel set in the 1930s, exploring racial injustice and the loss of innocence in a small Southern town.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "1984",
+    "Author": "George Orwell",
+    "Description": "A dystopian novel set in a totalitarian society, where the government controls every aspect of people's lives.",
+    "Genre": "Science Fiction"
+  },
+  {
+    "Title": "The Great Gatsby",
+    "Author": "F. Scott Fitzgerald",
+    "Description": "A story of wealth, love, and the American Dream, set in the 1920s.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Pride and Prejudice",
+    "Author": "Jane Austen",
+    "Description": "A classic romance novel featuring the spirited Elizabeth Bennet and the proud Mr. Darcy.",
+    "Genre": "Romance"
+  },
+  {
+    "Title": "To the Lighthouse",
+    "Author": "Virginia Woolf",
+    "Description": "A modernist novel that explores the inner lives of the Ramsay family during their summer vacations.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Catcher in the Rye",
+    "Author": "J.D. Salinger",
+    "Description": "A coming-of-age story narrated by Holden Caulfield, a disenchanted teenager in New York City.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Lord of the Rings",
+    "Author": "J.R.R. Tolkien",
+    "Description": "An epic fantasy trilogy that follows the journey of Frodo Baggins to destroy the One Ring and save Middle-earth.",
+    "Genre": "Fantasy"
+  },
+  {
+    "Title": "Harry Potter and the Philosopher's Stone",
+    "Author": "J.K. Rowling",
+    "Description": "The first book in the popular Harry Potter series, introducing the magical world of Hogwarts School of Witchcraft and Wizardry.",
+    "Genre": "Fantasy"
+  },
+  {
+    "Title": "The Hobbit",
+    "Author": "J.R.R. Tolkien",
+    "Description": "A fantasy adventure novel that follows Bilbo Baggins as he embarks on a quest to reclaim the Lonely Mountain from the dragon Smaug.",
+    "Genre": "Fantasy"
+  },
+  {
+    "Title": "Brave New World",
+    "Author": "Aldous Huxley",
+    "Description": "A dystopian novel set in a future society where citizens are genetically engineered and controlled by the state.",
+    "Genre": "Science Fiction"
+  },
+  {
+    "Title": "Moby-Dick",
+    "Author": "Herman Melville",
+    "Description": "A tale of obsession and revenge, as Captain Ahab pursues the great white whale across the oceans.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Odyssey",
+    "Author": "Homer",
+    "Description": "An ancient Greek epic poem that tells the story of Odysseus and his ten-year journey back home after the Trojan War.",
+    "Genre": "Classics"
+  },
+  {
+    "Title": "The Alchemist",
+    "Author": "Paulo Coelho",
+    "Description": "A philosophical novel about a young shepherd named Santiago who embarks on a journey to discover his personal legend.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Hunger Games",
+    "Author": "Suzanne Collins",
+    "Description": "The first book in a dystopian trilogy, following Katniss Everdeen as she fights for survival in a televised competition.",
+    "Genre": "Science Fiction"
+  },
+  {
+    "Title": "Jane Eyre",
+    "Author": "Charlotte Brontë",
+    "Description": "A Gothic romance novel that tells the story of Jane Eyre, an orphaned governess who falls in love with the brooding Mr. Rochester.",
+    "Genre": "Romance"
+  },
+  {
+    "Title": "The Picture of Dorian Gray",
+    "Author": "Oscar Wilde",
+    "Description": "A novel about a young man named Dorian Gray who remains eternally youthful while his portrait ages and shows the effects of his sins.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Chronicles of Narnia",
+    "Author": "C.S. Lewis",
+    "Description": "A series of fantasy novels that transports readers to the magical land of Narnia, where talking animals and mythical creatures exist.",
+    "Genre": "Fantasy"
+  },
+  {
+    "Title": "The Kite Runner",
+    "Author": "Khaled Hosseini",
+"Description": "A novel set in Afghanistan, exploring themes of guilt, redemption, and the enduring bond between friends.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Lord of the Flies",
+    "Author": "William Golding",
+    "Description": "A story of a group of boys stranded on a deserted island, where their struggle for power and survival leads to chaos and violence.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Gone with the Wind",
+    "Author": "Margaret Mitchell",
+    "Description": "An epic historical novel set in the American South during the Civil War and Reconstruction era, featuring the strong-willed Scarlett O'Hara.",
+    "Genre": "Historical Fiction"
+  },
+  {
+    "Title": "The Fault in Our Stars",
+    "Author": "John Green",
+    "Description": "A heart-wrenching story about two teenagers with cancer who fall in love and embark on a journey of love and loss.",
+    "Genre": "Young Adult"
+  },
+  {
+    "Title": "The Book Thief",
+    "Author": "Markus Zusak",
+    "Description": "A novel set in Nazi Germany, following a young girl named Liesel Meminger who steals books to share with others during World War II.",
+    "Genre": "Historical Fiction"
+  },
+  {
+    "Title": "A Game of Thrones",
+    "Author": "George R.R. Martin",
+    "Description": "The first book in the fantasy series 'A Song of Ice and Fire,' filled with political intrigue, epic battles, and complex characters.",
+    "Genre": "Fantasy"
+  },
+  {
+    "Title": "The Girl with the Dragon Tattoo",
+    "Author": "Stieg Larsson",
+    "Description": "A gripping crime thriller featuring Lisbeth Salander, a computer hacker, and Mikael Blomkvist, an investigative journalist.",
+    "Genre": "Mystery"
+  },
+  {
+    "Title": "The Little Prince",
+    "Author": "Antoine de Saint-Exupéry",
+    "Description": "A poetic novella that tells the story of a young prince who travels from planet to planet, learning important life lessons along the way.",
+    "Genre": "Children's Literature"
+  },
+  {
+    "Title": "The Da Vinci Code",
+    "Author": "Dan Brown",
+    "Description": "A fast-paced thriller featuring symbologist Robert Langdon as he uncovers hidden secrets and puzzles in art and history.",
+    "Genre": "Mystery"
+  },
+  {
+    "Title": "The Diary of a Young Girl",
+    "Author": "Anne Frank",
+    "Description": "The poignant diary of Anne Frank, a Jewish girl hiding from the Nazis during World War II, offering a glimpse into the horrors of the Holocaust.",
+    "Genre": "Biography"
+  },
+  {
+    "Title": "The Name of the Wind",
+    "Author": "Patrick Rothfuss",
+    "Description": "The first book in the fantasy series 'The Kingkiller Chronicle,' chronicling the life and adventures of the enigmatic Kvothe.",
+    "Genre": "Fantasy"
+  },
+  {
+    "Title": "The Handmaid's Tale",
+    "Author": "Margaret Atwood",
+    "Description": "A dystopian novel set in a totalitarian society where women are subjugated and used for reproductive purposes.",
+    "Genre": "Science Fiction"
+  },
+  {
+    "Title": "The Adventures of Huckleberry Finn",
+    "Author": "Mark Twain",
+    "Description": "A classic novel following the adventures of Huck Finn and his friend Jim, an escaped slave, as they travel along the Mississippi River.",
+    "Genre": "Adventure"
+  },
+  {
+    "Title": "The Shining",
+    "Author": "Stephen King",
+    "Description": "A horror novel about an aspiring writer and his family who become caretakers of an isolated hotel, where supernatural forces drive the father to madness.",
+    "Genre": "Horror"
+  },
+  {
+    "Title": "Frankenstein",
+    "Author": "Mary Shelley",
+    "Description": "A Gothic novel exploring the ethical and moral implications of creating life, as scientist Victor Frankenstein brings a creature to life with disastrous consequences.",
+    "Genre": "Horror"
+  },
+  {
+    "Title": "The Grapes of Wrath",
+    "Author": "John Steinbeck",
+    "Description": "A novel that follows the Joad family as they migrate from the Dust Bowl to California during the Great Depression.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Slaughterhouse-Five",
+    "Author": "Kurt Vonnegut",
+    "Description": "A satirical novel that combines elements of science fiction and war, following the life of Billy Pilgrim, a World War II soldier who becomes unstuck in time.",
+    "Genre": "Science Fiction"
+  },
+  {
+    "Title": "The Scarlet Letter",
+    "Author": "Nathaniel Hawthorne",
+    "Description": "A novel set in 17th-century Puritan Boston, where a woman named Hester Prynne is condemned for committing adultery and must wear a scarlet letter 'A' as a mark of shame.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Count of Monte Cristo",
+    "Author": "Alexandre Dumas",
+    "Description": "An adventure novel that follows Edmond Dantès as he seeks revenge against those who wronged him and takes on a new identity as the wealthy and enigmatic Count of Monte Cristo.",
+    "Genre": "Adventure"
+  },
+  {
+    "Title": "The Lion, the Witch and the Wardrobe",
+    "Author": "C.S. Lewis",
+    "Description": "The first book in the fantasy series 'The Chronicles of Narnia,' where four siblings enter a magical wardrobe and find themselves in the land of Narnia, where they must battle the White Witch.",
+    "Genre": "Fantasy"
+  },
+  {
+    "Title": "Crime and Punishment",
+    "Author": "Fyodor Dostoevsky",
+    "Description": "A psychological novel that delves into the mind of Raskolnikov, a poor ex-student who commits a heinous crime and grapples with guilt and redemption.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Wuthering Heights",
+    "Author": "Emily Brontë",
+    "Description": "A Gothic novel that follows the tumultuous and passionate relationship between Catherine Earnshaw and Heathcliff on the windswept moors of Yorkshire.",
+    "Genre": "Romance"
+  },
+  {
+    "Title": "One Hundred Years of Solitude",
+    "Author": "Gabriel García Márquez",
+    "Description": "A magical realist novel that chronicles the Buendía family across multiple generations in the fictional town of Macondo.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Brothers Karamazov",
+    "Author": "Fyodor Dostoevsky",
+    "Description": "A philosophical novel that explores themes of morality, faith, and family through the lives of the Karamazov brothers.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Divine Comedy",
+    "Author": "Dante Alighieri",
+    "Description": "An epic poem that takes the reader on a journey through Hell, Purgatory, and Heaven, guided by the poet Virgil.",
+    "Genre": "Poetry"
+  },
+  {
+    "Title": "Les Misérables",
+    "Author": "Victor Hugo",
+    "Description": "A historical novel set in 19th-century France, following the lives of Jean Valjean, Javert, and other characters during the social and political unrest of the time.",
+    "Genre": "Historical Fiction"
+  },
+  {
+    "Title": "A Tale of Two Cities",
+    "Author": "Charles Dickens",
+    "Description": "A historical novel set in London and Paris before and during the French Revolution, featuring a cast of characters caught up in the tumultuous events of the era.",
+    "Genre": "Historical Fiction"
+  },
+  {
+    "Title": "Don Quixote",
+    "Author": "Miguel de Cervantes",
+    "Description": "A satirical novel that follows the adventures of Alonso Quixano, who believes himself to be a knight-errant named Don Quixote, and his loyal squire Sancho Panza.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Anna Karenina",
+    "Author": "Leo Tolstoy",
+    "Description": "A novel that explores themes of love, passion, and societal norms through the tragic affair between Anna Karenina and Count Vronsky.",
+    "Genre": "Romance"
+  },
+  {
+    "Title": "The Great Expectations",
+    "Author": "Charles Dickens",
+    "Description": "A bildungsroman novel that follows the life of Pip, an orphaned boy who rises from poverty to wealth and encounters various colorful characters along the way.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "War and Peace",
+    "Author": "Leo Tolstoy",
+    "Description": "A historical novel set during the Napoleonic Wars, which explores themes of love, war, and the human condition through the lives of several interconnected characters.",
+    "Genre": "Historical Fiction"
+  },
+  {
+    "Title": "The Adventures of Tom Sawyer",
+    "Author": "Mark Twain",
+    "Description": "A novel that follows the mischievous and imaginative young boy Tom Sawyer as he navigates the small-town life along the Mississippi River.",
+    "Genre": "Adventure"
+  },
+  {
+    "Title": "Sense and Sensibility",
+    "Author": "Jane Austen",
+    "Description": "A novel that contrasts the lives and romantic experiences of the Dashwood sisters, Elinor and Marianne, as they navigate the complexities of love and society.",
+    "Genre": "Romance"
+  },
+  {
+    "Title": "A Clockwork Orange",
+    "Author": "Anthony Burgess",
+    "Description": "A dystopian novel that follows the story of Alex, a teenager involved in violent and criminal activities, and explores themes of free will, morality, and rehabilitation.",
+    "Genre": "Science Fiction"
+  },
+  {
+    "Title": "The Adventures of Huckleberry Finn",
+    "Author": "Mark Twain",
+    "Description": "A novel that follows the adventures of Huck Finn and his friend Jim, an escaped slave, as they travel along the Mississippi River and challenge societal norms.",
+    "Genre": "Adventure"
+  },
+  {
+    "Title": "Slaughterhouse-Five",
+    "Author": "Kurt Vonnegut",
+    "Description": "A science fiction-infused anti-war novel that follows the experiences of Billy Pilgrim, a World War II soldier who becomes unstuck in time.",
+"Genre": "Science Fiction"
+  },
+  {
+    "Title": "The Sound and the Fury",
+    "Author": "William Faulkner",
+    "Description": "A modernist novel that employs multiple narrators to tell the story of the Compson family and explores themes of time, memory, and decay.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Crime and Punishment",
+    "Author": "Fyodor Dostoevsky",
+    "Description": "A psychological novel that delves into the mind of Raskolnikov, a troubled student who commits a murder and grapples with the moral and psychological consequences.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "The Grapes of Wrath",
+    "Author": "John Steinbeck",
+    "Description": "A novel set during the Great Depression, which follows the Joad family as they leave their Oklahoma farm and migrate to California in search of a better life.",
+    "Genre": "Historical Fiction"
+  },
+  {
+    "Title": "The Old Man and the Sea",
+    "Author": "Ernest Hemingway",
+    "Description": "A novella that tells the story of an aging Cuban fisherman named Santiago and his battle with a giant marlin in the Gulf Stream.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Wuthering Heights",
+    "Author": "Emily Brontë",
+    "Description": "A Gothic novel that unfolds the passionate and destructive love story of Heathcliff and Catherine Earnshaw in the Yorkshire moors.",
+    "Genre": "Romance"
+  },
+  {
+    "Title": "Frankenstein",
+    "Author": "Mary Shelley",
+    "Description": "A science fiction novel that explores themes of creation, identity, and the consequences of unchecked ambition through the story of Victor Frankenstein and his creature.",
+    "Genre": "Science Fiction"
+  },
+  {
+    "Title": "The Iliad",
+    "Author": "Homer",
+    "Description": "An ancient Greek epic poem that recounts the events of the Trojan War, including the rage of Achilles and the fall of Troy.",
+    "Genre": "Classics"
+  },
+  {
+    "Title": "The Count of Monte Cristo",
+    "Author": "Alexandre Dumas",
+    "Description": "An adventure novel that follows the story of Edmond Dantès, who is wrongfully imprisoned and seeks revenge against those who betrayed him.",
+    "Genre": "Adventure"
+  },
+  {
+    "Title": "The Scarlet Letter",
+    "Author": "Nathaniel Hawthorne",
+    "Description": "A novel set in 17th-century Puritan Boston, which explores themes of sin, guilt, and redemption through the story of Hester Prynne and her illicit child.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "Pride and Prejudice",
+    "Author": "Jane Austen",
+    "Description": "A classic romance novel that follows the story of Elizabeth Bennet and her relationship with the proud Mr. Darcy in 19th-century England.",
+    "Genre": "Romance"
+  },
+  {
+    "Title": "To Kill a Mockingbird",
+    "Author": "Harper Lee",
+    "Description": "A coming-of-age novel that addresses racial injustice and morality through the eyes of Scout Finch, a young girl growing up in the segregated Southern United States.",
+    "Genre": "Fiction"
+  },
+  {
+    "Title": "1984",
+    "Author": "George Orwell",
+    "Description": "A dystopian novel set in a totalitarian society where individuality and independent thought are suppressed, and surveillance and propaganda are pervasive.",
+    "Genre": "Science Fiction"
+  },
+  {
+    "Title": "Moby-Dick",
+    "Author": "Herman Melville",
+    "Description": "An epic novel that follows the obsessive quest of Captain Ahab to seek revenge on the white whale, Moby-Dick, and explores themes of fate, nature, and obsession.",
+    "Genre": "Adventure"
+  }
+]</value>
+  </data>
+</root>
