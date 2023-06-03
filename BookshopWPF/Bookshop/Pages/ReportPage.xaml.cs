@@ -1,21 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Bookshop.Models;
-using Bookshop.Repositories;
+using Bookshop.Services;
 
 namespace Bookshop
 {
@@ -24,33 +10,56 @@ namespace Bookshop
     /// </summary>
     public partial class ReportPage : Page
     {
-    
-        public ReportPage()
+        private ReportManager _reportManager = new ReportManager();
+
+        public ReportPage(ReportType reportType)
         {
             InitializeComponent();
             fromDate.SelectedDate = DateTime.Now;
             dueDate.SelectedDate = DateTime.Now;
+            sortComboBox.SelectedIndex = (int)reportType;
+            if (reportType != ReportType.Custom)
+            {
+                RenderReport(reportType);
+            }
         }
 
         private void Button_Sort(object sender, RoutedEventArgs e)
         {
-            if(fromDate.SelectedDate == null || dueDate.SelectedDate == null)
+            if (fromDate.SelectedDate == null || dueDate.SelectedDate == null)
             {
                 MessageBox.Show("Please select report dates", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            var due = dueDate.SelectedDate.Value;
-            DateTime fromTime = fromDate.SelectedDate.Value;
-            DateTime dueTime = new DateTime(due.Year, due.Month, due.Day, 23, 59, 59);
-            
-            var reportManager = new ReportManager();
-            var report = reportManager.MakeReport(fromTime, dueTime);
-            listView.ItemsSource = report.ReportList;
+            var choice = sortComboBox.SelectedIndex;
+            RenderReport((ReportType)choice);
+        }
+
+        private void RenderReport(ReportType reportType)
+        {
+            var report = _reportManager.MakeReport(reportType, fromDate.SelectedDate.Value, dueDate.SelectedDate.Value);
+            orderedListView.ItemsSource = report.OrderedProducts;
+            returnedListView.ItemsSource = report.ReturnedProducts;
+            totalOrderedAmount.Content = report.TotalOrderedAmount;
+            totalOrderedQuantity.Content = report.TotalOrderedQuantity;
+            totalReturnedAmount.Content = report.TotalReturnedAmount;
+            totalReturnedQuantity.Content = report.TotalReturnedQuantity;
             totalAmount.Content = report.TotalAmount;
-            totalQuantity.Content = report.TotalQuantity;
+        }
+
+        private void SetControlVisibility(ReportType reportType)
+        {
+            if (calendarPanel != null)
+            {
+                calendarPanel.Visibility = reportType == ReportType.Custom ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
+
+        private void sortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var reportType = (ReportType)sortComboBox.SelectedIndex;
+            SetControlVisibility(reportType);
         }
     }
-
-   
 }

@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Bookshop.Models;
-using Bookshop.Repositories;
+using Bookshop.Pages;
+using Bookshop.ProductsLib;
+using Bookshop.Services;
 
 namespace Bookshop
 {
@@ -22,32 +14,39 @@ namespace Bookshop
     /// </summary>
     public partial class EditPage : Page
     {
-        private List<Book> _books;
+        private List<Product> _allProducts = new List<Product>();
+        private ProductService _productService = new ProductService();
         public EditPage()
         {
-            
-            BookRepository repo = new BookRepository();
-            _books= repo.GetAllBooks();
+            _allProducts = _productService.GetAllProducts();
             InitializeComponent();
-            listView.ItemsSource = _books;
+            listView.ItemsSource = _allProducts;
 
         }
 
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(listView.SelectedItem != null)
+            if (listView.SelectedItem != null)
             {
-                var selectedBook = (Book)listView.SelectedItem;
-                EditBookWindow editBookWindow = new EditBookWindow(selectedBook);
-                editBookWindow.ShowDialog();
+                if (listView.SelectedItem is Book book)
+                {
+                    new EditBookWindow(book).ShowDialog();
+
+                }
+                if (listView.SelectedItem is AudioBook audioBook)
+                {
+                    new EditAudioBookWindow(audioBook).ShowDialog();
+                }
+                _allProducts = _productService.GetAllProducts();
+                listView.ItemsSource = _allProducts;
             }
         }
-       
+
         private void OnSearch(object sender, TextChangedEventArgs e)
         {
             var text = Search.Text;
-            var filteredBooks = _books.Where(x => x.Name.Contains(text, StringComparison.OrdinalIgnoreCase) || x.Author.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
-            listView.ItemsSource= filteredBooks;
+            var filteredBooks = _allProducts.Where(x => x.MainData.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
+            listView.ItemsSource = filteredBooks;
         }
     }
 }

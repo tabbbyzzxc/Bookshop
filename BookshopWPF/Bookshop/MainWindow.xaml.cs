@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bookshop.Pages;
+using Bookshop.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,29 +29,53 @@ namespace Bookshop
             Frame1.Content = new WelcomePage();
         }
 
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var button = (Button)sender;
+            var button = (MenuItem)sender;
             Page page;
-            switch (button.Name)
+            switch (button.Header)
             {
-                case "CheckoutButton":
-                    page = new CheckoutPage();
+                case "New order":
+                    page = new OrderPage();
                     break;
-                case "ReportButton":
-                    page = new ReportPage();
-                    break;
-                case "AddButton":
+                case "Book":
                     page = new AddBookPage();
                     break;
-                case "EditButton":
+                case "Audiobook":
+                    page = new AddAudioBookPage();
+                    break;
+                case "Edit product":
                     page = new EditPage();
                     break;
-                case "ReceiptButton":
-                    page = new ReceiptPage();
+                case "Income Invoice":
+                    page = new ProductIncomePage();
                     break;
-                case "MissingButton":
-                    page = new MissingPage();
+                case "Return Invoice":
+                    page = new ReturnInvoicePage();
+                    break;
+                case "Day":
+                    page = new ReportPage(ReportType.Day);
+                    break;
+                case "Week":
+                    page = new ReportPage(ReportType.Week);
+                    break;
+                case "Month":
+                    page = new ReportPage(ReportType.Month);
+                    break;
+                case "Year":
+                    page = new ReportPage(ReportType.Year);
+                    break;
+                case "Custom":
+                    page = new ReportPage(ReportType.Custom);
+                    break;
+                case "Missing Products":
+                    page = new MissingProductsPage();
+                    break;
+                case "View orders":
+                    page = new OrderListPage();
+                    break;
+                case "View invoices":
+                    page = new InvoiceListPage();
                     break;
                 default:
                     page = new WelcomePage();

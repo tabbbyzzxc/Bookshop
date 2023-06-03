@@ -1,0 +1,24 @@
+﻿<Window x:Class="Bookshop.Pages.ProductAddQuantityWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bookshop.Pages"
+        mc:Ignorable="d"
+        Title="ProductAddQuantityWindow" Height="150" Width="200">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Quantity: "></Label>
+            <TextBox x:Name="quantityTextBox" Width="50"></TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
+            <Button Margin="0,0,10,0" Width="50" Content="Add" Click="AddBtn_Click"></Button>
+            <Button Content="Close" Width="50" Click="CloseBtn_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
