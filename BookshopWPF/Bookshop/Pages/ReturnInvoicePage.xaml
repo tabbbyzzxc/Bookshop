@@ -23,7 +23,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10">
                     <Label Content="Search: "></Label>
-                    <TextBox x:Name="SearchTextBox" Width="100" Height="24"></TextBox>
+                    <TextBox x:Name="SearchTextBox" Width="100" Height="24" TextChanged="SearchTextBox_TextChanged"></TextBox>
                 </StackPanel>
 
                 <ListView x:Name="productsListView" MouseDoubleClick="OnProductItem_DoubleClick" Grid.Row="2">

@@ -53,9 +53,6 @@ namespace Bookshop
                 case "Return Invoice":
                     page = new ReturnInvoicePage();
                     break;
-                case "MissingButton":
-                    page = new MissingPage();
-                    break;
                 case "Day":
                     page = new ReportPage(ReportType.Day);
                     break;

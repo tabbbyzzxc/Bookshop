@@ -139,5 +139,12 @@ namespace Bookshop.Pages
             NewOrderPage.Visibility = NewOrderPage.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
             CartPage.Visibility = CartPage.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
         }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = SearchTextBox.Text;
+            var filteredBooks = _allProducts.Where(x => x.MainData.Contains(text, StringComparison.OrdinalIgnoreCase)).ToList();
+            productsListView.ItemsSource = filteredBooks;
+        }
     }
 }
