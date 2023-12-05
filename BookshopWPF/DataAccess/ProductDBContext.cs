@@ -1,13 +1,7 @@
 ﻿using Bookshop.ProductsLib;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Windows.Documents;
-using System.Windows.Media;
 
-namespace Bookshop
+namespace DataAccess
 {
     public class ProductDbContext : DbContext
     {
@@ -16,26 +10,28 @@ namespace Bookshop
             var dbExists = Database.EnsureCreated();
             if (dbExists)
             {
-                GenerateRandomProducts();
+                //GenerateRandomProducts();
             }
-            
+
         }
 
-        private void GenerateRandomProducts()
+        public ProductDbContext(DbContextOptions options) : base(options) { }
+
+        /*private void GenerateRandomProducts()
         {
             string[] languages = { "Ukrainian", "English", "Spanish", "French", "German" };
             string json = Bookshop.Properties.Resources.JSONTEXT;
             var random = new Random();
             List<Book> list = JsonSerializer.Deserialize<List<Book>>(json);
 
-           
 
-           
+
+
 
             var books = list.Skip(20).Take(list.Count - 20).Select(x => new Book
             {
-                Title= x.Title,
-                Author= x.Author,
+                Title = x.Title,
+                Author = x.Author,
                 Description = x.Description,
                 Genre = x.Genre,
                 PageQuantity = random.Next(100, 500),
@@ -50,7 +46,7 @@ namespace Bookshop
             Books.AddRange(books);
 
             SaveChanges();
-        }
+        }*/
 
         public DbSet<Book> Books { get; set; }
 
@@ -62,14 +58,14 @@ namespace Bookshop
         {
             modelBuilder.Entity<OrderLine>().HasOne(o => o.Order).WithMany(o => o.OrderList).HasForeignKey(o => o.OrderId);
             modelBuilder.Entity<InvoiceLine>().HasOne(o => o.Invoice).WithMany(o => o.InvoiceLines).HasForeignKey(o => o.InvoiceId);
-            
+
             base.OnModelCreating(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql(connectionString:
-               Properties.Settings.Default.ConnectionString);
+               "Server=localhost;Port=5432;User Id=postgres;Password=159874;Database=ProductDb;");
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             base.OnConfiguring(optionsBuilder);
         }
