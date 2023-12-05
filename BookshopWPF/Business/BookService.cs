@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bookshop.Services
+namespace Bookshop.Business
 {
     public class BookService
     {
@@ -63,7 +63,7 @@ namespace Bookshop.Services
 
         }
 
-        public IEnumerable<Product> GetBooksByIds(List<Guid> productIds)
+        public IEnumerable<Book> GetBooksByIds(List<Guid> productIds)
         {
             using var db = new ProductDbContext();
             return db.Books.Where(x => productIds.Contains(x.UniqueId)).ToList();

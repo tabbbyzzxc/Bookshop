@@ -13,10 +13,10 @@ namespace Bookshop.Pages
     /// </summary>
     public partial class ProductInfoWindow : Window
     {
-        private Product _product;
+        private Book _product;
         private readonly ObservableCollection<CartProductModel> _orderedItems;
 
-        public ProductInfoWindow(Product product, ObservableCollection<CartProductModel> orderedItems, List<Product> suggestedProducts)
+        public ProductInfoWindow(Book product, ObservableCollection<CartProductModel> orderedItems, List<Book> suggestedProducts)
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;

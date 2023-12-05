@@ -41,9 +41,6 @@ namespace Bookshop
                 case "Book":
                     page = new AddBookPage();
                     break;
-                case "Audiobook":
-                    page = new AddAudioBookPage();
-                    break;
                 case "Edit product":
                     page = new EditPage();
                     break;

@@ -14,7 +14,7 @@ namespace Bookshop.Pages
     /// </summary>
     public partial class ReturnInvoicePage : Page
     {
-        private ObservableCollection<Product> _allProducts = new ObservableCollection<Product>();
+        private ObservableCollection<Book> _allProducts = new ObservableCollection<Book>();
         private ProductService _productService = new ProductService();
         private ObservableCollection<CartProductModel> _invoicedItems = new ObservableCollection<CartProductModel>();
         private InvoiceService _invoiceService = new InvoiceService();
@@ -23,7 +23,7 @@ namespace Bookshop.Pages
         public ReturnInvoicePage()
         {
             InitializeComponent();
-            _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
+            _allProducts = new ObservableCollection<Book>(_productService.GetAllProducts());
             productsListView.ItemsSource = _allProducts;
             invoiceDataGrid.ItemsSource = _invoicedItems;
             invoiceDataGrid.CellEditEnding += InvoiceDataGrid_CellEditEnding;
@@ -81,7 +81,7 @@ namespace Bookshop.Pages
 
         private void OnProductItem_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var selectedItem = productsListView.SelectedItem as Product;
+            var selectedItem = productsListView.SelectedItem as Book;
             if (selectedItem != null)
             {
                 new ProductAddQuantityWindow(selectedItem, _invoicedItems, InvoiceType.Return).ShowDialog();
@@ -116,7 +116,7 @@ namespace Bookshop.Pages
             };
             _invoiceService.AddInvoice(invoice);
             _invoicedItems.Clear();
-            _allProducts = new ObservableCollection<Product>(_productService.GetAllProducts());
+            _allProducts = new ObservableCollection<Book>(_productService.GetAllProducts());
             productsListView.ItemsSource = _allProducts;
             TogglePages();
 

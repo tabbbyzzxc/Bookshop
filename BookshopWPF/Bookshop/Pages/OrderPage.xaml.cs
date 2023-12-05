@@ -14,7 +14,7 @@ namespace Bookshop.Pages
     /// </summary>
     public partial class OrderPage : Page
     {
-        private ObservableCollection<Product> _allProducts;
+        private ObservableCollection<Book> _allProducts;
         private ProductService _productService = new ProductService();
         private ObservableCollection<CartProductModel> _orderedProducts = new ObservableCollection<CartProductModel>();
         private OrderService _orderService = new OrderService();
@@ -24,7 +24,7 @@ namespace Bookshop.Pages
         public OrderPage()
         {
             InitializeComponent();
-            _allProducts = new ObservableCollection<Product>(_productService.GetAvailableProducts());
+            _allProducts = new ObservableCollection<Book>(_productService.GetAvailableProducts());
             productsListView.ItemsSource = _allProducts;
             cartDataGrid.ItemsSource = _orderedProducts;
             cartDataGrid.CellEditEnding += CartDataGrid_CellEditEnding;
@@ -82,7 +82,7 @@ namespace Bookshop.Pages
 
         private void OnProductItem_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var selectedProduct = productsListView.SelectedItem as Product;
+            var selectedProduct = productsListView.SelectedItem as Book;
             if (selectedProduct != null)
             {
                 var suggestedProducts = _suggestionManager.GetRecommendedProducts(selectedProduct);
@@ -117,7 +117,7 @@ namespace Bookshop.Pages
             };
             _orderService.AddOrder(order);
             _orderedProducts.Clear();
-            _allProducts = new ObservableCollection<Product>(_productService.GetAvailableProducts());
+            _allProducts = new ObservableCollection<Book>(_productService.GetAvailableProducts());
             productsListView.ItemsSource = _allProducts;
             TogglePages();
             var check = _documentService.CreatePrintDocument(order);

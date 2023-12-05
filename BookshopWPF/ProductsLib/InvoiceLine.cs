@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookshop.ProductsLib
 {
@@ -15,7 +16,7 @@ namespace Bookshop.ProductsLib
         public long InvoiceId { get; set; }
 
         [NotMapped]
-        public Product Product { get; set; }
+        public Book Product { get; set; }
 
         public decimal Total => Quantity * Product.SellPrice;
     }

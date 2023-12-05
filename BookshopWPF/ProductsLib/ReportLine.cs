@@ -1,4 +1,6 @@
-﻿namespace Bookshop.ProductsLib
+﻿using System;
+
+namespace Bookshop.ProductsLib
 {
     public class ReportLine
     {
@@ -6,7 +8,7 @@
 
         public int Quantity { get; set; }
 
-        public Product Product { get; set; }
+        public Book Product { get; set; }
 
         public decimal Total
         {

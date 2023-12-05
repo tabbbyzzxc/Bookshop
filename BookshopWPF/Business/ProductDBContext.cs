@@ -28,21 +28,9 @@ namespace Bookshop
             var random = new Random();
             List<Book> list = JsonSerializer.Deserialize<List<Book>>(json);
 
-            var audioBooks = list.Take(20).Select(x => new AudioBook 
-            {
-                Title = x.Title,
-                Author = x.Author,
-                Description = x.Description,
-                Genre = x.Genre,
-                Format = AppConstants.Formats[random.Next(AppConstants.Formats.Length)],
-                BuyPrice = random.Next(50, 120),
-                SellPrice = random.Next(120, 200),
-                Quantity = random.Next(1, 200),
-                Language = languages[random.Next(languages.Length)],
-                UniqueId = Guid.NewGuid()
-        });
+           
 
-            AudioBooks.AddRange(audioBooks);
+           
 
             var books = list.Skip(20).Take(list.Count - 20).Select(x => new Book
             {
@@ -66,7 +54,7 @@ namespace Bookshop
 
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<AudioBook> AudioBooks { get; set; }
+
 
         public DbSet<Order> Orders { get; set; }
 

@@ -22,11 +22,11 @@ namespace Bookshop.Pages
     /// </summary>
     public partial class ProductAddQuantityWindow : Window
     {
-        private Product _product;
+        private Book _product;
         private ObservableCollection<CartProductModel> _cartModels;
         private InvoiceType _invoiceType;
 
-        public ProductAddQuantityWindow(Product selectedItem, ObservableCollection<CartProductModel> cartModels, InvoiceType type)
+        public ProductAddQuantityWindow(Book selectedItem, ObservableCollection<CartProductModel> cartModels, InvoiceType type)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();

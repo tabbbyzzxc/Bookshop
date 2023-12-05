@@ -14,7 +14,7 @@ namespace Bookshop
     /// </summary>
     public partial class EditPage : Page
     {
-        private List<Product> _allProducts = new List<Product>();
+        private List<Book> _allProducts = new List<Book>();
         private ProductService _productService = new ProductService();
         public EditPage()
         {
@@ -32,10 +32,6 @@ namespace Bookshop
                 {
                     new EditBookWindow(book).ShowDialog();
 
-                }
-                if (listView.SelectedItem is AudioBook audioBook)
-                {
-                    new EditAudioBookWindow(audioBook).ShowDialog();
                 }
                 _allProducts = _productService.GetAllProducts();
                 listView.ItemsSource = _allProducts;
