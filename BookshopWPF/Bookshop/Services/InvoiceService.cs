@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bookshop.Business
+namespace Bookshop.Services
 {
     public class InvoiceService
     {

@@ -6,7 +6,7 @@ using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
 using System.Windows.Media;
 
-namespace Bookshop.Business
+namespace Bookshop.Services
 {
     public class DocumentService
     {

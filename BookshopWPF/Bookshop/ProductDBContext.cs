@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace Bookshop.Business
+namespace Bookshop
 {
     public class ProductDbContext : DbContext
     {
@@ -16,12 +16,12 @@ namespace Bookshop.Business
             var dbExists = Database.EnsureCreated();
             if (dbExists)
             {
-                // GenerateRandomProducts();
+                GenerateRandomProducts();
             }
             
         }
 
-        /*private void GenerateRandomProducts()
+        private void GenerateRandomProducts()
         {
             string[] languages = { "Ukrainian", "English", "Spanish", "French", "German" };
             string json = Bookshop.Properties.Resources.JSONTEXT;
@@ -50,7 +50,7 @@ namespace Bookshop.Business
             Books.AddRange(books);
 
             SaveChanges();
-        }*/
+        }
 
         public DbSet<Book> Books { get; set; }
 
@@ -69,7 +69,7 @@ namespace Bookshop.Business
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql(connectionString:
-               "Server=localhost;Port=5432;User Id=postgres;Password=159874;Database=ProductDb;");
+               Properties.Settings.Default.ConnectionString);
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             base.OnConfiguring(optionsBuilder);
         }

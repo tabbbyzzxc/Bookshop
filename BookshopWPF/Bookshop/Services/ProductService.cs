@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-namespace Bookshop.Business
+namespace Bookshop.Services
 {
     public class ProductService
     {
