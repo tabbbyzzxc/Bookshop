@@ -1,5 +1,6 @@
 ﻿using Bookshop.ProductsLib;
 using Bookshop.Services;
+using DataAccess;
 using System.Windows;
 using System.Windows.Controls;
 

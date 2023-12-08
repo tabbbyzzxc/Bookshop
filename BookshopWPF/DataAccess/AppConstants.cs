@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace Bookshop
+﻿namespace DataAccess
 {
     public class AppConstants
     {

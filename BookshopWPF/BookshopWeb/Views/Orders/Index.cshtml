@@ -1,0 +1,99 @@
+﻿@model NewOrderViewModel
+
+<link rel="stylesheet" href="~/css/order.css" asp-append-version="true" />
+<div>
+    <label for="searchInput">Search:</label>
+    <input type="text" id="searchInput" name="searchInput" />
+    <button onclick="searchBooks()">Search</button>
+</div>
+
+<div class="cart">
+    <button><i class="fa-solid fa-cart-shopping"></i></button>
+</div>
+
+<div>
+    <h2>Book List</h2>
+    <hr />
+    <div class="container">
+        @for (int i = 0; i < Model.Books.Count / 5; i++)
+        {
+            <div class="row">
+                @for (int j = 0; j < 5; j++)
+                {
+                    var book = Model.Books[i * 5 + j];
+                    <partial name="../Books/_BookProductItem.cshtml" for="@book"></partial>
+                }
+            </div>
+
+        }
+    </div>
+</div>
+
+
+<div>
+    <button onclick="openCart()">Open Cart</button>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="successToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <i class="fa-solid fa-circle-exclamation rounded me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Book was successfully added to cart
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="failToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger text-white">
+            <i class="fa-solid fa-triangle-exclamation rounded me-2"></i>
+            <strong class="me-auto">Error</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Something went wrong!
+        </div>
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/1961c270d9.js" crossorigin="anonymous"></script>
+<script>
+    function addToCart(cartId, bookId) {
+        const formData = {
+            cartId,
+            bookId
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/cart/addtocart',
+            data: formData,
+            success: function (response) {
+                if (response.response === true)
+                    showToastSuccess();
+                else
+                    showToastFail();
+            },
+            error: function (error) {
+                console.error('Error:', error);
+                showToastFail();
+            }
+        });
+    }
+    
+    function showToastSuccess() {
+        var t = document.getElementById("successToast");
+        var toast = new bootstrap.Toast(t);
+        toast.show();
+    }
+
+    function showToastFail() {
+        var t = document.getElementById("failToast");
+        var toast = new bootstrap.Toast(t);
+        toast.show();
+    }
+
+</script>

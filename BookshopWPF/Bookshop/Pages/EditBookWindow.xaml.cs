@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Bookshop.ProductsLib;
 using Bookshop.Services;
+using DataAccess;
 
 namespace Bookshop
 {

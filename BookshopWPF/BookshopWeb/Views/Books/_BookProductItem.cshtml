@@ -1,0 +1,19 @@
+﻿@model OrderBookListViewModel
+
+
+<div class="col">
+    <div>
+        <h5>@Model.Title</h5>
+        <h6>@Model.ProductCode</h6>
+
+        <div>
+            <small>Author:</small> @Model.Author
+        </div>
+        <div>
+            <strong>Sell Price:</strong> $@Model.SellPrice
+        </div>
+
+        <button type="button" onclick="addToCart(@Model.CartId, @Model.Id)"><i class="fa-solid fa-cart-plus"></i></button>
+        <a type="button" asp-area="" asp-controller="Books" asp-action="GetBookInfo" asp-route-id="@Model.Id"><i class="fa-solid fa-info"></i></a>
+    </div>
+</div>

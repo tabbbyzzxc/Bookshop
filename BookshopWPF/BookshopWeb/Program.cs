@@ -17,6 +17,11 @@ namespace BookshopWeb
                 opts.UseNpgsql(connectionString: "Server=localhost;Port=5432;User Id=postgres;Password=159874;Database=ProductDb;");
             });
 
+
+            builder.Services.AddAutoMapper(typeof(Program));
+
+            builder.Services.AddRouting();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
