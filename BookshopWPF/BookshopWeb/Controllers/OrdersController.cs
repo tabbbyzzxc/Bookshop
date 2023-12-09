@@ -35,5 +35,19 @@ namespace BookshopWeb.Controllers
 
             return View(model);
         }
+
+        public async Task<IActionResult> ViewOrders()
+        {
+            var allOrders = await _context.Orders
+                .AsNoTracking()
+                .Include(x => x.OrderList)
+                    .ThenInclude(o => o.Book)
+                .ToListAsync();
+            var models = _mapper.Map<List<OrderViewModel>>(allOrders);
+
+            OrderListViewModel model = new() { Orders = models };
+
+            return View(model);
+        }
     }
 }

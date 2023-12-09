@@ -33,6 +33,15 @@ namespace BookshopWeb.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> MissingBooks()
+        {
+            var allBooks = await _context.Books.AsNoTracking().OrderBy(x => x.Id).Where(x => x.Quantity == 0).ToListAsync();
+            var models = _mapper.Map<List<BookViewModel>>(allBooks);
+            MissingBooksViewModel model = new() { Books = models };
+
+            return View(model);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetBookInfo([FromRoute] long id)
         {

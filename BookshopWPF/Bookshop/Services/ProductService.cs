@@ -9,16 +9,16 @@ namespace Bookshop.Services
     public class ProductService
     {
         private BookService _bookService = new BookService();
-        
+
         public List<Book> GetAllProducts()
         {
             var allProducts = new List<Book>();
 
             var allBooks = _bookService.GetAllBooks();
-            
+
 
             allProducts.AddRange(allBooks);
-            
+
 
             return allProducts;
         }
@@ -28,10 +28,10 @@ namespace Bookshop.Services
             var availableProducts = new List<Book>();
 
             var availableBooks = _bookService.GetAvailableBooks();
-           
+
 
             availableProducts.AddRange(availableBooks);
-            
+
 
             return availableProducts;
         }
@@ -41,10 +41,10 @@ namespace Bookshop.Services
             var missingProducts = new List<Book>();
 
             var missingBooks = _bookService.GetMissingBooks();
-            
+
 
             missingProducts.AddRange(missingBooks);
-            
+
 
             return missingProducts;
         }
@@ -54,10 +54,10 @@ namespace Bookshop.Services
             var products = new List<Book>();
 
             var books = _bookService.GetBooksByIds(productIds);
-            
+
 
             products.AddRange(books);
-            
+
 
             return products;
         }
@@ -66,20 +66,20 @@ namespace Bookshop.Services
         {
             using ProductDbContext db = new ProductDbContext();
 
-            var orderedProducts = order.OrderList.Select(x => x.Product);
+            var orderedProducts = order.OrderList.Select(x => x.Book);
             var orderedBooks = orderedProducts.OfType<Book>().ToList();
-            
+
 
             var booksToUpdate = _bookService.GetBooksByIds(orderedBooks.Select(y => y.UniqueId).ToList());
             foreach (var book in booksToUpdate)
             {
-                var orderedBookQuantity = order.OrderList.First(x => x.Product.UniqueId == book.UniqueId).Quantity;
+                var orderedBookQuantity = order.OrderList.First(x => x.Book.UniqueId == book.UniqueId).Quantity;
                 book.Quantity -= orderedBookQuantity;
             }
 
             db.UpdateRange(booksToUpdate);
 
-           
+
             db.SaveChanges();
         }
 
@@ -89,7 +89,7 @@ namespace Bookshop.Services
 
             var invoicedProducts = invoice.InvoiceLines.Select(x => x.Product);
             var invoicedBooks = invoicedProducts.OfType<Book>().ToList();
-           
+
 
             var booksToUpdate = _bookService.GetBooksByIds(invoicedBooks.Select(y => y.UniqueId).ToList());
             foreach (var book in booksToUpdate)

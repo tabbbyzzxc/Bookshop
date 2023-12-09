@@ -111,7 +111,7 @@ namespace Bookshop.Pages
                 {
                     ProductUniqueId = x.UniqueId,
                     Quantity = x.Quantity,
-                    Product = _allProducts.First(y => y.UniqueId == x.UniqueId)
+                    Book = _allProducts.First(y => y.UniqueId == x.UniqueId)
 
                 }).ToList()
             };

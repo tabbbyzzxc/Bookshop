@@ -20,7 +20,7 @@ namespace DataAccess
             : base(options)
         {
             var dbExists = Database.EnsureCreated();
-            if(dbExists)
+            if (dbExists)
             {
                 GenerateRandomProducts();
             }
@@ -59,7 +59,7 @@ namespace DataAccess
             List<Book> list = JsonSerializer.Deserialize<List<Book>>(json);
 
 
-            var books = list.Skip(20).Take(list.Count - 20).Select(x => new Book
+            IEnumerable<Book> books = list.Skip(20).Take(list.Count - 20).Select(x => new Book
             {
                 Title = x.Title,
                 Author = x.Author,
@@ -75,6 +75,44 @@ namespace DataAccess
             });
 
             Books.AddRange(books);
+
+            SaveChanges();
+
+            var listTemp = books.ToList();
+            var oredrs = new List<Order>
+            {
+                new Order
+                {
+                    Date = DateTime.Now,
+                    OrderList = new List<OrderLine>
+                    {
+                        new OrderLine { Book = listTemp[0], Quantity = 1 },
+                        new OrderLine { Book = listTemp[1], Quantity = 2 }
+                    }
+                },
+                new Order
+                {
+                    Date = DateTime.Now,
+                    OrderList = new List<OrderLine>
+                    {
+                        new OrderLine { Book = listTemp[2], Quantity = 4 },
+                        new OrderLine { Book = listTemp[3], Quantity = 2 }
+                    }
+                },
+                new Order
+                {
+                    Date = DateTime.Now,
+                    OrderList = new List<OrderLine>
+                    {
+                        new OrderLine { Book = listTemp[4], Quantity = 2 },
+                        new OrderLine { Book = listTemp[8], Quantity = 2 },
+                        new OrderLine { Book = listTemp[5], Quantity = 7 },
+                        new OrderLine { Book = listTemp[5], Quantity = 4 }
+                    }
+                }
+            };
+
+            Orders.AddRange(oredrs);
 
             SaveChanges();
         }

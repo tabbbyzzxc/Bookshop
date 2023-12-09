@@ -63,7 +63,7 @@ namespace Bookshop.Services
                         {
                             ProductUniqueId = item.ProductUniqueId,
                             Quantity = item.Quantity,
-                            Product = item.Product
+                            Product = item.Book
                         });
                     }
                     else

@@ -1,7 +1,7 @@
 ﻿@model OrderBookListViewModel
 
 
-<div class="col">
+@* <div class="col">
     <div>
         <h5>@Model.Title</h5>
         <h6>@Model.ProductCode</h6>
@@ -15,5 +15,17 @@
 
         <button type="button" onclick="addToCart(@Model.CartId, @Model.Id)"><i class="fa-solid fa-cart-plus"></i></button>
         <a type="button" asp-area="" asp-controller="Books" asp-action="GetBookInfo" asp-route-id="@Model.Id"><i class="fa-solid fa-info"></i></a>
+    </div>
+</div>
+ *@
+<div class="card" style="width: 18rem;">
+    <img src="/pudge.png" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text">@Model.Author</p>
+    </div>
+    <div class="card-body">
+        <button type="button" onclick="addToCart(@Model.CartId, @Model.Id)"><i class="fa-solid fa-cart-plus"></i></button>
+        <a style="margin-left:30px" type="button" asp-area="" asp-controller="Books" asp-action="GetBookInfo" asp-route-id="@Model.Id"><i class="fa-solid fa-info"></i></a>
     </div>
 </div>

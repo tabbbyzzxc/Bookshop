@@ -40,7 +40,7 @@ namespace Bookshop.Services
             {
                 foreach (var orderline in order.OrderList)
                 {
-                    orderline.Product = products.FirstOrDefault(x => x.UniqueId == orderline.ProductUniqueId);
+                    orderline.Book = products.FirstOrDefault(x => x.UniqueId == orderline.ProductUniqueId);
                 }
             }
 

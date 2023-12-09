@@ -77,9 +77,9 @@ namespace Bookshop.Services
                 currentRow.FontWeight = FontWeights.Normal;
 
                 // Add cells with content to the third row.
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(orderLine.Product.ProductCode))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(orderLine.Product.MainData))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(orderLine.Product.SellPrice.ToString("0.00")))));
+                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(orderLine.Book.ProductCode))));
+                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(orderLine.Book.MainData))));
+                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(orderLine.Book.SellPrice.ToString("0.00")))));
                 currentRow.Cells.Add(new TableCell(new Paragraph(new Run(orderLine.Quantity.ToString()))));
                 currentRow.Cells.Add(new TableCell(new Paragraph(new Run(orderLine.Total.ToString("0.00")))));
             }

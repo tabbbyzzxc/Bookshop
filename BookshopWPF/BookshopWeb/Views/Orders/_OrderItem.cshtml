@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model OrderViewModel
+
+    
+@*         <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@Model.AccordeonId" aria-expanded="true" aria-controls="collapseOne">
+                    @Model.Name  @Model.Date
+                </button>
+            </h2>
+            <div id="@Model.AccordeonId" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    @foreach (var orderLine in Model.OrderList)
+                    {
+                        <div class="accordion-body">
+                            @orderLine.Book.MainData
+                        </div>
+                    }
+                </div>
+            </div>
+        </div> *@
+
+
+<div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@Model.AccordeonId" aria-expanded="false" aria-controls="collapseTwo">
+            @Model.Name  @Model.Date<span style="margin-left:900px" class="badge bg-primary rounded-pill">@Model.OrderList.Sum(x => x.Quantity)</span>
+        </button>
+    </h2>
+    <div id="@Model.AccordeonId" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            @foreach (var orderLine in Model.OrderList)
+            {
+                <div class="accordion-body">
+                    @orderLine.Book.MainData Quantity: @orderLine.Quantity
+                </div>
+            }
+        </div>
+    </div>
+</div>

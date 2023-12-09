@@ -15,10 +15,10 @@ namespace Bookshop.ProductsLib
 
         public long OrderId { get; set; }
 
-        [NotMapped]
-        public Book Product { get; set; }
+        /*[NotMapped]*/
+        public Book Book { get; set; }
 
-        public decimal Total => Quantity * Product.SellPrice;
-        
+        public decimal Total => Quantity * Book.SellPrice;
+
     }
 }
