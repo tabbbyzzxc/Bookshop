@@ -1,10 +1,12 @@
 ﻿using Bookshop.ProductsLib;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace DataAccess
 {
-    public class ProductDbContext : DbContext
+    public class ProductDbContext : IdentityDbContext<IdentityUser>
     {
         public ProductDbContext()
         {

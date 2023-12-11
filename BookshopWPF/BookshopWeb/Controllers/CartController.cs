@@ -1,10 +1,12 @@
 ﻿using Bookshop.ProductsLib;
 using DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookshopWeb.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ProductDbContext _context;

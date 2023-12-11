@@ -2,11 +2,13 @@
 using Bookshop.ProductsLib;
 using BookshopWeb.Models;
 using DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookshopWeb.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BooksController : Controller
     {
         private readonly ProductDbContext _context;

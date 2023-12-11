@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookshopWeb", "BookshopWeb\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{705E818E-E3E9-4106-B9C3-119A4C42CAF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{419712C9-573E-466E-9270-1BBAEE6F95EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{705E818E-E3E9-4106-B9C3-119A4C42CAF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{705E818E-E3E9-4106-B9C3-119A4C42CAF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{705E818E-E3E9-4106-B9C3-119A4C42CAF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419712C9-573E-466E-9270-1BBAEE6F95EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419712C9-573E-466E-9270-1BBAEE6F95EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419712C9-573E-466E-9270-1BBAEE6F95EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419712C9-573E-466E-9270-1BBAEE6F95EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
