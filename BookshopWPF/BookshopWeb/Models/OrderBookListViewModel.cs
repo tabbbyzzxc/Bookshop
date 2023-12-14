@@ -21,7 +21,5 @@
         public string PaperType { get; set; }
 
         public int PageQuantity { get; set; }
-
-        public long CartId { get; set; }
     }
 }

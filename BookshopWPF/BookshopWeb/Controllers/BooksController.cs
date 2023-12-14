@@ -98,16 +98,14 @@ namespace BookshopWeb.Controllers
             return RedirectToAction("EditSelector");
         }
 
-        /*public async Task<IActionResult> BookList()
+        public async Task<IActionResult> DeleteBook([FromRoute] long id)
         {
-            var allBooks = await _context.Books.AsNoTracking().OrderBy(x => x.Id).ToListAsync();
-            var cart = new Cart();
-            await _context.Carts.AddAsync(cart);
+            var book = await _context.Books.FindAsync(id);
+            _context.Books.Remove(book);
             _context.SaveChanges();
-            var models = _mapper.Map<List<BookViewModel>>(allBooks);
-            NewOrderViewModel model = new NewOrderViewModel { Books = models, CartId = cart.Id };
 
-            return PartialView(model);
-        }*/
+            return RedirectToAction("EditSelector");
+        }
+
     }
 }

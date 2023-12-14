@@ -23,16 +23,19 @@ namespace BookshopWeb.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allBooks = await _context.Books.AsNoTracking().OrderBy(x => x.Id).ToListAsync();
-            var cart = new Cart();
-            await _context.Carts.AddAsync(cart);
-            _context.SaveChanges();
-            var models = _mapper.Map<List<OrderBookListViewModel>>(allBooks);
-            models.ForEach(x =>
-            {
-                x.CartId = cart.Id;
-            });
 
+            var allBooks = await _context.Books
+                .AsNoTracking()
+                .OrderBy(x => x.Id)
+                .ToListAsync();
+            if (!await _context.Carts.AnyAsync(x => x.AspNetUserId == GetUserId()))
+            {
+                var cart = new Cart() { AspNetUserId = GetUserId() };
+                await _context.Carts.AddAsync(cart);
+                _context.SaveChanges();
+            }
+
+            var models = _mapper.Map<List<OrderBookListViewModel>>(allBooks);
             NewOrderViewModel model = new() { Books = models };
 
             return View(model);
@@ -50,6 +53,19 @@ namespace BookshopWeb.Controllers
             OrderListViewModel model = new() { Orders = models };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Order()
+        {
+            var order = new Order();
+            var cart = await _context.Carts.Include(x => x.CartLines).FirstAsync(x => x.AspNetUserId == GetUserId());
+            // var orderItems = _mapper.Map<OrderLine>
+            return Ok(); // TODO remove this
+        }
+
+        private string GetUserId()
+        {
+            return _context.Users.First(x => x.UserName == User.Identity.Name).Id;
         }
     }
 }

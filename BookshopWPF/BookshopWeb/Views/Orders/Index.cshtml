@@ -8,7 +8,7 @@
 </div>
 
 <div class="cart">
-    <button><i class="fa-solid fa-cart-shopping"></i></button>
+    <a type="button" asp-controller="Carts" asp-action="Index"><i class="fa-solid fa-cart-shopping"></i></a>
 </div>
 
 <div>
@@ -52,7 +52,7 @@
         <div class="toast-header bg-danger text-white">
             <i class="fa-solid fa-triangle-exclamation rounded me-2"></i>
             <strong class="me-auto">Error</strong>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button><span>5</span>
         </div>
         <div class="toast-body">
             Something went wrong!
@@ -61,19 +61,18 @@
 </div>
 <script src="https://kit.fontawesome.com/1961c270d9.js" crossorigin="anonymous"></script>
 <script>
-    function addToCart(cartId, bookId) {
+    function addToCart(bookId) {
         const formData = {
-            cartId,
             bookId
         };
 
         $.ajax({
             type: 'POST',
-            url: '/cart/addtocart',
+            url: '/carts/addtocart',
             data: formData,
             success: function (response) {
                 if (response.response === true)
-                    showToastSuccess();
+                    showToastSuccess(response.message);
                 else
                     showToastFail();
             },
@@ -84,15 +83,17 @@
         });
     }
     
-    function showToastSuccess() {
+    function showToastSuccess(message) {
         var t = document.getElementById("successToast");
         var toast = new bootstrap.Toast(t);
+        t.querySelector(".toast-body").innerHTML = message;
         toast.show();
     }
 
-    function showToastFail() {
+    function showToastFail(message) {
         var t = document.getElementById("failToast");
         var toast = new bootstrap.Toast(t);
+        t.querySelector(".toast-body").innerHTML = message;
         toast.show();
     }
 

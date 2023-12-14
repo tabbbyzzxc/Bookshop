@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bookshop.ProductsLib;
 
-namespace Bookshop.ProductsLib
+namespace BookshopWeb.Models
 {
-    public class CartLine
+    public class CartLineViewModel
     {
         public long Id { get; set; }
+
+        public string FrontId => $"CL{Id}";
 
         public Cart Cart { get; set; }
 
@@ -19,5 +17,7 @@ namespace Bookshop.ProductsLib
         public long BookId { get; set; }
 
         public int Quantity { get; set; }
+
+        public decimal Total => Quantity * Book.BuyPrice;
     }
 }

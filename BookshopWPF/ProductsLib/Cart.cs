@@ -6,14 +6,12 @@ namespace Bookshop.ProductsLib
     {
         public Cart()
         {
-            
+
         }
 
         public long Id { get; set; }
 
-        //public long UserId { get; set; }
-
-        //public User User { get; set; }
+        public string AspNetUserId { get; set; }
 
         public List<CartLine> CartLines { get; set; } = new List<CartLine>();
 

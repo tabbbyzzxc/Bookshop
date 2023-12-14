@@ -81,7 +81,7 @@ namespace DataAccess
             SaveChanges();
 
             var listTemp = books.ToList();
-            var oredrs = new List<Order>
+            var orders = new List<Order>
             {
                 new Order
                 {
@@ -114,9 +114,45 @@ namespace DataAccess
                 }
             };
 
-            Orders.AddRange(oredrs);
+            Orders.AddRange(orders);
 
             SaveChanges();
+
+
+            /*IdentityUser admin = new()
+            {
+                Id = "9840fac9-276f-4c6e-b60b-352fc1d91795",
+                UserName = "maksymmahaz@gmail.com",
+                NormalizedUserName = "MAKSYMMAHAZ@GMAIL.COM",
+                Email = "maksymmahaz@gmail.com",
+                NormalizedEmail = "MAKSYMMAHAZ@GMAIL.COM",
+                EmailConfirmed = true,
+                PasswordHash = "AQAAAAEAACcQAAAAEAzy40M6rDD7f4/e/LLASTH1/6lbzbe36CcyCrW0+7CQu8H1HtFxM+9zOoq9TOjPsg==",
+                SecurityStamp = "RO5OQIDQYUF7MM7W45RHG5RW6DCH5ROH",
+                ConcurrencyStamp = "a822cd30-b319-4bb0-a50e-948da2870c36",
+                PhoneNumber = null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0
+            };
+
+            IdentityRole role = new()
+            {
+                Id = "0e287882-7f29-4694-b8ff-789e06c1e280",
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = "7420785c-f031-4986-bb84-e8539cd3a13f"
+            };
+
+            IdentityUserRole<string> userRole = new()
+            {
+                UserId = "9840fac9-276f-4c6e-b60b-352fc1d91795",
+                RoleId = "0e287882-7f29-4694-b8ff-789e06c1e280"
+            };
+            */
+
         }
     }
 }

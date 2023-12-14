@@ -10,6 +10,7 @@ namespace BookshopWeb.Mappings
         {
             CreateMap<Order, OrderViewModel>();
             CreateMap<OrderViewModel, Order>();
+            CreateMap<OrderLine, CartLine>().ForMember(dest => dest.Id, act => act.Ignore());
         }
     }
 }

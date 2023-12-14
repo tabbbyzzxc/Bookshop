@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookshopWeb.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize/*(Roles = "Admin")*/]
     public class RolesController : Controller
     {
         RoleManager<IdentityRole> _roleManager;

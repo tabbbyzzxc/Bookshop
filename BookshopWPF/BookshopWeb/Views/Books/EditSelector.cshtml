@@ -31,6 +31,9 @@
                     <td>
                         <a class="dropdown-item" text-dark" asp-area="" asp-controller="Books" asp-action="EditBook" asp-route-id="@book.Id">Edit</a>
                     </td>
+                    <td>
+                        <a class="dropdown-item" text-dark" asp-area="" asp-controller="Books" asp-action="DeleteBook" asp-route-id="@book.Id">Delete</a>
+                    </td>
                 </tr>
             }
         </tbody>
